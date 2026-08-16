@@ -43,6 +43,15 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('armodil-style', get_stylesheet_uri(), [], ARMODIL_VERSION);
     // Theme CSS with design tokens
     wp_enqueue_style('armodil-tokens', ARMODIL_URI . '/assets/css/tokens.css', [], ARMODIL_VERSION);
+    // Theme interactivity (cart, accordion, TOC)
+    wp_enqueue_script('armodil-theme', ARMODIL_URI . '/assets/js/theme.js', [], ARMODIL_VERSION, true);
+    wp_localize_script('armodil-theme', 'ARMODIL', [
+        'home'       => home_url('/'),
+        'ajax'       => admin_url('admin-ajax.php'),
+        'currency'   => 'A$',
+        'freeShip'   => 299,
+        'promoCode'  => 'ARMD10',
+    ]);
 });
 
 /* ------------------------------------------------------------------
@@ -74,8 +83,15 @@ add_action('wp_head', function () { ?>
 /* ------------------------------------------------------------------
  * 4. Load ACF flexible content registration and helpers
  * ------------------------------------------------------------------ */
-require_once ARMODIL_DIR . '/inc/acf-flexible-content.php';
 require_once ARMODIL_DIR . '/inc/helpers.php';
+require_once ARMODIL_DIR . '/inc/acf-flexible-content.php';
+require_once ARMODIL_DIR . '/inc/acf-policy.php';
+require_once ARMODIL_DIR . '/inc/acf-page-single.php';
+require_once ARMODIL_DIR . '/inc/acf-product.php';
+require_once ARMODIL_DIR . '/inc/acf-condition.php';
+require_once ARMODIL_DIR . '/inc/acf-faq.php';
+require_once ARMODIL_DIR . '/inc/acf-how-to-order.php';
+require_once ARMODIL_DIR . '/inc/acf-about-contact.php';
 
 /* ------------------------------------------------------------------
  * 5. Register a lightweight custom post type for Conditions & Products

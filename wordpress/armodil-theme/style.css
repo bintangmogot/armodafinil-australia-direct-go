@@ -1,9 +1,12 @@
 /*
-Theme Name: Armodil AU
-Theme URI: https://armodil.example
-Author: Armodil AU Team
-Description: Modular WordPress theme for Armodil Australia. Built with ACF Pro Flexible Content + Tailwind CSS. Each React component from the design system has a matching content-{name}.php module.
+Theme Name: Armodafinil Australia Direct
+Theme URI: https://armodafinildirect.example
+Author: Armodafinil AU Direct Team
+Description: Modular WordPress theme mirroring the React reference. Every page and section is powered by ACF Pro Flexible Content + Repeater fields, so editors can rearrange content from the WP admin. Tailwind CSS is used for styling (CDN in dev, compiled build in production). Designed for pharmacy / cognitive-support e-commerce sites in Australia.
 Version: 1.0.0
-Text Domain: armodil
-Tags: modular, acf, tailwind, ecommerce, wakefulness
+Requires at least: 6.4
+Tested up to: 6.6
+Requires PHP: 8.1
+Text Domain: armodafinil
+Tags: modular, acf, tailwind, ecommerce, pharmacy, wakefulness, australia
 */
