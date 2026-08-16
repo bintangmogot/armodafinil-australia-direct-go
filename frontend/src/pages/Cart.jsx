@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../cart/CartContext';
 import { Minus, Plus, Trash2, ArrowRight, ShoppingBag } from 'lucide-react';
 import { SITE } from '../mock';
 
 export default function Cart() {
   const { items, update, remove, subtotal, clear } = useCart();
+  const navigate = useNavigate();
   const shipping = subtotal > 299 ? 0 : 12.5;
   const total = subtotal + shipping;
 
@@ -51,7 +52,7 @@ export default function Cart() {
             <div className="flex justify-between pt-3 border-t border-ink-200"><dt className="font-semibold text-ink-900">Total</dt><dd className="font-semibold text-ink-900">{SITE.currency}{total.toFixed(2)}</dd></div>
           </dl>
           {subtotal < 299 && <p className="mt-3 text-xs text-brand-700 bg-brand-50 rounded-lg p-3">Add {SITE.currency}{(299 - subtotal).toFixed(2)} more to unlock free shipping + 10% off.</p>}
-          <button className="mt-5 w-full inline-flex justify-center items-center gap-2 h-11 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-semibold btn-primary">Checkout <ArrowRight className="w-4 h-4" /></button>
+          <button onClick={() => navigate('/checkout')} className="mt-5 w-full inline-flex justify-center items-center gap-2 h-11 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-semibold btn-primary">Checkout <ArrowRight className="w-4 h-4" /></button>
           <p className="mt-3 text-xs text-ink-500 text-center">Secure, encrypted checkout · discreet packaging</p>
         </aside>
       </div>

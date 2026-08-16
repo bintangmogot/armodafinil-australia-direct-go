@@ -51,18 +51,11 @@ export default function ProductDetail() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
           <Link to="/product" className="inline-flex items-center gap-1.5 text-sm text-ink-700 hover:text-brand-700"><ArrowLeft className="w-4 h-4" /> All products</Link>
 
-          <div className="mt-6 grid lg:grid-cols-2 gap-8 lg:gap-12">
+          <div className="mt-6 grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             {/* Gallery */}
-            <div className="bg-white rounded-2xl border border-ink-200 overflow-hidden shadow-soft">
+            <div className="bg-white rounded-2xl border border-ink-200 overflow-hidden shadow-soft lg:sticky lg:top-24">
               <div className="aspect-square bg-brand-50">
                 <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
-              </div>
-              <div className="p-3 grid grid-cols-4 gap-2 border-t border-ink-200">
-                {[1,2,3,4].map((i) => (
-                  <button key={i} className={`aspect-square rounded-lg overflow-hidden border ${i === 1 ? 'border-brand-500' : 'border-ink-200 hover:border-brand-300'}`}>
-                    <img src={product.image} alt="" className="w-full h-full object-cover" />
-                  </button>
-                ))}
               </div>
             </div>
 

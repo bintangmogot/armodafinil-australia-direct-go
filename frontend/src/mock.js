@@ -63,79 +63,251 @@ export const SHIPPING_FEATURES = [
 ];
 
 export const PRODUCTS = [
+  // ---- Smart Pills · Armodafinil ----
   {
     slug: 'armodafinil-250mg-artvigil-250mg',
     name: 'Armodafinil 250mg — Artvigil 250mg',
     price: 187.5, rating: 4.5, reviews: 148,
     image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/Armodafinil-250Mg-%E2%80%93-Artvigil-250Mg.webp',
-    category: 'Armodafinil', badge: 'Smart Pills', strength: '250mg', stock: true,
-    variants: [
-      { qty: 50, price: 90 }, { qty: 100, price: 187.5 }, { qty: 200, price: 342 }, { qty: 300, price: 469.5 },
-    ],
+    category: 'smart-pills', sub: 'armodafinil', badge: 'Smart Pills', strength: '250mg', stock: true,
+    variants: [{ qty: 50, price: 90 }, { qty: 100, price: 187.5 }, { qty: 200, price: 342 }, { qty: 300, price: 469.5 }],
     specs: { active: 'Armodafinil', indication: 'Wakefulness support', manufacturer: 'HAB Pharmaceuticals', strength: '250mg', packaging: '10 tablets per strip', delivery: '6–12 days' },
   },
   {
-    slug: 'modalert-200mg', name: 'Modalert 200mg — Modafinil 200mg', price: 120, rating: 4.3, reviews: 255,
-    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/ChatGPT-Image-Jul-6-2026-11_24_26-AM.webp',
-    category: 'Modafinil', badge: 'Smart Pills', strength: '200mg', stock: true,
-    variants: [
-      { qty: 50, price: 120 }, { qty: 100, price: 225 }, { qty: 200, price: 342 }, { qty: 300, price: 403.5 },
-    ],
-    specs: { active: 'Modafinil', indication: 'Cognitive Enhancers', manufacturer: 'Sun Pharmaceutical Industries Ltd', strength: '200mg', packaging: '10 tablets per strip', delivery: '6–15 days' },
-  },
-  {
-    slug: 'waklert-150-australia', name: 'Waklert 150 Australia — Armodafinil Tablets', price: 112.5, rating: 4.4, reviews: 132,
+    slug: 'waklert-150-australia', name: 'Waklert 150 — Armodafinil Tablets', price: 112.5, rating: 4.4, reviews: 132,
     image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/Waklert-150-Australia-Armodafinil-Tablets.png',
-    category: 'Armodafinil', badge: 'Smart Pills', strength: '150mg', stock: true,
-    variants: [
-      { qty: 50, price: 82.5 }, { qty: 100, price: 112.5 }, { qty: 200, price: 195 }, { qty: 300, price: 270 },
-    ],
+    category: 'smart-pills', sub: 'armodafinil', badge: 'Smart Pills', strength: '150mg', stock: true,
+    variants: [{ qty: 50, price: 82.5 }, { qty: 100, price: 112.5 }, { qty: 200, price: 195 }, { qty: 300, price: 270 }],
     specs: { active: 'Armodafinil', indication: 'Wakefulness support', manufacturer: 'Sun Pharmaceutical Industries Ltd', strength: '150mg', packaging: '10 tablets per strip', delivery: '6–12 days' },
-  },
-  {
-    slug: 'modafinil-400mg', name: 'Modafinil 400mg — Modasmart 400mg', price: 135, rating: 4.2, reviews: 76,
-    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/ChatGPT-Image-Jul-6-2026-11_43_45-AM.webp',
-    category: 'Modafinil', badge: 'Smart Pills', strength: '400mg', stock: true,
-    variants: [
-      { qty: 50, price: 82.5 }, { qty: 100, price: 135 }, { qty: 200, price: 240 }, { qty: 300, price: 330 },
-    ],
-    specs: { active: 'Modafinil', indication: 'Cognitive Enhancers', manufacturer: 'Consern Pharma', strength: '400mg', packaging: '10 tablets per strip', delivery: '6–15 days' },
-  },
-  {
-    slug: 'modanil-200mg', name: 'Modanil 200mg — Modafinil 200mg', price: 180, rating: 4.9, reviews: 121,
-    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/Modanil-200mg-Modafinil-200mg.webp',
-    category: 'Modafinil', badge: 'Smart Pills', strength: '200mg', stock: true,
-    variants: [
-      { qty: 50, price: 82.5 }, { qty: 100, price: 130 }, { qty: 200, price: 240 }, { qty: 300, price: 330 },
-    ],
-    specs: { active: 'Modafinil', indication: 'Cognitive Enhancers', manufacturer: 'Healing Pharma', strength: '200mg', packaging: '10 tablets per strip', delivery: '6–15 days' },
   },
   {
     slug: 'artvigil-150mg', name: 'Artvigil 150mg — Armodafinil 150mg', price: 120, rating: 4.5, reviews: 94,
     image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/ChatGPT-Image-Jul-6-2026-12_10_48-PM.webp',
-    category: 'Armodafinil', badge: 'Smart Pills', strength: '150mg', stock: true,
-    variants: [
-      { qty: 50, price: 75 }, { qty: 100, price: 120 }, { qty: 200, price: 210 }, { qty: 300, price: 285 },
-    ],
+    category: 'smart-pills', sub: 'armodafinil', badge: 'Smart Pills', strength: '150mg', stock: true,
+    variants: [{ qty: 50, price: 75 }, { qty: 100, price: 120 }, { qty: 200, price: 210 }, { qty: 300, price: 285 }],
     specs: { active: 'Armodafinil', indication: 'Wakefulness support', manufacturer: 'HAB Pharmaceuticals', strength: '150mg', packaging: '10 tablets per strip', delivery: '6–12 days' },
   },
   {
     slug: 'artvigil-50-mg', name: 'Artvigil 50mg — Armodafinil Tablet', price: 90, rating: 4.7, reviews: 68,
     image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/Artvigil-50-Mg-Armodafinil-Tablet.webp',
-    category: 'Armodafinil', badge: 'Smart Pills', strength: '50mg', stock: true,
-    variants: [
-      { qty: 50, price: 60 }, { qty: 100, price: 90 }, { qty: 200, price: 165 }, { qty: 300, price: 225 },
-    ],
+    category: 'smart-pills', sub: 'armodafinil', badge: 'Smart Pills', strength: '50mg', stock: true,
+    variants: [{ qty: 50, price: 60 }, { qty: 100, price: 90 }, { qty: 200, price: 165 }, { qty: 300, price: 225 }],
     specs: { active: 'Armodafinil', indication: 'Wakefulness support', manufacturer: 'HAB Pharmaceuticals', strength: '50mg', packaging: '10 tablets per strip', delivery: '6–12 days' },
+  },
+  {
+    slug: 'armodafinil-250mg-sydney', name: 'Armodafinil 250mg — Sydney Dispatch', price: 187.5, rating: 4.2, reviews: 50,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/07/Armodafinil-250mg-1.webp',
+    category: 'smart-pills', sub: 'armodafinil', badge: 'Smart Pills', strength: '250mg', stock: true,
+    variants: [{ qty: 50, price: 100 }, { qty: 100, price: 187.5 }, { qty: 200, price: 342 }, { qty: 300, price: 469.5 }],
+    specs: { active: 'Armodafinil', indication: 'Wakefulness support', manufacturer: 'HAB Pharmaceuticals', strength: '250mg', packaging: '10 tablets per strip', delivery: '3–6 days (Sydney)' },
+  },
+  {
+    slug: 'armodafinil-250mg-melbourne', name: 'Armodafinil 250mg — Melbourne Dispatch', price: 187.5, rating: 4.3, reviews: 159,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/07/Armodafinil-250mg-3.webp',
+    category: 'smart-pills', sub: 'armodafinil', badge: 'Smart Pills', strength: '250mg', stock: true,
+    variants: [{ qty: 50, price: 100 }, { qty: 100, price: 187.5 }, { qty: 200, price: 342 }, { qty: 300, price: 469.5 }],
+    specs: { active: 'Armodafinil', indication: 'Wakefulness support', manufacturer: 'HAB Pharmaceuticals', strength: '250mg', packaging: '10 tablets per strip', delivery: '3–6 days (Melbourne)' },
+  },
+
+  // ---- Smart Pills · Modafinil ----
+  {
+    slug: 'modalert-200mg', name: 'Modalert 200mg — Modafinil 200mg', price: 120, rating: 4.3, reviews: 255,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/ChatGPT-Image-Jul-6-2026-11_24_26-AM.webp',
+    category: 'smart-pills', sub: 'modafinil', badge: 'Smart Pills', strength: '200mg', stock: true,
+    variants: [{ qty: 50, price: 120 }, { qty: 100, price: 225 }, { qty: 200, price: 342 }, { qty: 300, price: 403.5 }],
+    specs: { active: 'Modafinil', indication: 'Cognitive Enhancers', manufacturer: 'Sun Pharmaceutical Industries Ltd', strength: '200mg', packaging: '10 tablets per strip', delivery: '6–15 days' },
+  },
+  {
+    slug: 'modafinil-400mg', name: 'Modafinil 400mg — Modasmart 400mg', price: 135, rating: 4.2, reviews: 76,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/ChatGPT-Image-Jul-6-2026-11_43_45-AM.webp',
+    category: 'smart-pills', sub: 'modafinil', badge: 'Smart Pills', strength: '400mg', stock: true,
+    variants: [{ qty: 50, price: 82.5 }, { qty: 100, price: 135 }, { qty: 200, price: 240 }, { qty: 300, price: 330 }],
+    specs: { active: 'Modafinil', indication: 'Cognitive Enhancers', manufacturer: 'Consern Pharma', strength: '400mg', packaging: '10 tablets per strip', delivery: '6–15 days' },
+  },
+  {
+    slug: 'modanil-200mg', name: 'Modanil 200mg — Modafinil 200mg', price: 180, rating: 4.9, reviews: 121,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/Modanil-200mg-Modafinil-200mg.webp',
+    category: 'smart-pills', sub: 'modafinil', badge: 'Smart Pills', strength: '200mg', stock: true,
+    variants: [{ qty: 50, price: 82.5 }, { qty: 100, price: 130 }, { qty: 200, price: 240 }, { qty: 300, price: 330 }],
+    specs: { active: 'Modafinil', indication: 'Cognitive Enhancers', manufacturer: 'Healing Pharma', strength: '200mg', packaging: '10 tablets per strip', delivery: '6–15 days' },
+  },
+  {
+    slug: 'modvigil-200mg', name: 'Modvigil 200mg — Modafinil 200mg', price: 105, rating: 4.4, reviews: 168,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/08/Modafinil-3.png',
+    category: 'smart-pills', sub: 'modafinil', badge: 'Smart Pills', strength: '200mg', stock: true,
+    variants: [{ qty: 50, price: 70 }, { qty: 100, price: 105 }, { qty: 200, price: 195 }, { qty: 300, price: 275 }],
+    specs: { active: 'Modafinil', indication: 'Cognitive Enhancers', manufacturer: 'HAB Pharmaceuticals', strength: '200mg', packaging: '10 tablets per strip', delivery: '6–15 days' },
+  },
+
+  // ---- Men's Health · Erectile Dysfunction ----
+  {
+    slug: 'sildigra-professional-100mg', name: 'Sildigra Professional 100mg — Sildenafil Citrate', price: 126, rating: 4.3, reviews: 47,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/sildigra-pro-100-mg-tablet.webp',
+    category: 'mens-health', sub: 'erectile-dysfunction', badge: "Men's Health", strength: '100mg', stock: true,
+    variants: [{ qty: 20, price: 60 }, { qty: 40, price: 126 }, { qty: 60, price: 178 }, { qty: 100, price: 260 }],
+    specs: { active: 'Sildenafil Citrate', indication: 'Erectile Dysfunction', manufacturer: 'RSM Enterprises', strength: '100mg', packaging: '10 tablets per strip', delivery: '6–15 days' },
+  },
+  {
+    slug: 'sildigra-120mg', name: 'Sildigra 120mg — Sildenafil Citrate', price: 97.68, rating: 4.4, reviews: 106,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/Sildigra-120mg_3-1.webp',
+    category: 'mens-health', sub: 'erectile-dysfunction', badge: "Men's Health", strength: '120mg', stock: true,
+    variants: [{ qty: 20, price: 50 }, { qty: 40, price: 97.68 }, { qty: 60, price: 145 }, { qty: 100, price: 220 }],
+    specs: { active: 'Sildenafil Citrate', indication: 'Erectile Dysfunction', manufacturer: 'RSM Enterprises', strength: '120mg', packaging: '10 tablets per strip', delivery: '6–15 days' },
+  },
+  {
+    slug: 'nizagara-100mg', name: 'Nizagara 100mg — Sildenafil Citrate', price: 66.6, rating: 4.2, reviews: 163,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/nizagra-100mg3-500x500-1.webp',
+    category: 'mens-health', sub: 'sildenafil', badge: "Men's Health", strength: '100mg', stock: true,
+    variants: [{ qty: 20, price: 40 }, { qty: 40, price: 66.6 }, { qty: 60, price: 96 }, { qty: 100, price: 150 }],
+    specs: { active: 'Sildenafil Citrate', indication: 'Erectile Dysfunction', manufacturer: 'Combitic Global', strength: '100mg', packaging: '10 tablets per strip', delivery: '6–15 days' },
+  },
+  {
+    slug: 'pink-lady-100mg', name: 'Pink Lady 100mg — Sildenafil Citrate', price: 49.95, rating: 4.3, reviews: 46,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/100mg-pink-lady-sildenafil-citrate-tablets.webp',
+    category: 'mens-health', sub: 'sexual-wellness', badge: "Men's Health", strength: '100mg', stock: true,
+    variants: [{ qty: 10, price: 30 }, { qty: 20, price: 49.95 }, { qty: 40, price: 88 }, { qty: 60, price: 125 }],
+    specs: { active: 'Sildenafil Citrate', indication: 'Female sexual arousal support', manufacturer: 'Fortune Health Care', strength: '100mg', packaging: '4 tablets per strip', delivery: '6–15 days' },
+  },
+  {
+    slug: 'lilyfil-20mg', name: 'Lilyfil 20mg — Tadalafil Tablet', price: 119.88, rating: 4.8, reviews: 181,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/lilyfil-20-mg-250x250-1.webp',
+    category: 'mens-health', sub: 'tadalafil', badge: "Men's Health", strength: '20mg', stock: true,
+    variants: [{ qty: 20, price: 60 }, { qty: 40, price: 119.88 }, { qty: 60, price: 175 }, { qty: 100, price: 265 }],
+    specs: { active: 'Tadalafil', indication: 'Erectile Dysfunction', manufacturer: 'Lilly Del Caribe Inc', strength: '20mg', packaging: '10 tablets per strip', delivery: '6–15 days' },
+  },
+  {
+    slug: 'filitra-20mg', name: 'Filitra 20mg — Vardenafil Tablet', price: 102, rating: 4.4, reviews: 47,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/1505044710.webp',
+    category: 'mens-health', sub: 'vardenafil', badge: "Men's Health", strength: '20mg', stock: true,
+    variants: [{ qty: 20, price: 55 }, { qty: 40, price: 102 }, { qty: 60, price: 148 }, { qty: 100, price: 225 }],
+    specs: { active: 'Vardenafil', indication: 'Erectile Dysfunction', manufacturer: 'Fortune Health Care', strength: '20mg', packaging: '10 tablets per strip', delivery: '6–15 days' },
+  },
+  {
+    slug: 'filitra-10mg', name: 'Filitra 10mg — Vardenafil Tablet', price: 57, rating: 4.5, reviews: 181,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/filitra-10-mg-tablet.webp',
+    category: 'mens-health', sub: 'vardenafil', badge: "Men's Health", strength: '10mg', stock: true,
+    variants: [{ qty: 20, price: 34 }, { qty: 40, price: 57 }, { qty: 60, price: 82 }, { qty: 100, price: 130 }],
+    specs: { active: 'Vardenafil', indication: 'Erectile Dysfunction', manufacturer: 'Fortune Health Care', strength: '10mg', packaging: '10 tablets per strip', delivery: '6–15 days' },
+  },
+  {
+    slug: 'malegra-dxt', name: 'Malegra DXT — Sildenafil/Duloxetine', price: 148.5, rating: 4.6, reviews: 110,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/Malegra-DXT-Plus-Tablets-1200x675-1.webp',
+    category: 'mens-health', sub: 'premature-ejaculation', badge: "Men's Health", strength: '130mg', stock: true,
+    variants: [{ qty: 20, price: 78 }, { qty: 40, price: 148.5 }, { qty: 60, price: 215 }, { qty: 100, price: 325 }],
+    specs: { active: 'Sildenafil + Duloxetine', indication: 'ED + Premature Ejaculation', manufacturer: 'Sunrise Remedies', strength: '130mg', packaging: '10 tablets per strip', delivery: '6–15 days' },
   },
   {
     slug: 'kamagra-oral-jelly-100mg', name: 'Kamagra Oral Jelly 100mg — Sildenafil 100mg', price: 82.5, rating: 4.8, reviews: 210,
     image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/Kamagra-Oral-Jelly-100mg-%E2%80%93-Sildenafil-100mg.webp',
-    category: 'Wellness', badge: 'Wellness', strength: '100mg', stock: true,
-    variants: [
-      { qty: 7, price: 45 }, { qty: 14, price: 82.5 }, { qty: 28, price: 145 }, { qty: 56, price: 260 },
-    ],
-    specs: { active: 'Sildenafil', indication: 'Wellness support', manufacturer: 'Ajanta Pharma', strength: '100mg', packaging: '7 sachets per pack', delivery: '6–15 days' },
+    category: 'mens-health', sub: 'sildenafil', badge: "Men's Health", strength: '100mg', stock: true,
+    variants: [{ qty: 7, price: 45 }, { qty: 14, price: 82.5 }, { qty: 28, price: 145 }, { qty: 56, price: 260 }],
+    specs: { active: 'Sildenafil', indication: 'Erectile Dysfunction', manufacturer: 'Ajanta Pharma', strength: '100mg', packaging: '7 sachets per pack', delivery: '6–15 days' },
+  },
+  {
+    slug: 'cobra-120mg-jelly', name: 'Cobra 120mg Jelly — Sildenafil Citrate', price: 105, rating: 4.8, reviews: 59,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/vega-extra-cobra-120-sildenafil-citrate-120mg-oral-jelly.webp',
+    category: 'mens-health', sub: 'erectile-dysfunction', badge: "Men's Health", strength: '120mg', stock: true,
+    variants: [{ qty: 7, price: 60 }, { qty: 14, price: 105 }, { qty: 28, price: 190 }, { qty: 56, price: 340 }],
+    specs: { active: 'Sildenafil Citrate', indication: 'Erectile Dysfunction', manufacturer: 'Signature Pharma', strength: '120mg', packaging: '7 sachets per pack', delivery: '6–15 days' },
+  },
+  {
+    slug: 'snovitra-power-100mg', name: 'Snovitra Power 100mg — Vardenafil + Dapoxetine', price: 122.1, rating: 4.4, reviews: 58,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/100mg-snovitra-power-vardenafil-and-dapoxetine-hcl-tablets.webp',
+    category: 'mens-health', sub: 'premature-ejaculation', badge: "Men's Health", strength: '100mg', stock: true,
+    variants: [{ qty: 20, price: 65 }, { qty: 40, price: 122.1 }, { qty: 60, price: 178 }, { qty: 100, price: 270 }],
+    specs: { active: 'Vardenafil + Dapoxetine', indication: 'ED + Premature Ejaculation', manufacturer: 'RSM Enterprises', strength: '100mg', packaging: '10 tablets per strip', delivery: '6–15 days' },
+  },
+  {
+    slug: 'italian-stallion-120mg', name: 'Italian Stallion 120mg — Sildenafil Citrate', price: 132, rating: 4.9, reviews: 59,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/italian-stallion-120-2.webp',
+    category: 'mens-health', sub: 'erectile-dysfunction', badge: "Men's Health", strength: '120mg', stock: true,
+    variants: [{ qty: 20, price: 68 }, { qty: 40, price: 132 }, { qty: 60, price: 190 }, { qty: 100, price: 285 }],
+    specs: { active: 'Sildenafil Citrate', indication: 'Erectile Dysfunction', manufacturer: 'Signature Pharma', strength: '120mg', packaging: '10 tablets per strip', delivery: '6–15 days' },
+  },
+  {
+    slug: 'purple-triangle-100mg', name: 'Purple Triangle 100mg — Sildenafil Tablet', price: 92.13, rating: 4.6, reviews: 163,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/fildena-100-mg-tablet-1.webp',
+    category: 'mens-health', sub: 'sildenafil', badge: "Men's Health", strength: '100mg', stock: true,
+    variants: [{ qty: 20, price: 48 }, { qty: 40, price: 92.13 }, { qty: 60, price: 135 }, { qty: 100, price: 205 }],
+    specs: { active: 'Sildenafil Citrate', indication: 'Erectile Dysfunction', manufacturer: 'Fortune Health Care', strength: '100mg', packaging: '10 tablets per strip', delivery: '6–15 days' },
+  },
+  {
+    slug: 'eroxib-20mg', name: 'Eroxib 20mg — Tadalafil Tablet', price: 195, rating: 4.4, reviews: 107,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/Eroxib-20-Mg-1.webp',
+    category: 'mens-health', sub: 'tadalafil', badge: "Men's Health", strength: '20mg', stock: true,
+    variants: [{ qty: 20, price: 100 }, { qty: 40, price: 195 }, { qty: 60, price: 285 }, { qty: 100, price: 430 }],
+    specs: { active: 'Tadalafil', indication: 'Erectile Dysfunction', manufacturer: 'Cipla Ltd', strength: '20mg', packaging: '10 tablets per strip', delivery: '6–15 days' },
+  },
+
+  // ---- Pain ----
+  {
+    slug: 'gabapin-300mg', name: 'Gabapin 300mg — Gabapentin', price: 68, rating: 4.5, reviews: 92,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/07/ChatGPT-Image-Jul-2-2026-04_17_13-PM.png',
+    category: 'pain', sub: 'gabapentin', badge: 'Pain Relief', strength: '300mg', stock: true,
+    variants: [{ qty: 30, price: 38 }, { qty: 60, price: 68 }, { qty: 90, price: 98 }, { qty: 180, price: 175 }],
+    specs: { active: 'Gabapentin', indication: 'Neuropathic pain', manufacturer: 'Intas Pharmaceuticals', strength: '300mg', packaging: '10 capsules per strip', delivery: '6–12 days' },
+  },
+  {
+    slug: 'pregaba-75mg', name: 'Pregaba 75mg — Pregabalin', price: 78, rating: 4.6, reviews: 158,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/07/Jul-2-2026-04_27_41-PM.png',
+    category: 'pain', sub: 'pregabalin', badge: 'Pain Relief', strength: '75mg', stock: true,
+    variants: [{ qty: 30, price: 42 }, { qty: 60, price: 78 }, { qty: 90, price: 112 }, { qty: 180, price: 210 }],
+    specs: { active: 'Pregabalin', indication: 'Neuropathic pain, anxiety', manufacturer: 'Sun Pharmaceutical', strength: '75mg', packaging: '10 capsules per strip', delivery: '6–12 days' },
+  },
+  {
+    slug: 'aspadol-100mg', name: 'Aspadol 100mg — Tapentadol', price: 115, rating: 4.7, reviews: 220,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/07/ChatGPT-Image-Jul-2-2026-04_48_17-PM.png',
+    category: 'pain', sub: 'tapentadol', badge: 'Pain Relief', strength: '100mg', stock: true,
+    variants: [{ qty: 30, price: 65 }, { qty: 60, price: 115 }, { qty: 90, price: 165 }, { qty: 180, price: 310 }],
+    specs: { active: 'Tapentadol', indication: 'Moderate to severe pain', manufacturer: 'Signature Pharma', strength: '100mg', packaging: '10 tablets per strip', delivery: '6–12 days' },
+  },
+
+  // ---- Sleeping Pills ----
+  {
+    slug: 'zopisign-10mg', name: 'Zopisign 10mg — Zopiclone', price: 89, rating: 4.6, reviews: 174,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/08/Zopiclone-3.png',
+    category: 'sleeping-pills', sub: 'zopiclone', badge: 'Sleep Support', strength: '10mg', stock: true,
+    variants: [{ qty: 30, price: 52 }, { qty: 60, price: 89 }, { qty: 90, price: 130 }, { qty: 180, price: 240 }],
+    specs: { active: 'Zopiclone', indication: 'Short-term insomnia', manufacturer: 'HAB Pharmaceuticals', strength: '10mg', packaging: '10 tablets per strip', delivery: '6–12 days' },
+  },
+  {
+    slug: 'lunesta-2mg', name: 'Lunesta 2mg — Eszopiclone', price: 96, rating: 4.5, reviews: 88,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/07/Gemini_Generated_Image_or1i0eor1i0eor1i.png',
+    category: 'sleeping-pills', sub: 'eszopiclone', badge: 'Sleep Support', strength: '2mg', stock: true,
+    variants: [{ qty: 30, price: 55 }, { qty: 60, price: 96 }, { qty: 90, price: 138 }, { qty: 180, price: 258 }],
+    specs: { active: 'Eszopiclone', indication: 'Insomnia', manufacturer: 'Sun Pharmaceutical', strength: '2mg', packaging: '10 tablets per strip', delivery: '6–12 days' },
+  },
+
+  // ---- Heart Care ----
+  {
+    slug: 'losartan-50mg', name: 'Losartan 50mg — Blood Pressure Tablet', price: 55, rating: 4.5, reviews: 142,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/Gemini_Generated_Image_4zcg0i4zcg0i4zcg.png',
+    category: 'heart-care', sub: 'high-blood-pressure', badge: 'Heart Care', strength: '50mg', stock: true,
+    variants: [{ qty: 30, price: 32 }, { qty: 60, price: 55 }, { qty: 90, price: 78 }, { qty: 180, price: 145 }],
+    specs: { active: 'Losartan Potassium', indication: 'Hypertension', manufacturer: 'Cipla Ltd', strength: '50mg', packaging: '10 tablets per strip', delivery: '6–12 days' },
+  },
+  {
+    slug: 'revatio-20mg', name: 'Revatio 20mg — Sildenafil (PAH)', price: 118, rating: 4.4, reviews: 62,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/06/Gemini_Generated_Image_gsqlbzgsqlbzgsql.webp',
+    category: 'heart-care', sub: 'pulmonary-arterial-hypertension', badge: 'Heart Care', strength: '20mg', stock: true,
+    variants: [{ qty: 30, price: 68 }, { qty: 60, price: 118 }, { qty: 90, price: 170 }, { qty: 180, price: 315 }],
+    specs: { active: 'Sildenafil Citrate', indication: 'Pulmonary Arterial Hypertension', manufacturer: 'Pfizer Australia', strength: '20mg', packaging: '10 tablets per strip', delivery: '6–12 days' },
+  },
+
+  // ---- Parasitic Infection ----
+  {
+    slug: 'niclosamide-500mg', name: 'Niclosamide 500mg — Anti-Parasitic Tablet', price: 42, rating: 4.4, reviews: 74,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/07/Gemini_Generated_Image_c3so0wc3so0wc3so-1.png',
+    category: 'parasitic-infection', sub: 'worm-disease', badge: 'Anti-Parasitic', strength: '500mg', stock: true,
+    variants: [{ qty: 10, price: 28 }, { qty: 20, price: 42 }, { qty: 40, price: 72 }, { qty: 80, price: 130 }],
+    specs: { active: 'Niclosamide', indication: 'Tapeworm infection', manufacturer: 'Bayer Healthcare', strength: '500mg', packaging: '4 tablets per strip', delivery: '6–12 days' },
+  },
+  {
+    slug: 'albendazole-400mg', name: 'Albendazole 400mg — Broad Spectrum', price: 38, rating: 4.7, reviews: 205,
+    image: 'https://backend.armodafinil.com.au/wp-content/uploads/2026/07/Gemini_Generated_Image_c3so0wc3so0wc3so-1.png',
+    category: 'parasitic-infection', sub: 'worm-disease', badge: 'Anti-Parasitic', strength: '400mg', stock: true,
+    variants: [{ qty: 10, price: 22 }, { qty: 20, price: 38 }, { qty: 40, price: 68 }, { qty: 80, price: 125 }],
+    specs: { active: 'Albendazole', indication: 'Intestinal worm infection', manufacturer: 'GSK Pharma', strength: '400mg', packaging: '4 tablets per strip', delivery: '6–12 days' },
   },
 ];
 

@@ -20,6 +20,8 @@ import FAQPage from './pages/FAQPage';
 import Cart from './pages/Cart';
 import Contact from './pages/Contact';
 import Categories from './pages/Categories';
+import CategoryDetail from './pages/CategoryDetail';
+import Checkout from './pages/Checkout';
 import About from './pages/About';
 import { Privacy, Terms, Shipping, Returns, Account } from './pages/StaticPages';
 
@@ -37,12 +39,15 @@ function App() {
               <Route path="/product" element={<Products />} />
               <Route path="/product/:slug" element={<ProductDetail />} />
               <Route path="/categories" element={<Categories />} />
+              <Route path="/category/:catSlug" element={<CategoryDetail />} />
+              <Route path="/category/:catSlug/:subSlug" element={<CategoryDetail />} />
               <Route path="/conditions" element={<Conditions />} />
               <Route path="/conditions/:slug" element={<ConditionDetail />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogDetail />} />
               <Route path="/faq" element={<FAQPage />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/about" element={<About />} />
               <Route path="/privacy" element={<Privacy />} />
