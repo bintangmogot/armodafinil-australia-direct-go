@@ -29,18 +29,20 @@ export default function Footer() {
         <div>
           <div className="text-white font-semibold mb-3 text-sm uppercase tracking-widest">Help</div>
           <ul className="space-y-2 text-sm text-ink-100/80">
+            <li><Link to="/how-to-order" className="hover:text-brand-300">How to order</Link></li>
             <li><Link to="/faq" className="hover:text-brand-300">FAQ</Link></li>
             <li><Link to="/contact" className="hover:text-brand-300">Contact</Link></li>
-            <li><Link to="/shipping" className="hover:text-brand-300">Shipping</Link></li>
-            <li><Link to="/returns" className="hover:text-brand-300">Returns</Link></li>
+            <li><Link to="/shipping-policy" className="hover:text-brand-300">Shipping policy</Link></li>
+            <li><Link to="/return-policy" className="hover:text-brand-300">Returns & refunds</Link></li>
           </ul>
         </div>
         <div>
           <div className="text-white font-semibold mb-3 text-sm uppercase tracking-widest">Company</div>
           <ul className="space-y-2 text-sm text-ink-100/80">
             <li><Link to="/about" className="hover:text-brand-300">About</Link></li>
-            <li><Link to="/privacy" className="hover:text-brand-300">Privacy</Link></li>
-            <li><Link to="/terms" className="hover:text-brand-300">Terms</Link></li>
+            <li><Link to="/privacy-policy" className="hover:text-brand-300">Privacy policy</Link></li>
+            <li><Link to="/terms" className="hover:text-brand-300">Terms of service</Link></li>
+            <li><Link to="/disclaimer" className="hover:text-brand-300">Disclaimer</Link></li>
             <li><a href={SITE.whatsapp} className="hover:text-brand-300">WhatsApp support</a></li>
           </ul>
         </div>

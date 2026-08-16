@@ -23,7 +23,13 @@ import Categories from './pages/Categories';
 import CategoryDetail from './pages/CategoryDetail';
 import Checkout from './pages/Checkout';
 import About from './pages/About';
-import { Privacy, Terms, Shipping, Returns, Account } from './pages/StaticPages';
+import ReturnPolicy from './pages/ReturnPolicy';
+import TermsPage from './pages/TermsPage';
+import PrivacyPage from './pages/PrivacyPage';
+import DisclaimerPage from './pages/DisclaimerPage';
+import HowToOrder from './pages/HowToOrder';
+import ShippingPolicy from './pages/ShippingPolicy';
+import { Account } from './pages/StaticPages';
 
 function App() {
   return (
@@ -50,10 +56,16 @@ function App() {
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/about" element={<About />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/terms" element={<Terms />} />
-              <Route path="/shipping" element={<Shipping />} />
-              <Route path="/returns" element={<Returns />} />
+              <Route path="/how-to-order" element={<HowToOrder />} />
+              <Route path="/shipping-policy" element={<ShippingPolicy />} />
+              <Route path="/return-policy" element={<ReturnPolicy />} />
+              <Route path="/privacy-policy" element={<PrivacyPage />} />
+              <Route path="/terms" element={<TermsPage />} />
+              <Route path="/disclaimer" element={<DisclaimerPage />} />
+              {/* Legacy fallbacks — redirect old paths */}
+              <Route path="/privacy" element={<PrivacyPage />} />
+              <Route path="/shipping" element={<ShippingPolicy />} />
+              <Route path="/returns" element={<ReturnPolicy />} />
               <Route path="/account" element={<Account />} />
               <Route path="*" element={<Home />} />
             </Routes>
