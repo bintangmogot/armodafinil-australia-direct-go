@@ -15,8 +15,8 @@ export default function Navbar() {
             <Sparkles className="w-4 h-4" />
           </span>
           <span className="leading-tight">
-            <span className="block font-serif text-lg font-semibold text-ink-900">{SITE.name}</span>
-            <span className="block text-[10px] uppercase tracking-[0.18em] text-ink-500">{SITE.region}</span>
+            <span className="block font-serif text-lg font-semibold text-ink-900 leading-none">{SITE.name}</span>
+            <span className="block text-[10px] uppercase tracking-[0.18em] text-brand-700 mt-0.5">{SITE.brandLine}</span>
           </span>
         </Link>
 

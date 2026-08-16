@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { CONDITIONS } from '../mock';
 import { ArrowRight } from 'lucide-react';
+import OrderCTA from '../components/OrderCTA';
 
 export default function Conditions() {
   return (
@@ -30,6 +31,7 @@ export default function Conditions() {
           ))}
         </div>
       </div>
+      <OrderCTA />
     </div>
   );
 }

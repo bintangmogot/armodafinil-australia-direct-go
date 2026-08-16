@@ -1,0 +1,32 @@
+/* Armodil AU — design tokens (matches /app/DESIGN_SYSTEM.md) */
+:root {
+    --brand-50:  #f0fdfa;
+    --brand-100: #ccfbf1;
+    --brand-500: #14b8a6;
+    --brand-600: #0d9488;
+    --brand-700: #0f766e;
+    --ink-200:   #e2e8f0;
+    --ink-500:   #64748b;
+    --ink-700:   #334155;
+    --ink-900:   #0f172a;
+    --surface:   #fafaf9;
+    --radius:    0.75rem;
+}
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--surface);
+    color: var(--ink-900);
+    -webkit-font-smoothing: antialiased;
+}
+h1,h2,h3,h4 { font-family: 'Playfair Display', Georgia, serif; color: var(--ink-900); }
+
+.section-wash { background: linear-gradient(180deg, #f0fdfa 0%, #ffffff 100%); }
+.hover-lift { transition: transform 200ms ease-out, box-shadow 200ms ease-out; }
+.hover-lift:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -12px rgba(15,23,42,0.18); }
+.btn-primary { transition: background-color 200ms ease, transform 120ms ease; }
+.btn-primary:active { transform: scale(0.98); }
+
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.animate-marquee { animation: marquee 30s linear infinite; }
+.mask-fade-x { -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); }

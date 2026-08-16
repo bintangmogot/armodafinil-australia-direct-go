@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BLOG } from '../mock';
 import { CalendarDays, User2, ArrowRight } from 'lucide-react';
+import OrderCTA from '../components/OrderCTA';
 
 export default function Blog() {
   const [feat, ...rest] = BLOG;
@@ -45,6 +46,7 @@ export default function Blog() {
           ))}
         </div>
       </div>
+      <OrderCTA />
     </div>
   );
 }

@@ -8,7 +8,7 @@ export default function Footer() {
     <footer className="mt-24 bg-ink-900 text-ink-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
         <div className="col-span-2 lg:col-span-2">
-          <div className="font-serif text-2xl font-semibold text-white">{SITE.name} <span className="text-brand-300">{SITE.region}</span></div>
+          <div className="font-serif text-2xl font-semibold text-white">{SITE.name} <span className="text-brand-300">{SITE.brandLine}</span></div>
           <p className="mt-3 text-sm text-ink-100/70 max-w-sm">Steady focus, cleaner clarity, and dependable dispatch — built for Australian customers who take their day seriously.</p>
           <div className="mt-5 flex items-center gap-3 text-brand-300">
             <a href="#" aria-label="Facebook" className="w-9 h-9 grid place-items-center rounded-full bg-white/5 hover:bg-white/10"><Facebook className="w-4 h-4" /></a>

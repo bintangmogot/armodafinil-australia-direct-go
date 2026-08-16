@@ -19,7 +19,9 @@ import BlogDetail from './pages/BlogDetail';
 import FAQPage from './pages/FAQPage';
 import Cart from './pages/Cart';
 import Contact from './pages/Contact';
-import { Privacy, Terms, Shipping, Returns, About, Categories, Account } from './pages/StaticPages';
+import Categories from './pages/Categories';
+import About from './pages/About';
+import { Privacy, Terms, Shipping, Returns, Account } from './pages/StaticPages';
 
 function App() {
   return (
