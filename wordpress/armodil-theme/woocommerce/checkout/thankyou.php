@@ -2,14 +2,6 @@
 /**
  * Thankyou page
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/checkout/thankyou.php.
- *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
- *
  * @see https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
  * @version 8.1.0
@@ -20,7 +12,7 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<div class="woocommerce-order max-w-3xl mx-auto py-8 lg:py-12">
+<div class="woocommerce-order max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
 	<?php
 	if ( $order ) :
@@ -30,85 +22,240 @@ defined( 'ABSPATH' ) || exit;
 
 		<?php if ( $order->has_status( 'failed' ) ) : ?>
 
-            <div class="text-center mb-10">
-                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-destructive-soft text-destructive mb-6">
-                    <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </div>
-                <h1 class="font-heading text-3xl font-extrabold text-foreground mb-4"><?php esc_html_e( 'Order Failed', 'woocommerce' ); ?></h1>
-                <p class="text-muted-foreground mb-8"><?php esc_html_e( 'Unfortunately your order cannot be processed as the originating bank/merchant has declined your transaction. Please attempt your purchase again.', 'woocommerce' ); ?></p>
-                
-                <p class="woocommerce-notice woocommerce-notice--error woocommerce-thankyou-order-failed-actions flex justify-center gap-4">
-                    <a href="<?php echo esc_url( $order->get_checkout_payment_url() ); ?>" class="button pay px-8 py-3 rounded-full bg-primary text-white font-bold hover:bg-primary-dark transition-colors"><?php esc_html_e( 'Pay', 'woocommerce' ); ?></a>
-                    <?php if ( is_user_logged_in() ) : ?>
-                        <a href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>" class="button pay px-8 py-3 rounded-full border-2 border-primary text-primary font-bold hover:bg-primary-softer transition-colors"><?php esc_html_e( 'My account', 'woocommerce' ); ?></a>
-                    <?php endif; ?>
-                </p>
-            </div>
+			<p class="woocommerce-notice woocommerce-notice--error woocommerce-thankyou-order-failed"><?php esc_html_e( 'Unfortunately your order cannot be processed as the originating bank/merchant has declined your transaction. Please attempt your purchase again.', 'woocommerce' ); ?></p>
+
+			<p class="woocommerce-notice woocommerce-notice--error woocommerce-thankyou-order-failed-actions">
+				<a href="<?php echo esc_url( $order->get_checkout_payment_url() ); ?>" class="button pay"><?php esc_html_e( 'Pay', 'woocommerce' ); ?></a>
+				<?php if ( is_user_logged_in() ) : ?>
+					<a href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>" class="button pay"><?php esc_html_e( 'My account', 'woocommerce' ); ?></a>
+				<?php endif; ?>
+			</p>
 
 		<?php else : ?>
 
-            <div class="text-center mb-10">
-                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary-softer text-primary mb-6">
-                    <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            <!-- Green checkmark + heading -->
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-14 h-14 rounded-full border-4 border-green-500 text-green-500 mb-3">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                 </div>
-                <h1 class="font-heading text-4xl font-extrabold text-foreground mb-3"><?php esc_html_e( 'Thank You!', 'woocommerce' ); ?></h1>
-                <p class="text-muted-foreground text-lg"><?php esc_html_e( 'Your order has been received and is now being processed.', 'woocommerce' ); ?></p>
+                <h1 class="text-2xl font-bold text-teal-700-dark mb-2">Order Confirmed!</h1>
+                <p class="text-sm text-gray-500">Thank you for your order. Please complete your payment using EFT or PayID below.</p>
             </div>
 
-            <div class="bg-card border border-border rounded-2xl shadow-sm p-6 md:p-8 mb-10">
-                <h2 class="font-heading text-xl font-bold text-foreground mb-6 pb-4 border-b border-border"><?php esc_html_e( 'Order Summary', 'woocommerce' ); ?></h2>
-                
-                <ul class="woocommerce-order-overview grid grid-cols-2 md:grid-cols-4 gap-6 mb-0 list-none p-0">
+            <?php
+            $bacs_settings = get_option( 'woocommerce_bacs_accounts' );
+            $bacs_account  = ! empty( $bacs_settings[0] ) ? $bacs_settings[0] : array();
+            $account_name  = ! empty( $bacs_account['account_name'] ) ? $bacs_account['account_name'] : 'Sean Williams';
+            $account_num   = ! empty( $bacs_account['account_number'] ) ? $bacs_account['account_number'] : '306528842';
+            $bank_name     = ! empty( $bacs_account['bank_name'] ) ? $bacs_account['bank_name'] : 'ING Bank';
+            $bsb_code      = ! empty( $bacs_account['sort_code'] ) ? $bacs_account['sort_code'] : '923100';
+            $pay_id        = ! empty( $bacs_account['iban'] ) ? $bacs_account['iban'] : '0455 241 294';
+            ?>
+            <!-- Payment Details -->
+            <h3 class="text-sm font-bold text-gray-900 mb-3">Payment Details</h3>
+            <div class="bg-blue-50 border border-blue-100 rounded-xl p-5 sm:p-6 mb-8">
 
-                    <li class="woocommerce-order-overview__order order flex flex-col gap-1">
-                        <span class="text-sm text-muted-foreground"><?php esc_html_e( 'Order number', 'woocommerce' ); ?></span>
-                        <strong class="text-foreground text-lg"><?php echo $order->get_order_number(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></strong>
-                    </li>
-
-                    <li class="woocommerce-order-overview__date date flex flex-col gap-1">
-                        <span class="text-sm text-muted-foreground"><?php esc_html_e( 'Date', 'woocommerce' ); ?></span>
-                        <strong class="text-foreground text-lg"><?php echo wc_format_datetime( $order->get_date_created() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></strong>
-                    </li>
-
-                    <li class="woocommerce-order-overview__total total flex flex-col gap-1">
-                        <span class="text-sm text-muted-foreground"><?php esc_html_e( 'Total', 'woocommerce' ); ?></span>
-                        <strong class="text-primary text-lg"><?php echo $order->get_formatted_order_total(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></strong>
-                    </li>
-
-                    <?php if ( $order->get_payment_method_title() ) : ?>
-                        <li class="woocommerce-order-overview__payment-method method flex flex-col gap-1">
-                            <span class="text-sm text-muted-foreground"><?php esc_html_e( 'Payment method', 'woocommerce' ); ?></span>
-                            <strong class="text-foreground text-lg"><?php echo wp_kses_post( $order->get_payment_method_title() ); ?></strong>
-                        </li>
-                    <?php endif; ?>
-
-                </ul>
-                
-                <?php if ( is_user_logged_in() && $order->get_user_id() === get_current_user_id() && $order->get_billing_email() ) : ?>
-                    <div class="mt-6 pt-4 border-t border-border flex flex-col gap-1">
-                        <span class="text-sm text-muted-foreground"><?php esc_html_e( 'Email', 'woocommerce' ); ?></span>
-                        <strong class="text-foreground"><?php echo $order->get_billing_email(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></strong>
+                <!-- PayID -->
+                <div class="mb-5">
+                    <div class="text-xs text-gray-400 mb-1">PayID</div>
+                    <div class="bg-white rounded-lg px-4 py-3 flex items-center justify-between shadow-sm">
+                        <span class="text-base font-bold text-gray-900"><?php echo esc_html( $pay_id ); ?></span>
+                        <button type="button" class="copy-btn text-orange-500 hover:text-orange-600 text-xs font-semibold flex items-center gap-1 transition-colors" data-copy="<?php echo esc_attr( $pay_id ); ?>">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                            <span>Copy</span>
+                        </button>
                     </div>
+                </div>
+
+                <div class="border-t border-blue-200 my-5"></div>
+                <div class="text-xs text-gray-500 mb-4">Or use bank transfer:</div>
+
+                <!-- Account Name / Bank -->
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <div class="text-xs text-gray-400 mb-0.5">Account Name</div>
+                        <div class="font-bold text-sm text-teal-700-dark"><?php echo esc_html( $account_name ); ?></div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-xs text-gray-400 mb-0.5">Bank</div>
+                        <div class="font-bold text-sm text-teal-700-dark"><?php echo esc_html( $bank_name ); ?></div>
+                    </div>
+                </div>
+
+                <!-- Account Number -->
+                <div class="space-y-3">
+                    <div>
+                        <div class="text-xs text-gray-400 mb-1">Account Number</div>
+                        <div class="bg-white rounded-lg px-4 py-3 flex items-center justify-between shadow-sm">
+                            <span class="text-base font-bold text-gray-900"><?php echo esc_html( $account_num ); ?></span>
+                            <button type="button" class="copy-btn text-orange-500 hover:text-orange-600 text-xs font-semibold flex items-center gap-1 transition-colors" data-copy="<?php echo esc_attr( $account_num ); ?>">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- BSB -->
+                    <div>
+                        <div class="text-xs text-gray-400 mb-1">BSB</div>
+                        <div class="bg-white rounded-lg px-4 py-3 flex items-center justify-between shadow-sm">
+                            <span class="text-base font-bold text-gray-900"><?php echo esc_html( $bsb_code ); ?></span>
+                            <button type="button" class="copy-btn text-orange-500 hover:text-orange-600 text-xs font-semibold flex items-center gap-1 transition-colors" data-copy="<?php echo esc_attr( $bsb_code ); ?>">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Amount to Send -->
+                    <div>
+                        <div class="text-xs text-gray-400 mb-1">Amount to Send</div>
+                        <div class="bg-white rounded-lg px-4 py-3 flex items-center justify-between shadow-sm">
+                            <span class="text-base font-bold text-blue-600"><?php echo wp_kses_post( $order->get_formatted_order_total() ); ?></span>
+                            <button type="button" class="copy-btn text-orange-500 hover:text-orange-600 text-xs font-semibold flex items-center gap-1 transition-colors" data-copy="<?php echo esc_attr( $order->get_total() ); ?>">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Order Summary -->
+            <h3 class="text-sm font-bold text-gray-900 mb-3">Order Summary</h3>
+            <div class="bg-blue-50 border border-blue-100 rounded-xl p-5 mb-8">
+                <div class="flex justify-between items-center mb-2 text-xs text-gray-600">
+                    <span>Order Number:</span>
+                    <span class="font-bold text-blue-700"><?php echo $order->get_order_number(); ?></span>
+                </div>
+                <div class="flex justify-between items-center mb-2 text-xs text-gray-600">
+                    <span>Date:</span>
+                    <span class="font-bold text-blue-700"><?php echo wc_format_datetime( $order->get_date_created() ); ?></span>
+                </div>
+                <div class="flex justify-between items-start mb-3 pb-3 border-b border-blue-200 text-xs text-gray-600">
+                    <span>Payment Method:</span>
+                    <span class="font-bold text-blue-700 text-right"><?php echo wp_kses_post( $order->get_payment_method_title() ); ?></span>
+                </div>
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start text-xs text-gray-600">
+                    <span class="mb-1 sm:mb-0">Order Contains:</span>
+                    <div class="sm:text-right">
+                        <?php foreach ( $order->get_items() as $item_id => $item ) : ?>
+                            <div class="font-bold text-blue-700 mt-1 sm:mt-0">
+                                <?php echo wp_kses_post( $item->get_name() ); ?> · Quantity : <?php echo esc_html( $item->get_quantity() ); ?>  X <?php echo esc_html( $item->get_quantity() ); ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Billing / Shipping Addresses -->
+            <div class="flex flex-col sm:flex-row justify-between gap-8 mb-6 text-sm text-gray-700">
+                <div class="flex-1">
+                    <h4 class="font-bold text-gray-900 mb-2 text-base">Billing address</h4>
+                    <div class="leading-relaxed">
+                        <?php echo wp_kses_post( $order->get_formatted_billing_address() ?: esc_html__( 'N/A', 'woocommerce' ) ); ?>
+                        <?php if ( $order->get_billing_phone() ) : ?>
+                            <br/><?php echo esc_html( $order->get_billing_phone() ); ?>
+                        <?php endif; ?>
+                        <?php if ( $order->get_billing_email() ) : ?>
+                            <br/><?php echo esc_html( $order->get_billing_email() ); ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php if ( ! wc_ship_to_billing_address_only() && $order->needs_shipping_address() ) : ?>
+                <div class="flex-1 sm:text-right">
+                    <h4 class="font-bold text-gray-900 mb-2 text-base">Shipping address</h4>
+                    <div class="leading-relaxed">
+                        <?php echo wp_kses_post( $order->get_formatted_shipping_address() ?: esc_html__( 'N/A', 'woocommerce' ) ); ?>
+                    </div>
+                </div>
                 <?php endif; ?>
             </div>
 
-        <div class="bg-[#F0F7FF] border border-[#BDE0FF] rounded-2xl p-6 md:p-8 mb-10 text-center">
-            <h3 class="font-heading text-xl font-bold text-foreground mb-4">Payment Instructions</h3>
-            <p class="mb-6 text-foreground text-lg leading-relaxed">
-                * Once your payment is done, just send the transaction copy to <a href="mailto:orders@modafinil-malaysia.com" class="text-primary hover:underline font-bold">orders@modafinil-malaysia.com</a> and we’ll ship your order immediately.
-            </p>
-            <div class="inline-block bg-white p-6 rounded-xl shadow-sm border border-border">
-                <img src="<?= MODMY_THEME_URI ?>/assets/images/dana-logo.png" alt="Payment Logo" class="mx-auto mb-3 object-contain" style="height: 40px;">
-                <p class="font-bold text-foreground text-lg mb-0">QRIS Name: LILIS NURLAELA</p>
+            <!-- Divider -->
+            <hr class="border-gray-300 mb-6">
+
+            <!-- Totals breakdown -->
+            <div class="mb-6">
+                <table class="w-full text-base">
+                    <?php 
+                    $order_totals = $order->get_order_item_totals();
+                    foreach ( $order_totals as $key => $total ) : 
+                        if ( $key === 'order_total' ) continue;
+                        $label = wp_strip_all_tags( $total['label'] );
+                        $label = rtrim( $label, ':' );
+                        
+                        $value = $total['value'];
+                        $extra_text = '';
+                        if ( $key === 'shipping' ) {
+                            if ( strpos( $value, '<small' ) !== false ) {
+                                $parts = explode( '<small', $value, 2 );
+                                $value = $parts[0];
+                                $extra_text = wp_strip_all_tags( '<small' . $parts[1] );
+                            } elseif ( strpos( $value, '&nbsp;via ' ) !== false ) {
+                                $parts = explode( '&nbsp;via ', $value, 2 );
+                                $value = $parts[0];
+                                $extra_text = 'via ' . wp_strip_all_tags( $parts[1] );
+                            } elseif ( strpos( $value, ' via ' ) !== false ) {
+                                $parts = explode( ' via ', $value, 2 );
+                                $value = $parts[0];
+                                $extra_text = 'via ' . wp_strip_all_tags( $parts[1] );
+                            }
+                        }
+                    ?>
+                        <tr class="<?php echo esc_attr( $key ); ?>">
+                            <td class="text-left text-gray-700 py-2 align-top">
+                                <?php echo esc_html( $label ); ?>
+                                <?php if ( $extra_text ) : ?>
+                                    <div class="text-xs text-gray-500 mt-0.5"><?php echo esc_html( $extra_text ); ?></div>
+                                <?php endif; ?>
+                            </td>
+                            <td class="text-right font-bold text-gray-900 py-2 align-top"><?php echo wp_kses_post( $value ); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
             </div>
-        </div>
+
+            <!-- Divider -->
+            <hr class="border-gray-300 mb-6">
+
+            <!-- Total Due -->
+            <?php if ( isset( $order_totals['order_total'] ) ) : ?>
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-lg font-bold text-gray-900">Total Due</h3>
+                <div class="text-2xl font-bold text-blue-600">
+                    <?php echo wp_kses_post( $order_totals['order_total']['value'] ); ?>
+                </div>
+            </div>
+            <?php endif; ?>
+
+            <!-- Continue Shopping -->
+            <div class="text-center mb-10">
+                <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="block w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-10 rounded-xl transition-colors text-base text-center shadow-sm">
+                    Continue Shopping
+                </a>
+            </div>
+
+            <!-- Warning -->
+            <div class="text-sm text-blue-900 space-y-3 mb-10 mt-10">
+                <p><span class="text-yellow-500 font-bold">⚠ Note</span><br/>
+                The average shipping time is 15-22 days. Please note that delivery may take up to 30 days from the date of dispatch due to potential disruptions in postal services caused by weather issues or natural disaster.</p>
+                <p><span class="text-red-600 font-bold">DO NOT</span> mention anything related to <span class="text-red-600 font-bold">medicine</span> or <span class="text-red-600 font-bold">website</span> name. Just mention your order number.</p>
+            </div>
+
+            <!-- Payment Methods Images -->
+            <div class="flex flex-wrap justify-center items-center gap-4 lg:gap-8 pb-10">
+                <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/ING_idfZagXgvQ_0.svg' ); ?>" alt="ING Bank" class="!h-[24px] sm:!h-[30px] object-contain">
+                <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/pay-idi.png' ); ?>" alt="PayID" class="!h-[24px] sm:!h-[30px] object-contain">
+                <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/osko-1.jpg' ); ?>" alt="Osko by BPAY" class="!h-[24px] sm:!h-[30px] object-contain">
+            </div>
+
+            <div style="display:none;">
+                <?php do_action( 'woocommerce_thankyou', $order->get_id() ); ?>
+            </div>
 
 		<?php endif; ?>
-
-        <div class="thank-you-hooks-wrapper">
-		    <?php do_action( 'woocommerce_thankyou_' . $order->get_payment_method(), $order->get_id() ); ?>
-		    <?php do_action( 'woocommerce_thankyou', $order->get_id() ); ?>
-        </div>
 
 	<?php else : ?>
 
@@ -117,3 +264,23 @@ defined( 'ABSPATH' ) || exit;
 	<?php endif; ?>
 
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.copy-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var text = this.getAttribute('data-copy');
+            navigator.clipboard.writeText(text).then(function() {
+                var span = btn.querySelector('span');
+                var orig = span.innerText;
+                span.innerText = 'Copied!';
+                btn.classList.replace('text-orange-500', 'text-green-500');
+                setTimeout(function() {
+                    span.innerText = orig;
+                    btn.classList.replace('text-green-500', 'text-orange-500');
+                }, 2000);
+            });
+        });
+    });
+});
+</script>

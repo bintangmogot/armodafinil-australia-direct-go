@@ -2,125 +2,124 @@
 /**
  * Cart totals
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/cart/cart-totals.php.
- *
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
  * @version 2.3.6
  */
 
 defined( 'ABSPATH' ) || exit;
-
 ?>
-<div class="cart_totals bg-white rounded-xl border border-stone-200 p-6 lg:p-8 shadow-sm <?php echo ( WC()->customer->has_calculated_shipping() ) ? 'calculated_shipping' : ''; ?>">
+<div class="cart_totals <?php echo ( WC()->customer->has_calculated_shipping() ) ? 'calculated_shipping' : ''; ?>" style="background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; width: 100% !important; float: none !important;">
 
-	<?php do_action( 'woocommerce_before_cart_totals' ); ?>
+    <?php do_action( 'woocommerce_before_cart_totals' ); ?>
 
-	<h2 class="text-xl font-bold font-heading text-slate-900 mb-5"><?php esc_html_e( 'Carts Totals', 'woocommerce' ); ?></h2>
+    <h2 style="font-size: 20px; font-weight: 700; color: #00125E; margin: 0 0 16px 0; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;"><?php esc_html_e( 'Carts Totals', 'woocommerce' ); ?></h2>
 
     <?php if ( wc_coupons_enabled() ) { ?>
-        <form class="mb-6 flex gap-3" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
-            <label for="coupon_code" class="sr-only"><?php esc_html_e( 'Coupon:', 'woocommerce' ); ?></label> 
-            <input type="text" name="coupon_code" class="input-text flex-1 rounded-full border-stone-300 py-2.5 px-5 shadow-sm focus:border-primary focus:ring-primary text-sm" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Discount voucher', 'woocommerce' ); ?>" /> 
-            <button type="submit" class="button px-6 py-2.5 bg-yellow-400 hover:bg-yellow-500 text-slate-900 text-sm font-bold rounded-full transition-colors whitespace-nowrap shadow-sm" name="apply_coupon" value="<?php esc_attr_e( 'Apply', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply', 'woocommerce' ); ?></button>
+        <style>
+            .armo-cart-page .coupon .woocommerce-error,
+            .armo-cart-page .coupon .woocommerce-message {
+                font-size: 13px !important;
+                margin-top: 8px !important;
+                margin-bottom: 0 !important;
+                padding: 0 !important;
+                list-style: none !important;
+                color: #dc2626 !important;
+                background: transparent !important;
+                border: none !important;
+            }
+        </style>
+        <div class="coupon" style="margin-bottom: 20px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Discount voucher', 'woocommerce' ); ?>" style="flex: 1; min-width: 0; width: 100%; height: 40px; padding: 0 16px; font-size: 14px; border: 1px solid #333; border-radius: 9999px; outline: none; box-sizing: border-box;" />
+                <button type="submit" class="button" name="apply_coupon" value="<?php esc_attr_e( 'Apply', 'woocommerce' ); ?>" style="background: #FFD700; color: #000; font-weight: 600; font-size: 14px; padding: 0 24px; height: 40px; border-radius: 9999px; border: 1px solid #333; cursor: pointer; white-space: nowrap;"><?php esc_html_e( 'Apply', 'woocommerce' ); ?></button>
+            </div>
             <?php do_action( 'woocommerce_cart_coupon' ); ?>
-        </form>
+        </div>
     <?php } ?>
 
-	<div class="w-full text-sm">
+    <table cellspacing="0" class="shop_table shop_table_responsive" style="width: 100%; border-collapse: collapse;">
 
-		<!-- Subtotal -->
-		<div class="cart-totals-flex py-4 border-b border-stone-100">
-			<div class="font-medium text-slate-500"><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></div>
-			<div class="font-bold text-slate-900" data-title="<?php esc_attr_e( 'Subtotal', 'woocommerce' ); ?>"><?php wc_cart_totals_subtotal_html(); ?></div>
-		</div>
+        <tr class="cart-subtotal">
+            <th style="width: 85%; text-align: left; font-weight: 400; color: #00125E; padding: 0 0 10px 0; font-size: 14px; background: transparent !important; border: none !important;"><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
+            <td style="width: 15%; text-align: right; font-weight: 700; color: #111; padding: 0 0 10px 0; font-size: 14px; background: transparent !important; border: none !important;" data-title="<?php esc_attr_e( 'Subtotal', 'woocommerce' ); ?>"><?php wc_cart_totals_subtotal_html(); ?></td>
+        </tr>
 
-		<!-- Coupons -->
-		<?php foreach ( WC()->cart->get_coupons() as $code => $coupon ) : ?>
-			<div class="cart-totals-flex py-4 border-b border-stone-100 text-emerald-600 cart-discount coupon-<?php echo esc_attr( sanitize_title( $code ) ); ?>">
-				<div class="font-medium"><?php wc_cart_totals_coupon_label( $coupon ); ?></div>
-				<div class="font-bold" data-title="<?php echo esc_attr( wc_cart_totals_coupon_label( $coupon, false ) ); ?>"><?php wc_cart_totals_coupon_html( $coupon ); ?></div>
-			</div>
-		<?php endforeach; ?>
+        <?php foreach ( WC()->cart->get_coupons() as $code => $coupon ) : ?>
+            <tr class="cart-discount coupon-<?php echo esc_attr( sanitize_title( $code ) ); ?>">
+                <th style="width: 85%; text-align: left; font-weight: 400; color: #16a34a; padding: 10px 0; font-size: 14px; background: transparent !important; border: none !important;"><?php wc_cart_totals_coupon_label( $coupon ); ?></th>
+                <td style="width: 15%; text-align: right; color: #16a34a; padding: 10px 0; font-size: 14px; background: transparent !important; border: none !important;" data-title="<?php echo esc_attr( wc_cart_totals_coupon_label( $coupon, false ) ); ?>"><?php wc_cart_totals_coupon_html( $coupon ); ?></td>
+            </tr>
+        <?php endforeach; ?>
 
-		<!-- Shipping -->
-		<?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) : ?>
-			<?php do_action( 'woocommerce_cart_totals_before_shipping' ); ?>
+        <?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) : ?>
+            <?php do_action( 'woocommerce_cart_totals_before_shipping' ); ?>
+            <?php wc_cart_totals_shipping_html(); ?>
+            <?php do_action( 'woocommerce_cart_totals_after_shipping' ); ?>
+        <?php elseif ( WC()->cart->needs_shipping() && 'yes' === get_option( 'woocommerce_enable_shipping_calc' ) ) : ?>
+            <tr class="shipping">
+                <th style="text-align: left; font-weight: 400; color: #1868C6; padding: 10px 0; font-size: 14px; background: transparent !important; border: none !important;"><?php esc_html_e( 'Shipping', 'woocommerce' ); ?></th>
+                <td style="text-align: right; font-weight: 700; color: #111; padding: 10px 0; font-size: 14px; background: transparent !important; border: none !important;" data-title="<?php esc_attr_e( 'Shipping', 'woocommerce' ); ?>"><?php woocommerce_shipping_calculator(); ?></td>
+            </tr>
+        <?php endif; ?>
 
-			<!-- Custom Shipping Display Wrapper -->
-			<div class="py-4 border-b border-stone-100">
-				<div class="font-bold text-slate-900 text-base mb-3"><?php esc_html_e( 'Shipment', 'woocommerce' ); ?></div>
-				<table class="w-full custom-cart-shipping-table">
-					<tbody>
-						<?php wc_cart_totals_shipping_html(); ?>
-					</tbody>
-				</table>
-			</div>
+        <?php foreach ( WC()->cart->get_fees() as $fee ) : ?>
+            <tr class="fee">
+                <th style="width: 85%; text-align: left; font-weight: 400; color: #00125E; padding: 10px 0; font-size: 14px; background: transparent !important; border: none !important;"><?php echo esc_html( $fee->name ); ?></th>
+                <td style="width: 15%; text-align: right; font-weight: 700; color: #111; padding: 10px 0; font-size: 14px; background: transparent !important; border: none !important;" data-title="<?php echo esc_attr( $fee->name ); ?>"><?php wc_cart_totals_fee_html( $fee ); ?></td>
+            </tr>
+        <?php endforeach; ?>
 
-			<?php do_action( 'woocommerce_cart_totals_after_shipping' ); ?>
+        <?php
+        if ( wc_tax_enabled() && ! WC()->cart->display_prices_including_tax() ) {
+            $taxable_address = WC()->customer->get_taxable_address();
+            $estimated_text  = '';
+            if ( WC()->customer->is_customer_outside_base() && ! WC()->customer->has_calculated_shipping() ) {
+                $estimated_text = sprintf( ' <small>' . esc_html__( '(estimated for %s)', 'woocommerce' ) . '</small>', WC()->countries->estimated_for_prefix( $taxable_address[0] ) . WC()->countries->countries[ $taxable_address[0] ] );
+            }
+            if ( 'itemized' === get_option( 'woocommerce_tax_total_display' ) ) {
+                foreach ( WC()->cart->get_tax_totals() as $code => $tax ) {
+                    ?>
+                    <tr class="tax-rate tax-rate-<?php echo esc_attr( sanitize_title( $code ) ); ?>">
+                        <th style="text-align: left; font-weight: 400; color: #1868C6; padding: 10px 0; font-size: 14px; background: transparent !important; border: none !important;"><?php echo esc_html( $tax->label ) . $estimated_text; ?></th>
+                        <td style="text-align: right; padding: 10px 0; font-size: 14px; background: transparent !important; border: none !important;" data-title="<?php echo esc_attr( $tax->label ); ?>"><?php echo wp_kses_post( $tax->formatted_amount ); ?></td>
+                    </tr>
+                    <?php
+                }
+            } else {
+                ?>
+                <tr class="tax-total">
+                    <th style="text-align: left; font-weight: 400; color: #1868C6; padding: 10px 0; font-size: 14px; background: transparent !important; border: none !important;"><?php echo esc_html( WC()->countries->tax_or_vat() ) . $estimated_text; ?></th>
+                    <td style="text-align: right; padding: 10px 0; font-size: 14px; background: transparent !important; border: none !important;" data-title="<?php echo esc_attr( WC()->countries->tax_or_vat() ); ?>"><?php wc_cart_totals_taxes_total_html(); ?></td>
+                </tr>
+                <?php
+            }
+        }
+        ?>
 
-		<?php elseif ( WC()->cart->needs_shipping() && 'yes' === get_option( 'woocommerce_enable_shipping_calc' ) ) : ?>
-			<div class="cart-totals-flex py-4 border-b border-stone-100 shipping">
-				<div class="font-medium text-slate-500"><?php esc_html_e( 'Shipping', 'woocommerce' ); ?></div>
-				<div data-title="<?php esc_attr_e( 'Shipping', 'woocommerce' ); ?>"><?php woocommerce_shipping_calculator(); ?></div>
-			</div>
-		<?php endif; ?>
+        <?php do_action( 'woocommerce_cart_totals_before_order_total' ); ?>
 
-		<!-- Fees -->
-		<?php foreach ( WC()->cart->get_fees() as $fee ) : ?>
-			<div class="cart-totals-flex py-4 border-b border-stone-100 fee">
-				<div class="font-medium text-slate-500"><?php echo esc_html( $fee->name ); ?></div>
-				<div class="font-bold text-slate-900" data-title="<?php echo esc_attr( $fee->name ); ?>"><?php wc_cart_totals_fee_html( $fee ); ?></div>
-			</div>
-		<?php endforeach; ?>
+        <tr>
+            <td colspan="2" style="padding: 0 !important; border-bottom: 1px solid #e5e7eb !important;"></td>
+        </tr>
 
-		<!-- Taxes -->
-		<?php
-		if ( wc_tax_enabled() && ! WC()->cart->display_prices_including_tax() ) {
-			$taxable_address = WC()->customer->get_taxable_address();
-			$estimated_text  = '';
+        <tr class="order-total">
+            <th style="width: 85%; text-align: left; font-weight: 700; color: #00125E; padding: 16px 0 0 0; font-size: 18px; background: transparent !important; border: none !important; border-top: 1px solid #e5e7eb !important;"><?php esc_html_e( 'Total', 'woocommerce' ); ?></th>
+            <td style="width: 15%; text-align: right; font-weight: 800; color: #111; padding: 16px 0 0 0; font-size: 22px; background: transparent !important; border: none !important; border-top: 1px solid #e5e7eb !important;" data-title="<?php esc_attr_e( 'Total', 'woocommerce' ); ?>"><?php wc_cart_totals_order_total_html(); ?></td>
+        </tr>
 
-			if ( WC()->customer->is_customer_outside_base() && ! WC()->customer->has_calculated_shipping() ) {
-				/* translators: %s location. */
-				$estimated_text = sprintf( ' <small>' . esc_html__( '(estimated for %s)', 'woocommerce' ) . '</small>', WC()->countries->estimated_for_prefix( $taxable_address[0] ) . WC()->countries->countries[ $taxable_address[0] ] );
-			}
+        <?php do_action( 'woocommerce_cart_totals_after_order_total' ); ?>
 
-			if ( 'itemized' === get_option( 'woocommerce_tax_total_display' ) ) {
-				foreach ( WC()->cart->get_tax_totals() as $code => $tax ) {
-					?>
-					<div class="cart-totals-flex py-4 border-b border-stone-100 tax-rate tax-rate-<?php echo esc_attr( sanitize_title( $code ) ); ?>">
-						<div class="font-medium text-slate-500"><?php echo esc_html( $tax->label ) . $estimated_text; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
-						<div class="font-bold text-slate-900" data-title="<?php echo esc_attr( $tax->label ); ?>"><?php echo wp_kses_post( $tax->formatted_amount ); ?></div>
-					</div>
-					<?php
-				}
-			} else {
-				?>
-				<div class="cart-totals-flex py-4 border-b border-stone-100 tax-total">
-					<div class="font-medium text-slate-500"><?php echo esc_html( WC()->countries->tax_or_vat() ) . $estimated_text; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
-					<div class="font-bold text-slate-900" data-title="<?php echo esc_attr( WC()->countries->tax_or_vat() ); ?>"><?php wc_cart_totals_taxes_total_html(); ?></div>
-				</div>
-				<?php
-			}
-		}
-		?>
+    </table>
 
-		<?php do_action( 'woocommerce_cart_totals_before_order_total' ); ?>
+    <div style="border-top: 1px solid #e5e7eb; padding-top: 16px;">
+        <div class="wc-proceed-to-checkout">
+            <a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="checkout-button button alt wc-forward" style="display: block; width: 100%; text-align: center; background-color: #FF0000 !important; color: #fff !important; font-weight: 700; font-size: 16px; padding: 14px 0; border-radius: 8px; text-decoration: none; box-sizing: border-box;">
+                <?php esc_html_e( 'Proceed to Checkout', 'woocommerce' ); ?>
+            </a>
+        </div>
+    </div>
 
-		<!-- Total -->
-		<div class="cart-totals-flex pt-6 pb-2 order-total">
-			<div class="text-lg font-black text-slate-900"><?php esc_html_e( 'Total', 'woocommerce' ); ?></div>
-			<div class="text-xl font-black text-slate-900" data-title="<?php esc_attr_e( 'Total', 'woocommerce' ); ?>"><?php wc_cart_totals_order_total_html(); ?></div>
-		</div>
-
-		<?php do_action( 'woocommerce_cart_totals_after_order_total' ); ?>
-
-	</div>
-
-	<div class="wc-proceed-to-checkout mt-8">
-		<?php do_action( 'woocommerce_proceed_to_checkout' ); ?>
-	</div>
-
-	<?php do_action( 'woocommerce_after_cart_totals' ); ?>
+    <?php do_action( 'woocommerce_after_cart_totals' ); ?>
 
 </div>

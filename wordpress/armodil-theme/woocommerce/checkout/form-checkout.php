@@ -2,14 +2,6 @@
 /**
  * Checkout Form
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/checkout/form-checkout.php.
- *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
- *
  * @see https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
  * @version 9.4.0
@@ -29,44 +21,55 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 
 ?>
 
-<form name="checkout" method="post" class="checkout woocommerce-checkout grid gap-6 lg:gap-8 lg:grid-cols-[55fr_45fr]" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data" aria-label="<?php echo esc_attr__( 'Checkout', 'woocommerce' ); ?>">
+<div class="checkout-page max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="text-sm text-gray-500 hover:text-teal-700-dark inline-flex items-center gap-1 mb-2">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        Back to shop
+    </a>
+    <h1 class="text-2xl font-bold text-teal-700-dark mb-6">Checkout</h1>
 
-	<div class="space-y-4">
-		<?php if ( $checkout->get_checkout_fields() ) : ?>
+    <form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data" aria-label="<?php echo esc_attr__( 'Checkout', 'woocommerce' ); ?>">
 
-			<?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
+        <?php if ( $checkout->get_checkout_fields() ) : ?>
 
-			<div id="customer_details">
-				<div class="col-1 mb-6">
-					<?php do_action( 'woocommerce_checkout_billing' ); ?>
-				</div>
+            <?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
 
-				<div class="col-2 mb-4">
-					<?php do_action( 'woocommerce_checkout_shipping' ); ?>
-				</div>
-			</div>
+            <div class="flex flex-col lg:flex-row gap-6 items-start" id="customer_details">
+                <!-- LEFT column: Billing + Shipping -->
+                <div class="w-full lg:w-1/2 flex flex-col gap-6">
+                    <div class="checkout-fields-block bg-white border border-gray-200 rounded-lg overflow-hidden">
+                        <?php do_action( 'woocommerce_checkout_billing' ); ?>
+                    </div>
+                    <div class="checkout-fields-block bg-white border border-gray-200 rounded-lg overflow-hidden">
+                        <?php do_action( 'woocommerce_checkout_shipping' ); ?>
+                    </div>
+                </div>
 
-			<?php do_action( 'woocommerce_checkout_after_customer_details' ); ?>
+                <!-- RIGHT column: Medical Conditions -->
+                <div class="w-full lg:w-1/2 flex flex-col gap-6">
+                    <div class="checkout-fields-block medical-condition-fields bg-white border border-gray-200 rounded-lg overflow-hidden">
+                        <?php do_action( 'armo_custom_checkout_medical_conditions' ); ?>
+                    </div>
+                </div>
+            </div>
 
-		<?php endif; ?>
-	</div>
-	
-	<div>
-		<div class="sticky top-24 rounded-2xl border border-border bg-card p-6 shadow-card lg:p-8">
-			<?php do_action( 'woocommerce_checkout_before_order_review_heading' ); ?>
-			
-			<h3 id="order_review_heading" class="mb-5 font-heading text-xl font-bold text-card-foreground"><?php esc_html_e( 'Your order', 'woocommerce' ); ?></h3>
-			
-			<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
+        <?php endif; ?>
 
-			<div id="order_review" class="woocommerce-checkout-review-order">
-				<?php do_action( 'woocommerce_checkout_order_review' ); ?>
-			</div>
+        <?php do_action( 'woocommerce_checkout_before_order_review_heading' ); ?>
 
-			<?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
-		</div>
-	</div>
+        <div class="mt-10">
+            <h3 id="order_review_heading" class="text-2xl font-bold text-[#00104a] text-center mb-6"><?php esc_html_e( 'Your Order', 'woocommerce' ); ?></h3>
 
-</form>
+            <?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
+
+            <div id="order_review" class="woocommerce-checkout-review-order">
+                <?php do_action( 'woocommerce_checkout_order_review' ); ?>
+            </div>
+
+            <?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
+        </div>
+
+    </form>
+</div>
 
 <?php do_action( 'woocommerce_after_checkout_form', $checkout ); ?>
