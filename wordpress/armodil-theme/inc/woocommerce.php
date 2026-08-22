@@ -146,7 +146,7 @@ function armo_hide_shop_page_title( $show_title ) {
  */
 add_action( 'template_redirect', 'armo_remove_shop_breadcrumbs' );
 function armo_remove_shop_breadcrumbs() {
-    if ( is_shop() ) {
+    if ( function_exists( 'is_shop' ) && is_shop() ) {
         remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
     }
 }
