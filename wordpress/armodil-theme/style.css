@@ -1,12 +1,16 @@
-/*
-Theme Name: Armodafinil Australia Direct
-Theme URI: https://armodafinildirect.example
-Author: Armodafinil AU Direct Team
-Description: Modular WordPress theme mirroring the React reference. Every page and section is powered by ACF Pro Flexible Content + Repeater fields, so editors can rearrange content from the WP admin. Tailwind CSS is used for styling (CDN in dev, compiled build in production). Designed for pharmacy / cognitive-support e-commerce sites in Australia.
+/**
+Theme Name: Modafinil Malaysia
+Author: Bintang Aprilian
+Author URI: https://www.firas.cloud/
+Description: Modafinil Malaysia - Custom Standalone WordPress Theme for an online pharmacy store.
 Version: 1.0.0
-Requires at least: 6.4
-Tested up to: 6.6
-Requires PHP: 8.1
-Text Domain: armodafinil
-Tags: modular, acf, tailwind, ecommerce, pharmacy, wakefulness, australia
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: modafinil-malaysia
+Requires at least: 6.0
+Requires PHP: 7.4
 */
+
+/*
+ * Note: Actual CSS is compiled into assets/css/main.css using Tailwind CLI.
+ */
