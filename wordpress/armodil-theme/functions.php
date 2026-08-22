@@ -39,19 +39,6 @@ add_filter( 'woocommerce_payment_gateways', function( $gateways ) {
 require_once ARMO_THEME_DIR . '/inc/post-types.php';
 
 
-// 7. ACF Fallbacks (prevents fatal errors if ACF is not active)
-if (!function_exists('get_field')) {
-    function get_field($selector, $post_id = false, $format_value = true) { return false; }
-}
-if (!function_exists('get_sub_field')) {
-    function get_sub_field($selector, $format_value = true) { return false; }
-}
-if (!function_exists('have_rows')) {
-    function have_rows($selector, $post_id = false) { return false; }
-}
-if (!function_exists('the_row')) {
-    function the_row() { return false; }
-}
 
 // 9. Enable SVG Uploads in Media Library
 add_filter('upload_mimes', function($mimes) {
