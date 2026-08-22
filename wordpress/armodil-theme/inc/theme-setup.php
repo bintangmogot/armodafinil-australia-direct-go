@@ -93,6 +93,7 @@ add_filter('nav_menu_link_attributes', function($atts, $item, $args) {
         $atts['class'] = (isset($atts['class']) ? $atts['class'] . ' ' : '') . 'text-sm text-[#62847A] hover:text-primary transition-colors block py-1.5 font-medium';
     } elseif (isset($args->theme_location) && strpos($args->theme_location, 'footer_') !== false) {
         $atts['class'] = (isset($atts['class']) ? $atts['class'] . ' ' : '') . 'hover:text-primary transition-colors text-muted-foreground';
+    }
     return $atts;
 }, 10, 3);
 
