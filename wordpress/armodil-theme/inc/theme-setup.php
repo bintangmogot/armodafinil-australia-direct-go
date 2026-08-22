@@ -69,6 +69,7 @@ add_filter('nav_menu_css_class', function($classes, $item, $args) {
         } elseif ($args->theme_location === 'mobile_cities') {
             $classes[] = 'list-none';
         }
+    }
     return $classes;
 }, 10, 3);
 
