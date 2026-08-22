@@ -17,8 +17,8 @@
 
 @theme inline {
   /* ---------- Typography ---------- */
-  --font-heading: "Poppins", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: "Playfair Display", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   /* ---------- Radii ---------- */
@@ -89,12 +89,12 @@
   --popover-foreground: oklch(0.208 0.042 265.755);
 
   /* Brand green - the signature colour of the whole site */
-  --primary: oklch(0.596 0.145 163.225); /* emerald-600  #059669 */
+  --primary: #0d9488;
   --primary-foreground: oklch(1 0 0);
-  --primary-dark: oklch(0.508 0.118 165.612); /* emerald-700  #047857 */
-  --primary-light: oklch(0.696 0.17 162.48); /* emerald-500  #10b981 */
-  --primary-soft: oklch(0.95 0.052 163.051); /* emerald-100  #d1fae5 */
-  --primary-softer: oklch(0.979 0.021 166.113); /* emerald-50   #ecfdf5 */
+  --primary-dark: #0f766e;
+  --primary-light: #14b8a6;
+  --primary-soft: #ccfbf1;
+  --primary-softer: #f0fdfa;
 
   /* Dark "ink" band used on inner page heroes */
   --ink: oklch(0.208 0.042 265.755); /* slate-900 #0f172a */
@@ -115,16 +115,16 @@
 
   --border: oklch(0.929 0.013 255.508); /* slate-200 */
   --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.596 0.145 163.225);
+  --ring: #0d9488;
 
   --sidebar: oklch(0.984 0.003 247.858);
   --sidebar-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-primary: oklch(0.596 0.145 163.225);
+  --sidebar-primary: #0d9488;
   --sidebar-primary-foreground: oklch(1 0 0);
   --sidebar-accent: oklch(0.968 0.007 247.896);
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.596 0.145 163.225);
+  --sidebar-ring: #0d9488;
 }
 
 .dark {
@@ -135,12 +135,12 @@
   --card-foreground: oklch(0.984 0.003 247.858);
   --popover: oklch(0.246 0.04 264);
   --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.696 0.17 162.48);
+  --primary: #14b8a6;
   --primary-foreground: oklch(0.208 0.042 265.755);
-  --primary-dark: oklch(0.596 0.145 163.225);
-  --primary-light: oklch(0.78 0.16 162);
-  --primary-soft: oklch(0.35 0.06 165);
-  --primary-softer: oklch(0.28 0.045 165);
+  --primary-dark: #0d9488;
+  --primary-light: #5eead4;
+  --primary-soft: #0f766e;
+  --primary-softer: #115e59;
   --ink: oklch(0.16 0.035 265);
   --ink-foreground: oklch(0.984 0.003 247.858);
   --secondary: oklch(0.279 0.041 260.031);
@@ -155,15 +155,15 @@
   --price: oklch(0.7 0.16 262);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.696 0.17 162.48);
+  --ring: #14b8a6;
   --sidebar: oklch(0.246 0.04 264);
   --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.696 0.17 162.48);
+  --sidebar-primary: #14b8a6;
   --sidebar-primary-foreground: oklch(0.208 0.042 265.755);
   --sidebar-accent: oklch(0.279 0.041 260.031);
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.696 0.17 162.48);
+  --sidebar-ring: #14b8a6;
 }
 
 @layer base {
@@ -1497,3 +1497,23 @@ label, .variations label { cursor: pointer !important; }
         border: 0 !important;
     }
 }
+
+@utility bg-gradient-review {
+    background: linear-gradient(90deg, #073980E3 0%, #2056A2E3 100%), #00125E;
+}
+
+.armo-yellow-tick {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    background-color: #FFC700;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 0.4rem;
+    margin-top: -0.2rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%231b4f93' stroke-width='4.5' viewBox='0 0 24 24'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M4.5 12.75l6 6 9-13.5' /%3E%3C/svg%3E");
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+

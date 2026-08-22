@@ -1,154 +1,313 @@
-<?php
-/**
- * The header for our theme
- */
-?>
+<?php ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?> class="overflow-x-hidden">
+
 <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1SPMRVBFRB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1SPMRVBFRB');
+</script>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <?php wp_head(); ?>
+    <style>
+        /* Hide the cart injected by Side Cart plugin into the nav menu to avoid duplicates */
+        #desktop-nav .xoo-wsc-cart-trigger, 
+        #desktop-nav li.menu-item-cart,
+        #mobile-menu .xoo-wsc-cart-trigger,
+        #mobile-menu li.menu-item-cart,
+        .menu-item-cart { 
+            display: none !important; 
+        }
+        
+        /* Side Cart Button Fix for Mobile - Ultra High Specificity */
+        html body .xoo-wsc-cart .xoo-wsc-footer .xoo-wsc-ft-btn-checkout,
+        html body .xoo-wsc-cart .xoo-wsc-footer .xoo-wsc-ft-btn-cart,
+        html body .xoo-wsc-modal .xoo-wsc-footer .xoo-wsc-ft-btn-checkout,
+        html body .xoo-wsc-modal .xoo-wsc-footer .xoo-wsc-ft-btn-cart {
+            height: auto !important;
+            min-height: 48px !important;
+            max-height: none !important;
+            white-space: normal !important;
+            line-height: normal !important;
+            padding: 10px 8px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
+            gap: 4px !important;
+            text-align: center !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        html body .xoo-wsc-cart .xoo-wsc-footer,
+        html body .xoo-wsc-modal .xoo-wsc-footer {
+            height: auto !important;
+            min-height: fit-content !important;
+        }
+        html body .xoo-wsc-cart .xoo-wsc-footer .xoo-wsc-ft-btn-checkout *,
+        html body .xoo-wsc-cart .xoo-wsc-footer .xoo-wsc-ft-btn-cart *,
+        html body .xoo-wsc-modal .xoo-wsc-footer .xoo-wsc-ft-btn-checkout *,
+        html body .xoo-wsc-modal .xoo-wsc-footer .xoo-wsc-ft-btn-cart * {
+            line-height: normal !important;
+            white-space: normal !important;
+            margin: 0 !important;
+            display: inline-block !important;
+        }
+        @media (max-width: 768px) {
+            html body .xoo-wsc-cart .xoo-wsc-footer .xoo-wsc-ft-btn-checkout,
+            html body .xoo-wsc-cart .xoo-wsc-footer .xoo-wsc-ft-btn-cart,
+            html body .xoo-wsc-modal .xoo-wsc-footer .xoo-wsc-ft-btn-checkout,
+            html body .xoo-wsc-modal .xoo-wsc-footer .xoo-wsc-ft-btn-cart {
+                font-size: 13px !important;
+                width: 100% !important;
+                margin: 0 0 8px 0 !important;
+            }
+            /* Force buttons to stack vertically on small screens so they don't squish */
+            html body .xoo-wsc-cart .xoo-wsc-footer .xoo-wsc-ft-buttons-cont {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 8px !important;
+                width: 100% !important;
+            }
+        }
+    </style>
 </head>
 
-<body <?php body_class('bg-background text-foreground antialiased selection:bg-primary-soft selection:text-primary-dark'); ?>>
-<?php wp_body_open(); ?>
+<body <?php body_class('antialiased bg-white text-gray-900 overflow-x-hidden'); ?>>
+    <?php wp_body_open(); ?>
 
-<?php
-$lang = modmy_get_lang();
-$is_en = $lang === 'en';
-?>
-
-<!-- Trust Bar -->
-<div class="w-full bg-primary" data-testid="trust-bar">
-    <div class="container-site flex items-center justify-between px-4 py-2 font-semibold text-primary-foreground">
-        <div class="flex items-center gap-1.5">
-            <svg xmlns="http://www.w3.org/2000/svg" class="hidden h-3.5 w-3.5 shrink-0 sm:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-            </svg>
-            <span class="hidden text-sm tracking-wide sm:inline">
-                <?= modmy_t("Free Shipping Over RM399 &nbsp;&middot;&nbsp; 100% Genuine", "Penghantaran Percuma RM399+ &nbsp;&middot;&nbsp; 100% Asli") ?>
-            </span>
-            <span class="text-xs sm:hidden">
-                <?= modmy_t("🚚 Free Shipping RM399+", "🚚 Percuma Penghantaran RM399+") ?>
-            </span>
-        </div>
-        <div class="flex items-center gap-2 text-xs font-bold tracking-wider">
-            <a href="?lang=en" data-lang="en" class="lang-toggle <?= $is_en ? 'text-white' : 'text-primary-foreground/50 hover:text-white transition-colors' ?>">EN</a>
-            <span class="text-primary-foreground/30">|</span>
-            <a href="?lang=ms" data-lang="ms" class="lang-toggle <?= !$is_en ? 'text-white' : 'text-primary-foreground/50 hover:text-white transition-colors' ?>">MS</a>
-        </div>
-    </div>
-</div>
-
-<!-- Header -->
-<header class="sticky top-0 z-50 w-full border-b border-border bg-background shadow-sm">
-    <div class="container-site relative flex h-[68px] items-center justify-between gap-4">
-        
-        <!-- Mobile Menu Toggle -->
-        <div class="flex items-center lg:hidden">
-            <button type="button" aria-label="Menu" id="mobile-menu-open" class="rounded-md p-2 -ml-2 text-foreground/70 transition-colors hover:text-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
-            </button>
-        </div>
-
-        <!-- Logo -->
-        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 lg:static lg:translate-x-0 lg:translate-y-0">
-            <a href="<?= home_url('/') ?>" class="flex shrink-0 items-center gap-2.5" aria-label="ModafinilMY">
-                <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.9 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
-                </span>
-                <span class="font-heading text-xl font-extrabold tracking-tight text-foreground">
-                    Modafinil<span class="text-primary">MY</span>
-                </span>
-            </a>
-        </div>
-
-        <!-- Desktop Nav -->
-        <nav class="hidden items-center gap-1 lg:flex lg:flex-1 lg:justify-center desktop-nav">
-            <?php
-            wp_nav_menu([
-                'theme_location' => 'primary',
-                'container'      => false,
-                'menu_class'     => 'flex items-center gap-1',
-                'fallback_cb'    => false,
-                'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-            ]);
-            ?>
-        </nav>
-
-        <!-- Right Actions -->
-        <div class="flex items-center gap-3 ml-auto lg:ml-0">
+    <?php $has_announcement = get_field('enable_announcement_bar', 'option'); ?>
+    
+    <?php if ($has_announcement !== false && $has_announcement !== '0'): ?>
+    <!-- Top Announcement Bar (Rebuilt from Zero) -->
+    <div class="w-full relative z-50 flex items-center justify-center px-4 py-2 sm:py-2.5" data-aos="fade-down" style="background-color: <?php echo esc_attr(get_field('announcement_bg_color', 'option') ?: '#ff0000'); ?>; color: <?php echo esc_attr(get_field('announcement_text_color', 'option') ?: '#ffffff'); ?>;">
+        <div class="w-full max-w-7xl mx-auto text-center text-[13px] sm:text-[15px] font-semibold tracking-wide leading-snug px-2">
             <?php 
-            $whatsapp = get_field('whatsapp_number', 'option') ?: 'https://wa.me/60185754182'; 
+                $announcement = get_field('announcement_text', 'option');
+                if (!$announcement) {
+                    $announcement = 'Free Shipping Orders Over $299 Australia-Wide | Call 0455 241 294';
+                }
+                
+                echo wp_kses_post($announcement);
             ?>
-            <a href="<?= esc_url($whatsapp) ?>" target="_blank" rel="noopener noreferrer" class="hidden items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-pill transition-colors hover:bg-primary-dark sm:inline-flex">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 shrink-0"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.67-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                WhatsApp
-            </a>
-            <?= do_shortcode('[xoo_wsc_cart]') ?>
         </div>
     </div>
+    <?php endif; ?>
 
-    <!-- Mobile Nav Overlay -->
-    <div id="mobile-menu-overlay" class="fixed inset-0 z-50 hidden bg-black/40 backdrop-blur-sm lg:hidden" aria-hidden="true"></div>
-
-    <!-- Mobile Nav Drawer -->
-    <div id="mobile-menu-drawer" class="fixed inset-y-0 left-0 z-50 w-[85%] max-w-sm transform overflow-y-auto bg-background transition-transform duration-300 ease-in-out lg:hidden -translate-x-full">
-        <div class="flex h-[68px] items-center justify-between border-b border-border px-6">
-            <span class="font-heading text-lg font-bold text-foreground">
-                ModafinilMY
-            </span>
-            <button type="button" aria-label="Tutup / Close" id="mobile-menu-close" class="rounded-md p-2 text-foreground/70 transition-colors hover:text-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-            </button>
-        </div>
-
-        <nav class="flex flex-col border-b border-border py-4 mobile-nav">
-            <?php
-            wp_nav_menu([
-                'theme_location' => 'primary',
-                'container'      => false,
-                'menu_class'     => 'flex flex-col',
-                'fallback_cb'    => false,
-                'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-            ]);
+    <?php $has_feature_bar = get_field('enable_feature_bar', 'option'); ?>
+    <?php if ($has_feature_bar !== false && $has_feature_bar !== '0'): ?>
+    <!-- Top Feature Bar -->
+    <div class="w-full relative z-40 flex bg-gradient-review" data-aos="fade-down" data-aos-delay="100" style="color: <?php echo esc_attr(get_field('feature_bar_text_color', 'option') ?: '#ffffff'); ?>;">
+        <div class="w-full px-4 sm:px-6 lg:px-[72px] py-2.5 grid grid-cols-2 place-items-start sm:flex sm:flex-wrap sm:items-center sm:justify-center gap-y-2 gap-x-2 sm:gap-4">
+            <?php 
+            $feature_items = get_field('feature_bar_items', 'option');
+            if ($feature_items): 
+                foreach ($feature_items as $item): 
             ?>
-        </nav>
+                <div class="flex items-center gap-2 sm:gap-4 text-[12px] sm:text-[15px] font-medium tracking-wide">
+                    <?php if (!empty($item['icon'])): ?>
+                        <?php if (strpos($item['icon'], '<svg') !== false): ?>
+                            <?php echo $item['icon']; ?>
+                        <?php else: ?>
+                            <img src="<?php echo esc_url($item['icon']); ?>" alt="" class="w-5 h-5 sm:w-6 sm:h-6 object-contain shrink-0" />
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    <?php echo esc_html($item['text']); ?>
+                </div>
+            <?php 
+                endforeach; 
+            else: 
+            ?>
+                <!-- Default placeholders if repeater is empty -->
+                <div class="flex items-center gap-2 sm:gap-2.5 text-[12px] sm:text-[15px] font-medium tracking-wide">
+                    <!-- Fast Truck Icon -->
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6 shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 18.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM18 18.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 18.5H3V7h10v11.5h-1M13 7h4l3 4v7.5h-2M1 11h3M2 14h2M1 8h3"></path>
+                    </svg>
+                    7-10 Day Delivery
+                </div>
+                <div class="flex items-center gap-2 sm:gap-2.5 text-[12px] sm:text-[15px] font-medium tracking-wide">
+                    <!-- Hero/Customer Icon -->
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6 shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 12a3 3 0 100-6 3 3 0 000 6z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 3-2.5 5.5-5.5 5.5h-4c-3 0-5.5-2.5-5.5-5.5V9l7-2 7 2v1.5z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 16.5v5l3-2 3 2v-5"></path>
+                        <circle cx="16" cy="6" r="3" fill="currentColor" stroke="none"></circle>
+                        <path d="M16 4.5l.5 1 1.2.2-.8.8.2 1.2-1-.5-1 .5.2-1.2-.8-.8 1.2-.2z" fill="#fff"></path>
+                    </svg>
+                    5,000+ Australian Customers
+                </div>
+                <div class="flex items-center gap-2 sm:gap-2.5 text-[12px] sm:text-[15px] font-medium tracking-wide">
+                    <!-- Thumbs up -->
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6 shrink-0" fill="currentColor" viewBox="0 0 512 512">
+                        <path d="M313.4 32.9c26 5.2 42.9 30.5 37.7 56.5l-2.3 11.4c-5.3 26.7-15.1 52.1-28.8 75.2H464c26.5 0 48 21.5 48 48c0 18.5-10.5 34.6-25.9 42.6C497 275.4 504 288.9 504 304c0 23.4-16.8 42.9-38.9 47.1c4.4 7.3 6.9 15.8 6.9 24.9c0 21.3-13.9 39.4-33.1 45.6c.7 3.3 1.1 6.8 1.1 10.4c0 26.5-21.5 48-48 48H294.5c-19 0-37.5-5.6-53.3-16.1l-38.5-25.7C176 420.4 160 390.1 160 358.3V320 272 247.1c0-29.2 13.3-56.7 36-75l7.4-5.9c26.5-21.2 44.6-51 51.2-84.2l2.3-11.4c5.2-26 30.5-42.9 56.5-37.7zM32 192H96c17.7 0 32 14.3 32 32V448c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32z"/>
+                    </svg>
+                    Genuine Brands
+                </div>
+                <div class="flex items-center gap-2 sm:gap-2.5 text-[12px] sm:text-[15px] font-medium tracking-wide">
+                    <!-- Solid Star -->
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"></path>
+                    </svg>
+                    24/7 Customer Support
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php endif; ?>
 
-        <div class="px-6 py-6 pb-20">
-            <h3 class="mb-2 text-xs font-semibold uppercase tracking-wider text-[#62847A]">
-                <?= modmy_t("BUY MODAFINIL IN", "BELI MODAFINIL DI") ?>
-            </h3>
-            <div class="grid grid-cols-2 gap-y-1 gap-x-4">
-                <?php
-                if (has_nav_menu('mobile_cities')) {
-                    wp_nav_menu([
-                        'theme_location' => 'mobile_cities',
-                        'container'      => false,
-                        'menu_class'     => 'contents',
-                        'fallback_cb'    => false,
-                        'items_wrap'     => '%3$s',
-                    ]);
+    <?php
+    // Automatically position the absolute header relative to the flow of the bars above it
+    $header_absolute_class = 'absolute top-auto mt-2 left-0 right-0 z-40';
+    $header_class = is_front_page() ? $header_absolute_class : 'bg-primary-light py-2 lg:py-4 relative z-40';
+    ?>
+    <!-- Mobile Top Bar (Cart) - Hidden on Desktop -->
+    <div class="hidden bg-primary-light w-full px-10 sm:px-12 py-3 justify-between items-center relative z-50 lg:hidden" data-aos="fade-down" data-aos-delay="150">
+        <div></div>
+        <?php if (class_exists('WooCommerce')): ?>
+            <div class="flex items-center">
+                <?php 
+                if (shortcode_exists('xoo_wsc_cart')) {
+                    echo do_shortcode('[xoo_wsc_cart]');
                 } else {
-                    $cities = get_posts([
-                        'post_type' => 'city',
-                        'posts_per_page' => -1,
-                        'orderby' => 'title',
-                        'order' => 'ASC'
-                    ]);
-                    foreach ($cities as $city) {
-                        $city_name = get_post_meta($city->ID, 'city_name', true);
-                        if (!$city_name) {
-                            $city_name = str_replace(['Buy Modafinil in ', 'Buy Modafinil '], '', $city->post_title);
-                        }
-                        echo '<a href="' . get_permalink($city->ID) . '" class="text-sm text-[#62847A] hover:text-primary transition-colors block py-1.5 font-medium">' . esc_html($city_name) . '</a>';
-                    }
+                    ?>
+                    <a href="#" class="xoo-wsc-cart-trigger text-white hover:text-gray-200 transition-colors relative flex items-center" aria-label="Cart">
+                        <svg class="w-8 h-8 lg:w-10 lg:h-10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                        </svg>
+                        <?php $count = WC()->cart->get_cart_contents_count();
+                        if ($count > 0): ?>
+                            <span class="xoo-wsc-items-count absolute -top-1 -right-2 bg-red-600 text-white text-[11px] w-5 h-5 rounded-full flex items-center justify-center font-bold"><?php echo $count; ?></span>
+                        <?php endif; ?>
+                    </a>
+                    <?php
                 }
                 ?>
             </div>
-        </div>
+        <?php else: ?>
+            <div></div>
+        <?php endif; ?>
     </div>
-</header>
+
+    <!-- Tailwind scanner hook: bg-primary-light py-2 lg:py-4 relative z-40 -->
+    <header id="site-header" class="<?php echo esc_attr($header_class); ?>">
+        <div class="w-full px-4 sm:px-6 lg:px-[72px]">
+            <div data-aos="fade-down" data-aos-delay="200"
+                class="flex items-center justify-between bg-white/55 border border-white/25 backdrop-blur-md rounded-full shadow-lg px-6 py-2.5 lg:px-12 xl:px-24 lg:py-1">
+
+                <div class="flex-shrink-0">
+                    <?php if (has_custom_logo()): ?>
+                        <div class="[&_img]:h-14 [&_img]:w-auto lg:[&_img]:h-18">
+                            <?php the_custom_logo(); ?>
+                        </div>
+                    <?php else: ?>
+                        <a href="<?php echo esc_url(home_url('/')); ?>"
+                            class="text-lg lg:text-xl font-bold text-primary-dark no-underline hover:text-primary-dark/80">
+                            <?php bloginfo('name'); ?>
+                        </a>
+                    <?php endif; ?>
+                </div>
+
+                <nav id="desktop-nav" class="hidden lg:flex items-center gap-1" aria-label="Primary navigation">
+                    <?php
+                    wp_nav_menu(array(
+                        'theme_location' => 'primary',
+                        'container' => false,
+                        'menu_class' => 'flex items-center gap-1',
+                        'fallback_cb' => false,
+                        'depth' => 2,
+                    ));
+                    ?>
+                </nav>
+
+                <div class="flex items-center gap-4">
+                    <!-- Desktop Call CTA -->
+                    <a href="tel:0455241294" class="hidden lg:flex items-center gap-2 mr-2 hover:opacity-80 transition-opacity">
+                        <div class="w-7 h-7 flex-shrink-0 flex items-center justify-center">
+                            <svg viewBox="0 0 308 308" fill="currentColor" class="h-full w-full text-blue-600">
+                                <path d="M227.904,176.981c-0.6-0.288-23.054-11.345-27.044-12.781c-1.629-0.585-3.374-1.156-5.23-1.156 c-3.032,0-5.579,1.511-7.563,4.479c-2.243,3.334-9.033,11.271-11.131,13.642c-0.274,0.313-0.648,0.687-0.872,0.687 c-0.201,0-3.676-1.431-4.728-1.888c-24.087-10.463-42.37-35.624-44.877-39.867c-0.358-0.61-0.373-0.887-0.376-0.887 c0.088-0.323,0.898-1.135,1.316-1.554c1.223-1.21,2.548-2.805,3.83-4.348c0.607-0.731,1.215-1.463,1.812-2.153 c1.86-2.164,2.688-3.844,3.648-5.79l0.503-1.011c2.344-4.657,0.342-8.587-0.305-9.856c-0.531-1.062-10.012-23.944-11.02-26.348 c-2.424-5.801-5.627-8.502-10.078-8.502c-0.413,0,0,0-1.732,0.073c-2.109,0.089-13.594,1.601-18.672,4.802 c-5.385,3.395-14.495,14.217-14.495,33.249c0,17.129,10.87,33.302,15.537,39.453c0.116,0.155,0.329,0.47,0.638,0.922 c17.873,26.102,40.154,45.446,62.741,54.469c21.745,8.686,32.042,9.69,37.896,9.69c0.001,0,0.001,0,0.001,0 c2.46,0,4.429-0.193,6.166-0.364l1.102-0.105c7.512-0.666,24.02-9.22,27.775-19.655c2.958-8.219,3.738-17.199,1.77-20.458 C233.168,179.508,230.845,178.393,227.904,176.981z"/>
+                                <path d="M156.734,0C73.318,0,5.454,67.354,5.454,150.143c0,26.777,7.166,52.988,20.741,75.928L0.212,302.716 c-0.484,1.429-0.124,3.009,0.933,4.085C1.908,307.58,2.943,308,4,308c0.405,0,0.813-0.061,1.211-0.188l79.92-25.396 c21.87,11.685,46.588,17.853,71.604,17.853C240.143,300.27,308,232.923,308,150.143C308,67.354,240.143,0,156.734,0z M156.734,268.994c-23.539,0-46.338-6.797-65.936-19.657c-0.659-0.433-1.424-0.655-2.194-0.655c-0.407,0-0.815,0.062-1.212,0.188 l-40.035,12.726l12.924-38.129c0.418-1.234,0.209-2.595-0.561-3.647c-14.924-20.392-22.813-44.485-22.813-69.677 c0-65.543,53.754-118.867,119.826-118.867c66.064,0,119.812,53.324,119.812,118.867 C276.546,215.678,222.799,268.994,156.734,268.994z"/>
+                            </svg>
+                        </div>
+                        <div class="flex flex-col text-primary-dark">
+                            <span class="text-[11px] font-bold leading-none tracking-wide uppercase">Call</span>
+                            <span class="text-[15px] font-extrabold leading-tight tracking-tight">0455 241 294</span>
+                        </div>
+                    </a>
+
+                    <?php if (class_exists('WooCommerce')): ?>
+                        <!-- Side Cart Plugin Trigger -->
+                        <div class="hidden lg:flex items-center">
+                            <?php 
+                            // If the plugin provides its own shortcode, use it to get the exact matching icon with price
+                            if (shortcode_exists('xoo_wsc_cart')) {
+                                echo do_shortcode('[xoo_wsc_cart]');
+                            } else {
+                                // Fallback: custom cart icon that triggers the side cart drawer
+                                ?>
+                                <a href="#" class="xoo-wsc-cart-trigger text-red-500 hover:text-red-600 transition-colors relative flex items-center" aria-label="Cart">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                    </svg>
+                                    <?php $count = WC()->cart->get_cart_contents_count();
+                                    if ($count > 0): ?>
+                                        <span class="xoo-wsc-items-count absolute -top-1 -right-2 bg-red-600 text-white text-[11px] w-5 h-5 rounded-full flex items-center justify-center font-bold"><?php echo $count; ?></span>
+                                    <?php endif; ?>
+                                </a>
+                                <?php
+                            }
+                            ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <button id="mobile-menu-toggle" class="lg:hidden p-2 text-primary-dark" aria-expanded="false"
+                        aria-controls="mobile-menu" aria-label="Menu">
+                        <svg id="icon-hamburger" class="w-10 h-10" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg id="icon-close" class="w-10 h-10 hidden" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+
+                    <!-- Mobile Call CTA -->
+                    <a href="tel:0455241294" class="lg:hidden flex items-center justify-center w-8 h-8 hover:opacity-80 transition-opacity">
+                        <svg viewBox="0 0 308 308" fill="currentColor" class="h-full w-full text-blue-600">
+                            <path d="M227.904,176.981c-0.6-0.288-23.054-11.345-27.044-12.781c-1.629-0.585-3.374-1.156-5.23-1.156 c-3.032,0-5.579,1.511-7.563,4.479c-2.243,3.334-9.033,11.271-11.131,13.642c-0.274,0.313-0.648,0.687-0.872,0.687 c-0.201,0-3.676-1.431-4.728-1.888c-24.087-10.463-42.37-35.624-44.877-39.867c-0.358-0.61-0.373-0.887-0.376-0.887 c0.088-0.323,0.898-1.135,1.316-1.554c1.223-1.21,2.548-2.805,3.83-4.348c0.607-0.731,1.215-1.463,1.812-2.153 c1.86-2.164,2.688-3.844,3.648-5.79l0.503-1.011c2.344-4.657,0.342-8.587-0.305-9.856c-0.531-1.062-10.012-23.944-11.02-26.348 c-2.424-5.801-5.627-8.502-10.078-8.502c-0.413,0,0,0-1.732,0.073c-2.109,0.089-13.594,1.601-18.672,4.802 c-5.385,3.395-14.495,14.217-14.495,33.249c0,17.129,10.87,33.302,15.537,39.453c0.116,0.155,0.329,0.47,0.638,0.922 c17.873,26.102,40.154,45.446,62.741,54.469c21.745,8.686,32.042,9.69,37.896,9.69c0.001,0,0.001,0,0.001,0 c2.46,0,4.429-0.193,6.166-0.364l1.102-0.105c7.512-0.666,24.02-9.22,27.775-19.655c2.958-8.219,3.738-17.199,1.77-20.458 C233.168,179.508,230.845,178.393,227.904,176.981z"/>
+                            <path d="M156.734,0C73.318,0,5.454,67.354,5.454,150.143c0,26.777,7.166,52.988,20.741,75.928L0.212,302.716 c-0.484,1.429-0.124,3.009,0.933,4.085C1.908,307.58,2.943,308,4,308c0.405,0,0.813-0.061,1.211-0.188l79.92-25.396 c21.87,11.685,46.588,17.853,71.604,17.853C240.143,300.27,308,232.923,308,150.143C308,67.354,240.143,0,156.734,0z M156.734,268.994c-23.539,0-46.338-6.797-65.936-19.657c-0.659-0.433-1.424-0.655-2.194-0.655c-0.407,0-0.815,0.062-1.212,0.188 l-40.035,12.726l12.924-38.129c0.418-1.234,0.209-2.595-0.561-3.647c-14.924-20.392-22.813-44.485-22.813-69.677 c0-65.543,53.754-118.867,119.826-118.867c66.064,0,119.812,53.324,119.812,118.867 C276.546,215.678,222.799,268.994,156.734,268.994z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden lg:hidden mx-4 mt-1">
+            <div class="bg-white/90 backdrop-blur-md rounded-2xl px-4 py-2">
+                <?php
+                wp_nav_menu(array(
+                    'theme_location' => 'primary',
+                    'container' => false,
+                    'menu_class' => 'flex flex-col',
+                    'fallback_cb' => false,
+                    'depth' => 2,
+                ));
+                ?>
+            </div>
+        </div>
+    </header>
+
+
+    <div id="page" class="min-h-screen flex flex-col min-w-0 overflow-hidden">
+        <main id="main-content" class="flex-grow min-w-0 w-full">
