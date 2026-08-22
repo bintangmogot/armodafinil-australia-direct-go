@@ -16,15 +16,15 @@ $background_color = get_sub_field('background_color');
 <section class="py-4 lg:py-8 px-4 lg:px-8 <?php echo $background_color ? '' : 'bg-surface'; ?>" <?php if($background_color) echo 'style="background-color: ' . esc_attr($background_color) . ';"'; ?>>
     <div class="max-w-4xl mx-auto text-center">
         <?php if ($h1_heading) : ?>
-            <h1 class="text-3xl lg:text-4xl font-extrabold mb-3 lg:mb-4 <?php echo $h1_color ? '' : 'text-primary'; ?>" <?php if($h1_color) echo 'style="color: ' . esc_attr($h1_color) . ';"'; ?>><?php echo esc_html($h1_heading); ?></h1>
+            <h1 class="text-3xl lg:text-4xl font-extrabold mb-3 lg:mb-4 <?php echo $h1_color ? '' : 'text-teal-700'; ?>" <?php if($h1_color) echo 'style="color: ' . esc_attr($h1_color) . ';"'; ?>><?php echo esc_html($h1_heading); ?></h1>
         <?php endif; ?>
 
         <?php if ($h2_heading) : ?>
-            <h2 class="text-2xl lg:text-3xl font-bold mb-2 lg:mb-3 <?php echo $h2_color ? '' : 'text-primary'; ?>" <?php if($h2_color) echo 'style="color: ' . esc_attr($h2_color) . ';"'; ?>><?php echo esc_html($h2_heading); ?></h2>
+            <h2 class="text-2xl lg:text-3xl font-bold mb-2 lg:mb-3 <?php echo $h2_color ? '' : 'text-teal-700'; ?>" <?php if($h2_color) echo 'style="color: ' . esc_attr($h2_color) . ';"'; ?>><?php echo esc_html($h2_heading); ?></h2>
         <?php endif; ?>
 
         <?php if ($h3_heading) : ?>
-            <h3 class="text-xl lg:text-2xl font-bold mb-2 lg:mb-3 <?php echo $h3_color ? '' : 'text-primary'; ?>" <?php if($h3_color) echo 'style="color: ' . esc_attr($h3_color) . ';"'; ?>><?php echo esc_html($h3_heading); ?></h3>
+            <h3 class="text-xl lg:text-2xl font-bold mb-2 lg:mb-3 <?php echo $h3_color ? '' : 'text-teal-700'; ?>" <?php if($h3_color) echo 'style="color: ' . esc_attr($h3_color) . ';"'; ?>><?php echo esc_html($h3_heading); ?></h3>
         <?php endif; ?>
 
         <?php if ($content) : ?>

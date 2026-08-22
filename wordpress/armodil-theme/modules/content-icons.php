@@ -6,7 +6,7 @@
  */
 $intro_content = get_sub_field('intro_content');
 ?>
-<section class="py-6 lg:py-8 px-6 lg:px-12 bg-primary-dark">
+<section class="py-6 lg:py-8 px-6 lg:px-12 bg-teal-700">
     <div class="max-w-7xl mx-auto">
         <?php if ($intro_content) : ?>
             <div class="text-center text-white/80 mb-6 text-base"><?php echo armo_content($intro_content); ?></div>

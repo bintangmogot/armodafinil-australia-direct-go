@@ -56,7 +56,7 @@ $end_count   = min( $start_count + 5 - 1, $total_reviews );
 ?>
 <section class="py-14 lg:py-20 px-6 lg:px-12">
     <div class="max-w-7xl mx-auto">
-        <h1 class="text-3xl lg:text-4xl font-bold text-primary mb-12 pb-4 border-b border-primary/10">
+        <h1 class="text-3xl lg:text-4xl font-bold text-teal-700 mb-12 pb-4 border-b border-teal-600/10">
             <?php echo esc_html( $heading ); ?>
         </h1>
 
@@ -68,7 +68,7 @@ $end_count   = min( $start_count + 5 - 1, $total_reviews );
                 </div>
 
                 <div class="flex flex-row lg:flex-col items-center lg:items-start gap-4">
-                    <div class="text-6xl font-bold text-primary leading-none">
+                    <div class="text-6xl font-bold text-teal-700 leading-none">
                         <?php echo number_format($average_rating, 1); ?>
                     </div>
                     <div>

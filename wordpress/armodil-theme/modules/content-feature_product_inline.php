@@ -11,7 +11,7 @@ $products = get_sub_field('feature_product');
 <section class="py-10 lg:py-14 bg-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-6 md:px-12 relative">
         <?php if ($heading): ?>
-            <h2 class="text-2xl lg:text-3xl font-bold text-center mb-10 text-primary"><?php echo esc_html($heading); ?>
+            <h2 class="text-2xl lg:text-3xl font-bold text-center mb-10 text-teal-700"><?php echo esc_html($heading); ?>
             </h2>
         <?php endif; ?>
 

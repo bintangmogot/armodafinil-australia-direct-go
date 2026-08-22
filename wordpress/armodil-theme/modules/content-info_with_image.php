@@ -48,7 +48,7 @@ $content = get_sub_field('content');
                     <?php if ($content): ?>
                         <?php echo armo_content($content); ?>
                     <?php else: ?>
-                        <h2 class="text-primary font-bold text-4xl">What Is Armodafinil?</h2>
+                        <h2 class="text-teal-700 font-bold text-4xl">What Is Armodafinil?</h2>
                         <p>Armodafinil is a popular wakefulness-support medication commonly used by adults looking to
                             improve alertness, focus, concentration, and mental performance during long working hours or
                             demanding schedules.</p>

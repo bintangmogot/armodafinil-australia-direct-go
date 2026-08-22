@@ -7,7 +7,7 @@
 $intro = get_sub_field('intro');
 ?>
 <section
-    class="py-14 lg:py-20 px-6 lg:px-12 bg-gradient-to-br from-primary-dark via-[#0f1a5e] to-[#1a2570] text-white overflow-hidden">
+    class="py-14 lg:py-20 px-6 lg:px-12 bg-gradient-to-br from-teal-700 via-[#0f1a5e] to-[#1a2570] text-white overflow-hidden">
     <div class="max-w-7xl mx-auto">
         <?php if ($intro): ?>
             <div class="module-benefit-intro mb-10 lg:mb-12 max-w-3xl">
@@ -32,7 +32,7 @@ $intro = get_sub_field('intro');
                             <?php else: ?>
                                 <!-- Default green checkmark circle -->
                                 <div class="flex-shrink-0 mt-1">
-                                    <div class="w-7 h-7 bg-green-500 rounded-full flex items-center justify-center">
+                                    <div class="w-7 h-7 bg-teal-600 rounded-full flex items-center justify-center">
                                         <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd"
                                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"

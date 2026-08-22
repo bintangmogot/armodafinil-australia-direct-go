@@ -11,7 +11,7 @@ $products = get_sub_field('feature_product');
 <section class="py-10 lg:py-14 bg-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-6 md:px-12 relative">
         <?php if ($heading): ?>
-            <h2 class="text-2xl lg:text-3xl font-bold text-center mb-10 text-primary"><?php echo esc_html($heading); ?>
+            <h2 class="text-2xl lg:text-3xl font-bold text-center mb-10 text-teal-700"><?php echo esc_html($heading); ?>
             </h2>
         <?php endif; ?>
 
@@ -37,7 +37,7 @@ $products = get_sub_field('feature_product');
                             <a href="<?php echo $permalink; ?>"
                                 class="group block w-full no-underline text-inherit flex-grow flex flex-col">
                                 <div
-                                    class="bg-white border border-primary rounded-xl relative p-4 mb-4 flex items-center justify-center min-h-[160px] md:min-h-[180px] transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_20px_40px_rgba(0,18,94,0.15)] group-hover:border-[#000a33]">
+                                    class="bg-white border border-teal-600 rounded-xl relative p-4 mb-4 flex items-center justify-center min-h-[160px] md:min-h-[180px] transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_20px_40px_rgba(0,18,94,0.15)] group-hover:border-[#000a33]">
 
                                     <?php echo $image_html; ?>
                                 </div>
@@ -70,7 +70,7 @@ $products = get_sub_field('feature_product');
                                             <?php endif; ?>
                                         </div>
                                     <?php endif; ?>
-                                    <div class="text-base md:text-lg font-extrabold text-primary mb-1">
+                                    <div class="text-base md:text-lg font-extrabold text-teal-700 mb-1">
                                         <?php echo $price_html; ?>
                                     </div>
                                     <?php 
@@ -84,7 +84,7 @@ $products = get_sub_field('feature_product');
                                     <?php endif; ?>
                                     <div class="mt-auto">
                                         <span
-                                            class="inline-flex items-center justify-center gap-1 md:gap-2 bg-teal-600 text-white py-2 px-3 md:px-6 rounded shadow-md font-bold text-sm md:text-base text-center hover:bg-red-700 transition-colors whitespace-nowrap">
+                                            class="inline-flex items-center justify-center gap-1 md:gap-2 bg-teal-600 text-white py-2 px-3 md:px-6 rounded shadow-md font-bold text-sm md:text-base text-center hover:bg-teal-700 transition-colors whitespace-nowrap">
                                             Buy Now
                                             <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">

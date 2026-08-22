@@ -52,7 +52,7 @@ $intro   = get_sub_field('intro');
                         }
                     }
                 ?>
-                    <div class="bg-surface-dark border-2 border-white rounded-2xl p-3 md:p-4 flex flex-col items-center gap-3 text-primary shadow-lg hover:shadow-white/5 hover:scale-[1.02] transition-all duration-300">
+                    <div class="bg-surface-dark border-2 border-white rounded-2xl p-3 md:p-4 flex flex-col items-center gap-3 text-teal-700 shadow-lg hover:shadow-white/5 hover:scale-[1.02] transition-all duration-300">
                         <?php if ($title) : ?>
                             <span class="text-base md:text-lg font-bold text-center leading-snug">
                                 <?php echo esc_html($title); ?>
@@ -60,7 +60,7 @@ $intro   = get_sub_field('intro');
                         <?php endif; ?>
                         
                         <?php if ($image_url) : ?>
-                            <div class="w-full aspect-[4/3] overflow-hidden rounded-xl bg-primary/5">
+                            <div class="w-full aspect-[4/3] overflow-hidden rounded-xl bg-teal-600/5">
                                 <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>" class="w-full h-full object-cover">
                             </div>
                         <?php else : ?>
@@ -76,51 +76,51 @@ $intro   = get_sub_field('intro');
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 
                 <!-- Card 1 -->
-                <div class="bg-surface-dark border-2 border-white rounded-2xl p-4 flex flex-col items-center gap-3 text-primary shadow-lg">
+                <div class="bg-surface-dark border-2 border-white rounded-2xl p-4 flex flex-col items-center gap-3 text-teal-700 shadow-lg">
                     <span class="text-base md:text-lg font-bold text-center leading-snug">FIFO workers</span>
-                    <div class="w-full aspect-[4/3] bg-primary/10 rounded-xl flex items-center justify-center text-gray-500 italic text-xs">[ Image ]</div>
+                    <div class="w-full aspect-[4/3] bg-teal-600/10 rounded-xl flex items-center justify-center text-gray-500 italic text-xs">[ Image ]</div>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="bg-surface-dark border-2 border-white rounded-2xl p-4 flex flex-col items-center gap-3 text-primary shadow-lg">
+                <div class="bg-surface-dark border-2 border-white rounded-2xl p-4 flex flex-col items-center gap-3 text-teal-700 shadow-lg">
                     <span class="text-base md:text-lg font-bold text-center leading-snug">Shift workers</span>
-                    <div class="w-full aspect-[4/3] bg-primary/10 rounded-xl flex items-center justify-center text-gray-500 italic text-xs">[ Image ]</div>
+                    <div class="w-full aspect-[4/3] bg-teal-600/10 rounded-xl flex items-center justify-center text-gray-500 italic text-xs">[ Image ]</div>
                 </div>
 
                 <!-- Card 3 -->
-                <div class="bg-surface-dark border-2 border-white rounded-2xl p-4 flex flex-col items-center gap-3 text-primary shadow-lg">
+                <div class="bg-surface-dark border-2 border-white rounded-2xl p-4 flex flex-col items-center gap-3 text-teal-700 shadow-lg">
                     <span class="text-base md:text-lg font-bold text-center leading-snug">Business owner</span>
-                    <div class="w-full aspect-[4/3] bg-primary/10 rounded-xl flex items-center justify-center text-gray-500 italic text-xs">[ Image ]</div>
+                    <div class="w-full aspect-[4/3] bg-teal-600/10 rounded-xl flex items-center justify-center text-gray-500 italic text-xs">[ Image ]</div>
                 </div>
 
                 <!-- Card 4 -->
-                <div class="bg-surface-dark border-2 border-white rounded-2xl p-4 flex flex-col items-center gap-3 text-primary shadow-lg">
+                <div class="bg-surface-dark border-2 border-white rounded-2xl p-4 flex flex-col items-center gap-3 text-teal-700 shadow-lg">
                     <span class="text-base md:text-lg font-bold text-center leading-snug">University students</span>
-                    <div class="w-full aspect-[4/3] bg-primary/10 rounded-xl flex items-center justify-center text-gray-500 italic text-xs">[ Image ]</div>
+                    <div class="w-full aspect-[4/3] bg-teal-600/10 rounded-xl flex items-center justify-center text-gray-500 italic text-xs">[ Image ]</div>
                 </div>
 
                 <!-- Card 5 -->
-                <div class="bg-surface-dark border-2 border-white rounded-2xl p-4 flex flex-col items-center gap-3 text-primary shadow-lg">
+                <div class="bg-surface-dark border-2 border-white rounded-2xl p-4 flex flex-col items-center gap-3 text-teal-700 shadow-lg">
                     <span class="text-base md:text-lg font-bold text-center leading-snug">Designers & creatives</span>
-                    <div class="w-full aspect-[4/3] bg-primary/10 rounded-xl flex items-center justify-center text-gray-500 italic text-xs">[ Image ]</div>
+                    <div class="w-full aspect-[4/3] bg-teal-600/10 rounded-xl flex items-center justify-center text-gray-500 italic text-xs">[ Image ]</div>
                 </div>
 
                 <!-- Card 6 -->
-                <div class="bg-surface-dark border-2 border-white rounded-2xl p-4 flex flex-col items-center gap-3 text-primary shadow-lg">
+                <div class="bg-surface-dark border-2 border-white rounded-2xl p-4 flex flex-col items-center gap-3 text-teal-700 shadow-lg">
                     <span class="text-base md:text-lg font-bold text-center leading-snug">Truck drivers</span>
-                    <div class="w-full aspect-[4/3] bg-primary/10 rounded-xl flex items-center justify-center text-gray-500 italic text-xs">[ Image ]</div>
+                    <div class="w-full aspect-[4/3] bg-teal-600/10 rounded-xl flex items-center justify-center text-gray-500 italic text-xs">[ Image ]</div>
                 </div>
 
                 <!-- Card 7 -->
-                <div class="bg-surface-dark border-2 border-white rounded-2xl p-4 flex flex-col items-center gap-3 text-primary shadow-lg">
+                <div class="bg-surface-dark border-2 border-white rounded-2xl p-4 flex flex-col items-center gap-3 text-teal-700 shadow-lg">
                     <span class="text-base md:text-lg font-bold text-center leading-snug">Remote workers</span>
-                    <div class="w-full aspect-[4/3] bg-primary/10 rounded-xl flex items-center justify-center text-gray-500 italic text-xs">[ Image ]</div>
+                    <div class="w-full aspect-[4/3] bg-teal-600/10 rounded-xl flex items-center justify-center text-gray-500 italic text-xs">[ Image ]</div>
                 </div>
 
                 <!-- Card 8 -->
-                <div class="bg-surface-dark border-2 border-white rounded-2xl p-4 flex flex-col items-center gap-3 text-primary shadow-lg">
+                <div class="bg-surface-dark border-2 border-white rounded-2xl p-4 flex flex-col items-center gap-3 text-teal-700 shadow-lg">
                     <span class="text-base md:text-lg font-bold text-center leading-snug">Software developers</span>
-                    <div class="w-full aspect-[4/3] bg-primary/10 rounded-xl flex items-center justify-center text-gray-500 italic text-xs">[ Image ]</div>
+                    <div class="w-full aspect-[4/3] bg-teal-600/10 rounded-xl flex items-center justify-center text-gray-500 italic text-xs">[ Image ]</div>
                 </div>
 
             </div>

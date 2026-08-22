@@ -15,10 +15,10 @@ $right       = get_sub_field('content_right');
             <!-- Left Column -->
             <div>
                 <?php if ($left_title) : ?>
-                    <h2 class="text-2xl lg:text-3xl font-bold text-primary-dark mb-5"><?php echo esc_html($left_title); ?></h2>
+                    <h2 class="text-2xl lg:text-3xl font-bold text-teal-700-dark mb-5"><?php echo esc_html($left_title); ?></h2>
                 <?php endif; ?>
                 <?php if ($left) : ?>
-                    <div class="module-tips-content text-primary-dark/80 leading-relaxed">
+                    <div class="module-tips-content text-teal-700-dark/80 leading-relaxed">
                         <?php echo armo_content($left); ?>
                     </div>
                 <?php endif; ?>
@@ -27,10 +27,10 @@ $right       = get_sub_field('content_right');
             <!-- Right Column -->
             <div>
                 <?php if ($right_title) : ?>
-                    <h2 class="text-2xl lg:text-3xl font-bold text-primary-dark mb-5"><?php echo esc_html($right_title); ?></h2>
+                    <h2 class="text-2xl lg:text-3xl font-bold text-teal-700-dark mb-5"><?php echo esc_html($right_title); ?></h2>
                 <?php endif; ?>
                 <?php if ($right) : ?>
-                    <div class="module-tips-content text-primary-dark/80 leading-relaxed">
+                    <div class="module-tips-content text-teal-700-dark/80 leading-relaxed">
                         <?php echo armo_content($right); ?>
                     </div>
                 <?php endif; ?>

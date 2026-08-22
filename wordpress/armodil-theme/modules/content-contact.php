@@ -16,9 +16,9 @@ $map = get_sub_field('map');
             class="space-y-6 bg-[#f4f6f9] p-8 lg:p-10 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-black/5 h-fit">
             <?php if ($email): ?>
                 <div>
-                    <h3 class="font-bold text-primary text-xl mb-1">Email</h3>
+                    <h3 class="font-bold text-teal-700 text-xl mb-1">Email</h3>
                     <a href="mailto:<?php echo esc_attr($email); ?>"
-                        class="text-gray-600 text-lg hover:text-primary transition-colors font-medium flex items-center gap-2">
+                        class="text-gray-600 text-lg hover:text-teal-700 transition-colors font-medium flex items-center gap-2">
                         <?php echo esc_html($email); ?>
                     </a>
                 </div>
@@ -26,9 +26,9 @@ $map = get_sub_field('map');
 
             <?php if ($phone): ?>
                 <div>
-                    <h3 class="font-bold text-primary text-xl mb-1">Phone</h3>
+                    <h3 class="font-bold text-teal-700 text-xl mb-1">Phone</h3>
                     <a href="tel:<?php echo esc_attr($phone); ?>"
-                        class="text-gray-600 text-lg hover:text-primary transition-colors font-medium flex items-center gap-2">
+                        class="text-gray-600 text-lg hover:text-teal-700 transition-colors font-medium flex items-center gap-2">
                         <?php echo esc_html($phone); ?>
                     </a>
                 </div>

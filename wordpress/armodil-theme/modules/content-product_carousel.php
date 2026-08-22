@@ -14,7 +14,7 @@ $carousel_id = 'carousel-' . uniqid();
     <!-- removed overflow-hidden to prevent clipping the 4th item -->
     <div class="max-w-[1100px] mx-auto px-6 md:px-12 relative">
         <?php if ($heading): ?>
-            <h2 class="text-2xl lg:text-3xl font-bold text-center mb-10 text-primary"><?php echo esc_html($heading); ?>
+            <h2 class="text-2xl lg:text-3xl font-bold text-center mb-10 text-teal-700"><?php echo esc_html($heading); ?>
             </h2>
         <?php endif; ?>
 
@@ -22,7 +22,7 @@ $carousel_id = 'carousel-' . uniqid();
             <div class="relative group">
                 <!-- Left Arrow -->
                 <div id="<?php echo $carousel_id; ?>-prev" role="button"
-                    class="carousel-arrow hidden md:flex absolute left-0 top-1/2 -mt-5 -ml-12 z-10 w-10 h-10 items-center justify-center text-primary hover:text-teal-700 cursor-pointer"
+                    class="carousel-arrow hidden md:flex absolute left-0 top-1/2 -mt-5 -ml-12 z-10 w-10 h-10 items-center justify-center text-teal-700 hover:text-teal-700 cursor-pointer"
                     aria-label="Previous">
                     <svg class="w-10 h-10 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path>
@@ -52,7 +52,7 @@ $carousel_id = 'carousel-' . uniqid();
                                 <a href="<?php echo $permalink; ?>"
                                     class="block w-full no-underline text-inherit flex-grow flex flex-col">
                                     <div
-                                        class="bg-white border border-primary rounded-xl relative p-4 mb-4 flex items-center justify-center min-h-[160px] md:min-h-[180px]">
+                                        class="bg-white border border-teal-600 rounded-xl relative p-4 mb-4 flex items-center justify-center min-h-[160px] md:min-h-[180px]">
 
                                         <?php echo $image_html; ?>
                                     </div>
@@ -61,7 +61,7 @@ $carousel_id = 'carousel-' . uniqid();
                                         <h3 class="text-sm md:text-lg font-bold text-[#1E1E1E] mb-1 leading-snug">
                                             <?php echo $name; ?>
                                         </h3>
-                                        <div class="text-sm md:text-lg font-extrabold text-primary mb-1">
+                                        <div class="text-sm md:text-lg font-extrabold text-teal-700 mb-1">
                                             <?php echo $price_html; ?>
                                         </div>
                                         <?php 
@@ -95,7 +95,7 @@ $carousel_id = 'carousel-' . uniqid();
 
                 <!-- Right Arrow -->
                 <div id="<?php echo $carousel_id; ?>-next" role="button"
-                    class="carousel-arrow hidden md:flex absolute right-0 top-1/2 -mt-5 -mr-12 z-10 w-10 h-10 items-center justify-center text-primary hover:text-teal-700 cursor-pointer"
+                    class="carousel-arrow hidden md:flex absolute right-0 top-1/2 -mt-5 -mr-12 z-10 w-10 h-10 items-center justify-center text-teal-700 hover:text-teal-700 cursor-pointer"
                     aria-label="Next">
                     <svg class="w-10 h-10 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path>

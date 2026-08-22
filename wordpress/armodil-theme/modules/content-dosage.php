@@ -23,7 +23,7 @@ $intro = get_sub_field('intro');
                         <div class="flex justify-between items-start mb-2">
                             <h3 class="font-semibold text-gray-900 text-lg"><?php echo esc_html($title); ?></h3>
                             <?php if ($recommend) : ?>
-                                <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">RECOMMENDED</span>
+                                <span class="bg-teal-600 text-white text-xs font-bold px-2 py-1 rounded">RECOMMENDED</span>
                             <?php endif; ?>
                         </div>
                         <?php if ($amount) : ?>

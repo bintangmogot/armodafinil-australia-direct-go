@@ -31,7 +31,7 @@ if ($image) {
                 <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($heading); ?>"
                     class="absolute inset-0 w-full h-full object-cover">
             <?php else: ?>
-                <div class="absolute inset-0 bg-primary-dark/20 flex items-center justify-center text-white italic">[ Side
+                <div class="absolute inset-0 bg-teal-700/20 flex items-center justify-center text-white italic">[ Side
                     Image ]</div>
             <?php endif; ?>
         </div>
@@ -145,7 +145,7 @@ if ($image) {
                 $btn_link = $button_link ? $button_link : '/shop/';
                 ?>
                 <a href="<?php echo esc_url($btn_link); ?>"
-                    class="inline-flex items-center gap-3 bg-[#FFC700] text-primary font-bold py-4 px-8 rounded-lg hover:bg-[#EAA800] transition-colors group shadow-md">
+                    class="inline-flex items-center gap-3 bg-[#FFC700] text-teal-700 font-bold py-4 px-8 rounded-lg hover:bg-[#EAA800] transition-colors group shadow-md">
                     <span><?php echo esc_html($btn_text); ?></span>
                     <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none"
                         stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">

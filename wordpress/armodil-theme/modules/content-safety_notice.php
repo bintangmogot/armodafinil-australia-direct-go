@@ -15,11 +15,11 @@ $safety_text = get_sub_field('content') ?: get_sub_field('safety_text');
                 <path fill="#00125E" d="M232 184v112c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24s-24 10.7-24 24zm24 232a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/>
             </svg>
             <?php if ($safety_title) : ?>
-                <h3 class="text-lg md:text-xl font-bold text-primary"><?php echo esc_html($safety_title); ?></h3>
+                <h3 class="text-lg md:text-xl font-bold text-teal-700"><?php echo esc_html($safety_title); ?></h3>
             <?php endif; ?>
         </div>
         <?php if ($safety_text) : ?>
-            <div class="text-primary text-base md:text-lg leading-relaxed max-w-4xl prose prose-primary">
+            <div class="text-teal-700 text-base md:text-lg leading-relaxed max-w-4xl prose prose-teal">
                 <?php echo armo_content($safety_text); ?>
             </div>
         <?php endif; ?>
