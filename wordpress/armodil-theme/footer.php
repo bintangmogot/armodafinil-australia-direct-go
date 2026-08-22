@@ -1,330 +1,107 @@
-<?php
-/**
- * Footer Template — Now powered by ACF Options.
- *
- * All footer content is editable from: WP Admin → Options → Footer
- * Falls back to defaults if options haven't been set yet.
- *
- * @package Armodafinil_Australia
- * @since   2.1.0
- */
+<footer class="mt-24 bg-ink-900 text-ink-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+    <div class="col-span-2 lg:col-span-2">
+      <div class="font-serif text-2xl font-semibold text-white"><?php echo esc_html(get_field('site_name', 'option') ?: 'Armodafinil Australia Direct'); ?> <span class="text-brand-300"><?php echo esc_html(get_field('site_brandline', 'option') ?: 'Direct'); ?></span></div>
+      <p class="mt-3 text-sm text-ink-100/70 max-w-sm"><?php echo esc_html(get_field('footer_description', 'option') ?: 'Steady focus, cleaner clarity, and dependable dispatch — built for Australian customers who take their day seriously.'); ?></p>
+      <div class="mt-5 flex items-center gap-3 text-brand-300">
+        <?php if (have_rows('social_links', 'option')): while(have_rows('social_links', 'option')): the_row(); ?>
+          <a href="<?php echo esc_url(get_sub_field('url')); ?>" aria-label="<?php echo esc_attr(get_sub_field('label')); ?>" class="w-9 h-9 grid place-items-center rounded-full bg-white/5 hover:bg-white/10">
+            <i data-lucide="<?php echo esc_attr(get_sub_field('icon')); ?>" class="w-4 h-4"></i>
+          </a>
+        <?php endwhile; else: ?>
+          <a href="#" aria-label="Facebook" class="w-9 h-9 grid place-items-center rounded-full bg-white/5 hover:bg-white/10"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+          <a href="#" aria-label="Instagram" class="w-9 h-9 grid place-items-center rounded-full bg-white/5 hover:bg-white/10"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+          <a href="#" aria-label="Twitter" class="w-9 h-9 grid place-items-center rounded-full bg-white/5 hover:bg-white/10"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+        <?php endif; ?>
+      </div>
+    </div>
 
-// Retrieve ACF option values with fallbacks
-$footer_description = get_field( 'footer_text', 'option' );
-if ( $footer_description === false ) {
-    $footer_description = 'Looking to buy Armodafinil online in Australia? Armodafinil Australia provides a secure and trusted platform for premium Armodafinil products with fast Australia-wide delivery. Pay easily via ING Bank transfer, enjoy discreet shipping, and get reliable service trusted by customers across Sydney, Melbourne, Brisbane, Perth, and beyond.';
-}
+    <div>
+      <div class="text-white font-semibold mb-3 text-sm uppercase tracking-widest">Shop</div>
+      <?php 
+      if (has_nav_menu('footer_shop')) {
+          wp_nav_menu(array(
+              'theme_location' => 'footer_shop',
+              'container' => false,
+              'menu_class' => 'space-y-2 text-sm text-ink-100/80',
+              'fallback_cb' => false,
+              'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>'
+          )); 
+      } else {
+      ?>
+          <ul class="space-y-2 text-sm text-ink-100/80">
+            <li><a href="/product" class="hover:text-brand-300">All products</a></li>
+            <li><a href="/categories" class="hover:text-brand-300">Categories</a></li>
+            <li><a href="/conditions" class="hover:text-brand-300">Condition guides</a></li>
+            <li><a href="/blog" class="hover:text-brand-300">Blog</a></li>
+          </ul>
+      <?php } ?>
+    </div>
+    <div>
+      <div class="text-white font-semibold mb-3 text-sm uppercase tracking-widest">Help</div>
+      <?php 
+      if (has_nav_menu('footer_help')) {
+          wp_nav_menu(array(
+              'theme_location' => 'footer_help',
+              'container' => false,
+              'menu_class' => 'space-y-2 text-sm text-ink-100/80',
+              'fallback_cb' => false,
+              'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>'
+          )); 
+      } else {
+      ?>
+          <ul class="space-y-2 text-sm text-ink-100/80">
+            <li><a href="/how-to-order" class="hover:text-brand-300">How to order</a></li>
+            <li><a href="/faq" class="hover:text-brand-300">FAQ</a></li>
+            <li><a href="/contact" class="hover:text-brand-300">Contact</a></li>
+            <li><a href="/shipping-policy" class="hover:text-brand-300">Shipping policy</a></li>
+            <li><a href="/return-policy" class="hover:text-brand-300">Returns & refunds</a></li>
+          </ul>
+      <?php } ?>
+    </div>
+    <div>
+      <div class="text-white font-semibold mb-3 text-sm uppercase tracking-widest">Company</div>
+      <?php 
+      if (has_nav_menu('footer_company')) {
+          wp_nav_menu(array(
+              'theme_location' => 'footer_company',
+              'container' => false,
+              'menu_class' => 'space-y-2 text-sm text-ink-100/80',
+              'fallback_cb' => false,
+              'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>'
+          )); 
+      } else {
+      ?>
+          <ul class="space-y-2 text-sm text-ink-100/80">
+            <li><a href="/about" class="hover:text-brand-300">About</a></li>
+            <li><a href="/privacy-policy" class="hover:text-brand-300">Privacy policy</a></li>
+            <li><a href="/terms" class="hover:text-brand-300">Terms of service</a></li>
+            <li><a href="/disclaimer" class="hover:text-brand-300">Disclaimer</a></li>
+            <li><a href="<?php echo esc_url(get_field('whatsapp_url', 'option') ?: '#'); ?>" class="hover:text-brand-300">WhatsApp support</a></li>
+          </ul>
+      <?php } ?>
+    </div>
+  </div>
 
-$footer_corporate_registry = get_field( 'footer_corporate_registry', 'option' );
-if ( $footer_corporate_registry === false ) {
-    $footer_corporate_registry = '360 Collins St, Melbourne VIC 3000';
-}
-
-$footer_logistics_hubs = get_field( 'footer_logistics_hubs', 'option' );
-if ( $footer_logistics_hubs === false ) {
-    $footer_logistics_hubs = 'Sydney, Melbourne, Brisbane, Adelaide, Perth, Darwin & Gold Coast - International Dispatch (Drop-shipped directly to consumer under TGA Personal Importation rules)';
-}
-
-$footer_direct_helpline = get_field( 'footer_direct_helpline', 'option' );
-if ( $footer_direct_helpline === false ) {
-    $footer_direct_helpline = '0455 241 294';
-}
-
-$footer_email = get_field( 'footer_email', 'option' );
-if ( $footer_email === false ) {
-    $footer_email = 'orders@armodafinil-australia.com';
-}
-
-$footer_track_order_url = get_field( 'footer_track_order_url', 'option' );
-if ( $footer_track_order_url === false ) {
-    $footer_track_order_url = home_url('/track-order/');
-}
-
-$footer_facebook = get_field( 'footer_facebook', 'option' );
-if ( $footer_facebook === false ) {
-    $footer_facebook = 'https://www.facebook.com/profile.php?id=61591182224726';
-}
-
-$footer_linkedin = get_field( 'footer_linkedin', 'option' );
-if ( $footer_linkedin === false ) {
-    $footer_linkedin = 'https://www.linkedin.com/company/armodafinil-australia/about/?viewAsMember=true';
-}
-
-$footer_copyright = get_field( 'footer_copyright', 'option' );
-if ( $footer_copyright === false ) {
-    $footer_copyright = '© {year} {site_name}. All rights reserved.';
-}
-// Replace placeholders
-$footer_copyright = str_replace(
-    array( '{year}', '{site_name}' ),
-    array( date('Y'), get_bloginfo('name') ),
-    $footer_copyright
-);
-
-$payment_images  = get_field( 'footer_payment_images', 'option' );
-$shipping_images = get_field( 'footer_shipping_images', 'option' );
-?>
-
-    </main>
-
-    <footer id="site-footer" class="bg-surface text-primary-dark mt-auto">
-
-        <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-12 lg:pt-16 pb-6">
-
-            <!-- Top Row: Logo/Description + 3 Link Columns -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 pb-10 border-b border-primary-dark/10" data-aos="fade-up">
-
-                <!-- Brand -->
-                <div class="order-1 lg:col-span-2 lg:pr-8">
-                    <?php if ( has_custom_logo() ) : ?>
-                        <div class="[&_img]:h-16 lg:[&_img]:h-19 [&_img]:w-auto mb-4 lg:mb-5">
-                            <?php the_custom_logo(); ?>
-                        </div>
-                    <?php else : ?>
-                        <a href="<?php echo esc_url( home_url('/') ); ?>" class="text-xl font-bold text-primary-dark no-underline">
-                            <?php bloginfo('name'); ?>
-                        </a>
-                    <?php endif; ?>
-                    <div class="text-base text-primary-dark/70 leading-relaxed mb-6 space-y-3">
-                        <?php echo wp_kses_post( wpautop( $footer_description ) ); ?>
-                    </div>
-                    <div class="text-base text-primary-dark/80 leading-relaxed space-y-3">
-                        <?php if ( $footer_corporate_registry ) : ?>
-                            <p><strong>Address:</strong> <?php echo esc_html( $footer_corporate_registry ); ?></p>
-                        <?php endif; ?>
-                        <?php if ( $footer_logistics_hubs ) : ?>
-                            <p><strong>Logistics Hubs:</strong> <?php echo esc_html( $footer_logistics_hubs ); ?></p>
-                        <?php endif; ?>
-                    </div>
-
-                    <!-- Customer Support -->
-                    <div class="mt-8">
-                        <h3 class="text-lg font-bold text-primary-dark mb-2">Customer Support & Order Resolutions</h3>
-                        <ul class="space-y-3 text-sm text-primary-dark/80">
-                            <?php if ( $footer_direct_helpline ) : ?>
-                                <li class="flex items-start gap-2">
-                                    <svg class="w-4 h-4 mt-0.5 flex-shrink-0 text-primary-dark" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
-                                    <span><strong>Direct Helpline:</strong> <?php echo esc_html( $footer_direct_helpline ); ?></span>
-                                </li>
-                            <?php endif; ?>
-                            <?php if ( $footer_email ) : ?>
-                                <li class="flex items-start gap-2">
-                                    <svg class="w-4 h-4 mt-0.5 flex-shrink-0 text-primary-dark" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
-                                    <span><strong>Email Notifications:</strong> <a href="mailto:<?php echo esc_attr( $footer_email ); ?>" class="hover:underline"><?php echo esc_html( $footer_email ); ?></a></span>
-                                </li>
-                            <?php endif; ?>
-                            <?php if ( $footer_track_order_url ) : ?>
-                                <li class="flex items-start gap-2">
-                                    <svg class="w-4 h-4 mt-0.5 flex-shrink-0 text-primary-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
-                                    <span><strong>Live Order Monitoring:</strong> <a href="<?php echo esc_url( $footer_track_order_url ); ?>" class="hover:underline font-medium">Track My Order</a></span>
-                                </li>
-                            <?php endif; ?>
-                        </ul>
-                    </div>
-
-                    <!-- Social Icons (Moved below Get in Touch) -->
-                    <div class="flex items-center gap-4 mt-8">
-                        <?php if ( $footer_facebook ) : ?>
-                            <a href="<?php echo esc_url( $footer_facebook ); ?>" target="_blank" rel="noopener noreferrer" class="text-primary-dark/70 hover:text-primary-dark transition-colors" aria-label="Facebook">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"/></svg>
-                            </a>
-                        <?php endif; ?>
-                        <?php if ( $footer_linkedin ) : ?>
-                            <a href="<?php echo esc_url( $footer_linkedin ); ?>" target="_blank" rel="noopener noreferrer" class="text-primary-dark/70 hover:text-primary-dark transition-colors" aria-label="LinkedIn">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"/></svg>
-                            </a>
-                        <?php endif; ?>
-                    </div>
-                </div>
-
-                <!-- Category -->
-                <div class="order-2 lg:order-2">
-                    <h3 class="text-lg font-bold text-primary-dark mb-4"><?php echo esc_html( get_field('footer_menu_1_heading', 'option') ?: 'Category' ); ?></h3>
-                    <div class="footer-menu-wrapper">
-                        <?php 
-                        $menu_1_acf = get_field('footer_menu', 'option');
-                        if ( $menu_1_acf ) {
-                            echo $menu_1_acf;
-                        } else {
-                            wp_nav_menu( array(
-                                'theme_location' => 'footer',
-                                'menu_class'     => 'footer-links',
-                                'container'      => false,
-                                'fallback_cb'    => false,
-                            ) );
-                        }
-                        ?>
-                    </div>
-                </div>
-
-                <!-- Quick Links -->
-                <div class="order-3 lg:order-3">
-                    <h3 class="text-lg font-bold text-primary-dark mb-4"><?php echo esc_html( get_field('footer_menu_2_heading', 'option') ?: 'Quick Links' ); ?></h3>
-                    <div class="footer-menu-wrapper">
-                        <?php 
-                        $menu_2_acf = get_field('footer_menu_2', 'option');
-                        if ( $menu_2_acf ) {
-                            echo $menu_2_acf;
-                        } else {
-                            wp_nav_menu( array(
-                                'theme_location' => 'footer-quick',
-                                'menu_class'     => 'footer-links',
-                                'container'      => false,
-                                'fallback_cb'    => false,
-                            ) );
-                        }
-                        ?>
-                        <ul class="footer-links mt-1">
-                            <li><a href="<?php echo esc_url( home_url( '/sitemap_index.xml' ) ); ?>">Site Map</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Important Links -->
-                <div class="order-4 lg:order-4">
-                    <h3 class="text-lg font-bold text-primary-dark mb-4"><?php echo esc_html( get_field('footer_menu_3_heading', 'option') ?: 'Important Links' ); ?></h3>
-                    <div class="footer-menu-wrapper">
-                        <?php 
-                        $menu_3_acf = get_field('footer_menu_3', 'option');
-                        if ( $menu_3_acf ) {
-                            echo $menu_3_acf;
-                        } else {
-                            wp_nav_menu( array(
-                                'theme_location' => 'footer-important',
-                                'menu_class'     => 'footer-links',
-                                'container'      => false,
-                                'fallback_cb'    => false,
-                            ) );
-                        }
-                        ?>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Middle Row: Contact + Payments + Shipping (desktop only — mobile version is inline above) -->
-            <div class="hidden lg:grid lg:grid-cols-2 gap-8 py-8 border-b border-primary-dark/10" data-aos="fade-up" data-aos-delay="100">
-
-                <!-- Payments Accepted -->
-                <div>
-                    <h3 class="text-sm font-semibold text-primary-dark/60 mb-3">Payments Accepted</h3>
-                    <div class="flex items-center gap-2 sm:gap-4">
-                        <?php if ( $payment_images ) : ?>
-                            <?php foreach ( $payment_images as $payment ) : ?>
-                                <div class="bg-white rounded-lg px-3 py-2 shadow-sm border border-gray-200 flex items-center justify-center">
-                                    <img src="<?php echo esc_url( $payment['image']['url'] ); ?>" alt="<?php echo esc_attr( $payment['alt_text'] ?: $payment['image']['alt'] ); ?>" class="footer-pay-logo w-auto object-contain">
-                                </div>
-                            <?php endforeach; ?>
-                        <?php else : ?>
-                            <!-- Fallback: original hardcoded images -->
-                            <div class="bg-white rounded-lg px-3 py-2 shadow-sm border border-gray-200 flex items-center justify-center">
-                                <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/images/ING_idfZagXgvQ_0.svg'); ?>" alt="ING Bank" class="footer-pay-logo w-auto object-contain">
-                            </div>
-                            <div class="bg-white rounded-lg px-3 py-2 shadow-sm border border-gray-200 flex items-center justify-center">
-                                <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/images/osko-1.jpg'); ?>" alt="Osko" class="footer-pay-logo w-auto object-contain">
-                            </div>
-                            <div class="bg-white rounded-lg px-3 py-2 shadow-sm border border-gray-200 flex items-center justify-center">
-                                <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/images/pay-idi.png'); ?>" alt="PayID" class="footer-pay-logo w-auto object-contain">
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-
-                <!-- Shipping Partner -->
-                <div>
-                    <h3 class="text-sm font-semibold text-primary-dark/60 mb-3">Shipping Partner</h3>
-                    <div class="flex items-center gap-3">
-                        <?php if ( $shipping_images ) : ?>
-                            <?php foreach ( $shipping_images as $shipping ) : ?>
-                                <div class="bg-white rounded-lg px-3 py-2 shadow-sm border border-gray-200 flex items-center justify-center">
-                                    <img src="<?php echo esc_url( $shipping['image']['url'] ); ?>" alt="<?php echo esc_attr( $shipping['alt_text'] ?: $shipping['image']['alt'] ); ?>" class="footer-ship-logo w-auto object-contain">
-                                </div>
-                            <?php endforeach; ?>
-                        <?php else : ?>
-                            <!-- Fallback: original hardcoded image -->
-                            <div class="bg-white rounded-lg px-3 py-2 shadow-sm border border-gray-200 flex items-center justify-center">
-                                <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/images/Australia_Post_Logo 1.png'); ?>" alt="Australia Post" class="footer-ship-logo w-auto object-contain">
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Mobile-only: Payments & Shipping -->
-            <div class="lg:hidden py-8 space-y-6 border-b border-primary-dark/10" data-aos="fade-up" data-aos-delay="100">
-                <div>
-                    <h3 class="text-sm font-semibold text-primary-dark/60 mb-3">Payments Accepted</h3>
-                    <div class="flex items-center gap-4">
-                        <?php if ( $payment_images ) : ?>
-                            <?php foreach ( $payment_images as $payment ) : ?>
-                                <div class="bg-white rounded-lg px-3 py-2 shadow-sm border border-gray-200 flex items-center justify-center">
-                                    <img src="<?php echo esc_url( $payment['image']['url'] ); ?>" alt="<?php echo esc_attr( $payment['alt_text'] ?: $payment['image']['alt'] ); ?>" class="footer-pay-logo w-auto object-contain">
-                                </div>
-                            <?php endforeach; ?>
-                        <?php else : ?>
-                            <div class="bg-white rounded-lg px-3 py-2 shadow-sm border border-gray-200 flex items-center justify-center">
-                                <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/images/ING_idfZagXgvQ_0.svg'); ?>" alt="ING Bank" class="footer-pay-logo w-auto object-contain">
-                            </div>
-                            <div class="bg-white rounded-lg px-3 py-2 shadow-sm border border-gray-200 flex items-center justify-center">
-                                <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/images/osko-1.jpg'); ?>" alt="Osko" class="footer-pay-logo w-auto object-contain">
-                            </div>
-                            <div class="bg-white rounded-lg px-3 py-2 shadow-sm border border-gray-200 flex items-center justify-center">
-                                <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/images/pay-idi.png'); ?>" alt="PayID" class="footer-pay-logo w-auto object-contain">
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="text-sm font-semibold text-primary-dark/60 mb-3">Shipping Partner</h3>
-                    <div class="flex items-center gap-3">
-                        <?php if ( $shipping_images ) : ?>
-                            <?php foreach ( $shipping_images as $shipping ) : ?>
-                                <div class="bg-white rounded-lg px-3 py-2 shadow-sm border border-gray-200 flex items-center justify-center">
-                                    <img src="<?php echo esc_url( $shipping['image']['url'] ); ?>" alt="<?php echo esc_attr( $shipping['alt_text'] ?: $shipping['image']['alt'] ); ?>" class="footer-ship-logo w-auto object-contain">
-                                </div>
-                            <?php endforeach; ?>
-                        <?php else : ?>
-                            <div class="bg-white rounded-lg px-3 py-2 shadow-sm border border-gray-200 flex items-center justify-center">
-                                <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/images/Australia_Post_Logo 1.png'); ?>" alt="Australia Post" class="footer-ship-logo w-auto object-contain">
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bottom Bar -->
-            <div class="pt-6">
-                <p class="text-sm text-primary-dark/50">
-                    <?php echo esc_html( $footer_copyright ); ?>
-                </p>
-            </div>
-
-        </div>
-
-    </footer>
-    <style>
-        .footer-pay-logo {
-            height: 1.25rem !important; /* Mobile: 20px */
-            width: auto !important;
-        }
-        @media (min-width: 768px) {
-            .footer-pay-logo {
-                height: 1.5rem !important; /* Desktop: 24px */
-            }
-        }
-        .footer-ship-logo {
-            height: 1.25rem !important; /* Mobile: 20px */
-            width: auto !important;
-        }
-        @media (min-width: 768px) {
-            .footer-ship-logo {
-                height: 1.5rem !important; /* Desktop: 24px */
-            }
-        }
-    </style>
-</div>
-
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row gap-3 items-start md:items-center justify-between text-xs text-ink-100/60">
+      <div class="flex flex-wrap items-center gap-4">
+        <span class="inline-flex items-center gap-1.5"><i data-lucide="shield" class="w-3.5 h-3.5 text-brand-300"></i> SSL secured</span>
+        <span class="inline-flex items-center gap-1.5"><i data-lucide="truck" class="w-3.5 h-3.5 text-brand-300"></i> AU-wide dispatch</span>
+        <span class="inline-flex items-center gap-1.5"><i data-lucide="credit-card" class="w-3.5 h-3.5 text-brand-300"></i> Encrypted checkout</span>
+        <span class="inline-flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-300"></i> Sydney, AU</span>
+        <span class="inline-flex items-center gap-1.5"><i data-lucide="mail" class="w-3.5 h-3.5 text-brand-300"></i> <?php echo esc_html(get_field('support_email', 'option') ?: 'support@armodafinilaustralia.com'); ?></span>
+        <span class="inline-flex items-center gap-1.5"><i data-lucide="phone" class="w-3.5 h-3.5 text-brand-300"></i> <?php echo esc_html(get_field('support_phone', 'option') ?: '+61 4 8999 5839'); ?></span>
+      </div>
+      <div>&copy; <?php echo date('Y'); ?> <?php echo esc_html(get_field('site_name', 'option') ?: 'Armodafinil Australia Direct'); ?>. Information only &mdash; not medical advice.</div>
+    </div>
+  </div>
+</footer>
 <?php wp_footer(); ?>
+<script>
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+</script>
 </body>
 </html>

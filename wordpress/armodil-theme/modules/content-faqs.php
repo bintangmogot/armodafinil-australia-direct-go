@@ -1,46 +1,48 @@
 <?php
-/**
- * Layout: FAQs
- * Fields: faq_title (text), faqs (repeater: question (text), answer (wysiwyg))
- * Design: White background, centered heading, dark blue accordion cards with plus/minus icons
- */
-$faq_title = get_sub_field('faq_title');
-$faq_id = 'faq-' . uniqid();
+$headline = get_sub_field('headline') ?: 'FAQ';
+$description = get_sub_field('description') ?: 'Common questions from Australian customers.';
 ?>
-<section class="py-14 lg:py-16 px-6 lg:px-12 bg-white">
-    <div class="max-w-4xl mx-auto">
-        <?php if ($faq_title) : ?>
-            <h2 class="text-2xl lg:text-3xl font-bold text-center text-teal-700 mb-10"><?php echo esc_html($faq_title); ?></h2>
-        <?php endif; ?>
-
-        <?php if (have_rows('faqs')) : ?>
-            <div class="space-y-4" id="<?php echo esc_attr($faq_id); ?>">
-                <?php $i = 0; while (have_rows('faqs')) : the_row(); 
-                    $question = get_sub_field('question');
-                    $answer   = get_sub_field('answer');
-                ?>
-                    <details class="bg-gradient-review rounded-xl shadow-sm group overflow-hidden" open>
-                        <summary class="font-semibold md:text-lg text-white cursor-pointer list-none flex justify-between items-center px-6 md:px-8 py-5 hover:bg-[#1a51a3] transition-colors">
-                            <span class="pr-4"><?php echo esc_html($question); ?></span>
-                            
-                            <!-- Plus icon (shown when closed) -->
-                            <svg class="w-6 h-6 text-white block group-open:hidden flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            
-                            <!-- Minus icon (shown when open) -->
-                            <svg class="w-6 h-6 text-white hidden group-open:block flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </summary>
-                        <div class="px-6 md:px-8 pb-6 text-white/90 leading-relaxed text-base md:text-lg module-faqs-content">
-                            <?php echo armo_content($answer); ?>
-                        </div>
-                    </details>
-                <?php $i++; endwhile; ?>
-            </div>
-        <?php else : ?>
-            <p class="text-gray-400 text-center italic">[ FAQs module — add FAQ items in ACF ]</p>
-        <?php endif; ?>
+<section class="py-16 md:py-20">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl md:text-4xl font-serif font-semibold text-ink-900 text-center"><?php echo esc_html($headline); ?></h2>
+    <p class="mt-2 text-center text-ink-500"><?php echo esc_html($description); ?></p>
+    <div class="mt-10 space-y-3 faq-accordion">
+      <?php if (have_rows('faqs')): while (have_rows('faqs')): the_row(); 
+          $q = get_sub_field('question');
+          $a = get_sub_field('answer');
+      ?>
+      <div class="faq-item border border-ink-200 rounded-xl bg-white overflow-hidden">
+        <button type="button" class="faq-button w-full flex items-center justify-between gap-4 px-5 py-4 text-left" aria-expanded="false">
+          <span class="font-medium text-ink-900"><?php echo esc_html($q); ?></span>
+          <i data-lucide="chevron-down" class="faq-icon w-4 h-4 text-ink-500 transition-transform"></i>
+        </button>
+        <div class="faq-content px-5 pb-5 text-sm text-ink-700 leading-relaxed hidden">
+          <?php echo wp_kses_post($a); ?>
+        </div>
+      </div>
+      <?php endwhile; endif; ?>
     </div>
+  </div>
 </section>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var buttons = document.querySelectorAll('.faq-button');
+    buttons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var expanded = this.getAttribute('aria-expanded') === 'true' || false;
+            buttons.forEach(function(b) {
+                b.setAttribute('aria-expanded', 'false');
+                b.nextElementSibling.classList.add('hidden');
+                var icon = b.querySelector('.faq-icon');
+                if(icon) { icon.classList.remove('rotate-180', 'text-brand-600'); }
+            });
+            if (!expanded) {
+                this.setAttribute('aria-expanded', 'true');
+                this.nextElementSibling.classList.remove('hidden');
+                var icon = this.querySelector('.faq-icon');
+                if(icon) { icon.classList.add('rotate-180', 'text-brand-600'); }
+            }
+        });
+    });
+});
+</script>
