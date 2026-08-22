@@ -1,92 +1,89 @@
 <?php
-/**
- * Module: Hero Section
- */
+$image       = get_sub_field('image');
+$title       = get_sub_field('title');
+$subtitle    = get_sub_field('subtitle');
+$tagline     = get_sub_field('tagline');
+$button_text = get_sub_field('button_text');
+$button_link = get_sub_field('button_link');
 
-$bg_image     = get_sub_field('background_image');
-$bg_url       = $bg_image ? $bg_image['url'] : MODMY_THEME_URI . '/assets/images/hero-banner.png';
-
-$location_en  = get_sub_field('location_text_en') ?: "Fast Delivery &bull; Penghantaran Pantas";
-$location_ms  = get_sub_field('location_text_ms') ?: "Penghantaran Pantas &bull; Fast Delivery";
-
-$heading_en   = get_sub_field('heading_en') ?: "Modafinil Malaysia";
-$heading_ms   = get_sub_field('heading_ms') ?: "Modafinil Malaysia";
-
-$subtitle_en  = get_sub_field('subtitle_en') ?: "Sharper Focus. Higher Performance.";
-$subtitle_ms  = get_sub_field('subtitle_ms') ?: "Fokus Lebih Tajam. Prestasi Lebih Tinggi.";
-
-$desc_en      = get_sub_field('description_en') ?: "Genuine Modafinil for university students, corporate professionals, and shift workers across Malaysia. Delivered discreetly to every postcode via Pos Malaysia.";
-$desc_ms      = get_sub_field('description_ms') ?: "Modafinil tulen untuk pelajar universiti, profesional korporat, dan pekerja syif di seluruh Malaysia. Dihantar secara berhemah ke setiap poskod melalui Pos Malaysia.";
-
-$primary_btn_en = get_sub_field('primary_button_text_en') ?: "Shop Now";
-$primary_btn_ms = get_sub_field('primary_button_text_ms') ?: "Beli Sekarang";
-$primary_link   = get_sub_field('primary_button_link') ?: wc_get_page_permalink('shop');
-
-$secondary_btn_en = get_sub_field('secondary_button_text_en') ?: "Learn More";
-$secondary_btn_ms = get_sub_field('secondary_button_text_ms') ?: "Ketahui Lebih Lanjut";
-$secondary_link   = get_sub_field('secondary_button_link') ?: home_url('/faq');
+// Make the first word of the title yellow
+$title_html = '';
+if ( $title ) {
+    $words = explode( ' ', $title );
+    if ( !empty( $words ) ) {
+        $words[0] = '<span class="text-accent">' . esc_html($words[0]) . '</span>';
+        $title_html = implode( ' ', $words );
+    } else {
+        $title_html = esc_html($title);
+    }
+}
 ?>
+<section class="hero relative overflow-hidden md:min-h-[600px] lg:h-[80vh] max-h-[964px]">
+    <?php if ($image) : ?>
+        <!-- Desktop Image -->
+        <img src="<?php echo esc_url($image); ?>" alt="" class="hidden md:block absolute inset-0 w-full h-full object-cover object-bottom">
+        <!-- Mobile Image -->
+        <img src="<?php echo esc_url(get_stylesheet_directory_uri()); ?>/assets/images/mobile-hero-image.png" alt="" class="block md:hidden absolute inset-0 w-full h-full object-cover object-right">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary-dark/90 via-primary-dark/20 to-transparent lg:hidden"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-primary-dark/20 to-transparent lg:hidden"></div>
+    <?php endif; ?>
 
-<section data-testid="hero-section">
-    <div class="min-h-[520px] w-full overflow-hidden">
-        <div class="relative flex items-center px-6 md:px-12 lg:px-16 py-16 lg:py-20 overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('<?= esc_url($bg_url) ?>')"></div>
-            <div class="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/85 to-primary-dark/90"></div>
-            
-            <div class="relative z-10 max-w-lg">
-                <span class="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur text-white text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    <?= modmy_t($location_en, $location_ms) ?>
-                </span>
-                
-                <h1 class="font-heading text-4xl md:text-5xl lg:text-[3.5rem] font-black text-white leading-[1.08] mb-2">
-                    <?= modmy_t($heading_en, $heading_ms) ?>
-                </h1>
-                
-                <p class="font-heading text-2xl md:text-3xl font-bold text-white/90 mb-5">
-                    <?= modmy_t($subtitle_en, $subtitle_ms) ?>
-                </p>
-                
-                <p class="text-lg text-white/90 font-medium mb-8 leading-relaxed">
-                    <?= modmy_t($desc_en, $desc_ms) ?>
-                </p>
-                
-                <div class="flex flex-wrap gap-3 mb-8">
-                    <a href="<?= esc_url($primary_link) ?>" class="inline-flex items-center gap-2 bg-white text-primary-dark font-bold px-7 py-3.5 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all text-sm uppercase tracking-wide">
-                        <?= modmy_t($primary_btn_en, $primary_btn_ms) ?>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                    </a>
-                    <a href="<?= esc_url($secondary_link) ?>" class="inline-flex items-center gap-2 border-2 border-white/40 text-white font-bold px-7 py-3.5 rounded-full hover:bg-white/10 transition-all text-sm uppercase tracking-wide">
-                        <?= modmy_t($secondary_btn_en, $secondary_btn_ms) ?>
-                    </a>
-                </div>
-                
-                <?php if(have_rows('stats')): ?>
-                <div class="flex flex-wrap gap-4">
-                    <?php while(have_rows('stats')): the_row(); ?>
-                    <div class="bg-white/15 backdrop-blur rounded-lg px-4 py-2.5 text-center">
-                        <p class="text-xl font-black text-white"><?= get_sub_field('value') ?></p>
-                        <p class="text-[11px] text-white/80 font-medium uppercase tracking-wider"><?= modmy_t(get_sub_field('label_en'), get_sub_field('label_ms')) ?></p>
-                    </div>
-                    <?php endwhile; ?>
-                </div>
-                <?php else: // Default fallback stats ?>
-                <div class="flex flex-wrap gap-4">
-                    <div class="bg-white/15 backdrop-blur rounded-lg px-4 py-2.5 text-center">
-                        <p class="text-xl font-black text-white">2,000+</p>
-                        <p class="text-[11px] text-white/80 font-medium uppercase tracking-wider"><?= modmy_t("MY Customers", "Pelanggan MY") ?></p>
-                    </div>
-                    <div class="bg-white/15 backdrop-blur rounded-lg px-4 py-2.5 text-center">
-                        <p class="text-xl font-black text-white">7-14</p>
-                        <p class="text-[11px] text-white/80 font-medium uppercase tracking-wider"><?= modmy_t("Days Delivery", "Hari Penghantaran") ?></p>
-                    </div>
-                    <div class="bg-white/15 backdrop-blur rounded-lg px-4 py-2.5 text-center">
-                        <p class="text-xl font-black text-white">RM0</p>
-                        <p class="text-[11px] text-white/80 font-medium uppercase tracking-wider"><?= modmy_t("Over RM399", "Atas RM399") ?></p>
-                    </div>
-                </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 h-full flex items-start lg:items-center min-h-[inherit]">
+        <div class="w-full pt-28 pb-6 md:pt-32 md:pb-16 lg:pt-36 lg:pb-20 text-white">
+            <div class="w-[70%] sm:w-[80%] md:w-full lg:w-[75%] xl:w-[70%]">
+                <?php if ($title_html) : ?>
+                    <h1 class="max-w-5xl text-4xl md:text-5xl font-extrabold text-white leading-[1.2] mb-3 lg:mb-4" data-aos="fade-up">
+                        <?php echo $title_html; ?>
+                    </h1>
+                <?php endif; ?>
+
+                <?php if ($subtitle) : ?>
+                    <p class="md:w-[80%] lg:w-full text-lg md:text-2xl lg:text-3xl font-semibold text-white/90 leading-snug mb-2 lg:mb-3" data-aos="fade-up" data-aos-delay="100">
+                        <?php echo esc_html($subtitle); ?>
+                    </p>
+                <?php endif; ?>
+
+                <?php if ($tagline) : ?>
+                    <p class="text-base lg:text-xl text-accent italic mb-6 lg:mb-8" data-aos="fade-up" data-aos-delay="200">
+                        <?php echo esc_html($tagline); ?>
+                    </p>
+                <?php endif; ?>
+
+                <?php if ( have_rows('features') ) : ?>
+                    <ul class="space-y-3 mb-6 lg:mb-8" data-aos="fade-up" data-aos-delay="300">
+                        <?php while ( have_rows('features') ) : the_row(); ?>
+                            <?php $feature_text = get_sub_field('feature_text'); ?>
+                            <?php if ( $feature_text ) : ?>
+                                <li class="flex items-center gap-3 text-base lg:text-xl text-white/90">
+                                    <img src="<?php echo esc_url(get_stylesheet_directory_uri()); ?>/assets/images/check.png" alt="Check" class="w-6 h-6 flex-shrink-0 object-contain">
+                                    <span><?php echo esc_html($feature_text); ?></span>
+                                </li>
+                            <?php endif; ?>
+                        <?php endwhile; ?>
+                    </ul>
                 <?php endif; ?>
             </div>
+
+            <?php if ($button_text && $button_link) : ?>
+                <!-- Mobile Button Wrapper -->
+                <div class="mt-5 block md:hidden" data-aos="fade-up" data-aos-delay="400">
+                    <a href="<?php echo esc_url($button_link); ?>" class="group inline-flex justify-center items-center gap-2 bg-teal-600 hover:bg-[#dc0000] text-white font-bold text-base px-4 py-3 rounded-full no-underline transition-all hover:shadow-lg hover:shadow-black/30">
+                        <span class="whitespace-nowrap"><?php echo esc_html($button_text); ?></span>
+                        <svg class="w-5 h-5 flex-shrink-0 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 28 28">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+                <!-- Desktop Button Wrapper -->
+                <div class="mt-6 hidden md:block" data-aos="fade-up" data-aos-delay="400">
+                    <a href="<?php echo esc_url($button_link); ?>" class="group inline-flex items-center gap-2 bg-teal-600 hover:bg-[#dc0000] text-white font-bold text-base lg:text-lg px-4 lg:px-8 py-2.5 lg:py-3.5 rounded-full no-underline transition-all hover:shadow-lg hover:shadow-black/30">
+                        <span class="whitespace-nowrap"><?php echo esc_html($button_text); ?></span>
+                        <svg class="w-5 h-5 flex-shrink-0 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 28 28">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>

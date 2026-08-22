@@ -3,7 +3,7 @@
  * Theme Setup & Registration
  */
 
-function modmy_theme_setup() {
+function armo_theme_setup() {
     // Add default posts and comments RSS feed links to head.
     add_theme_support('automatic-feed-links');
 
@@ -12,17 +12,19 @@ function modmy_theme_setup() {
 
     // Enable support for Post Thumbnails on posts and pages.
     add_theme_support('post-thumbnails');
+    add_image_size('armo-hero', 1920, 800, true);
+    add_image_size('armo-card', 600, 400, true);
+    add_image_size('armo-product', 800, 800, true);
 
     // WooCommerce support
     add_theme_support('woocommerce');
 
     // Register Navigation Menus
-    register_nav_menus(array(
-        'primary'       => __('Primary Menu', 'modafinil-malaysia'),
-        'mobile_cities' => __('Mobile Cities Grid', 'modafinil-malaysia'),
-        'footer_quick'  => __('Footer Quick Links', 'modafinil-malaysia'),
-        'footer_info'   => __('Footer Information', 'modafinil-malaysia'),
-        'footer_cities' => __('Footer Delivery Cities', 'modafinil-malaysia'),
+        register_nav_menus(array(
+        'primary' => __('Primary Menu (Header)', 'armodafinil'),
+        'footer'  => __('Footer Menu (Main)', 'armodafinil'),
+        'footer-quick' => __('Footer Quick Links', 'armodafinil'),
+        'footer-important' => __('Footer Important', 'armodafinil'),
     ));
 
     // HTML5 markup support
@@ -36,12 +38,12 @@ function modmy_theme_setup() {
         'script',
     ));
 }
-add_action('after_setup_theme', 'modmy_theme_setup');
+add_action('after_setup_theme', 'armo_theme_setup');
 
 /**
  * Register Custom Post Types
  */
-function modmy_register_cpt() {
+function armo_register_cpt() {
     // Reviews CPT
     register_post_type('review', array(
         'labels' => array(
@@ -54,7 +56,7 @@ function modmy_register_cpt() {
         'supports' => array('title'), // ACF will handle the rest
     ));
 }
-add_action('init', 'modmy_register_cpt');
+add_action('init', 'armo_register_cpt');
 
 /**
  * Add Tailwind CSS classes to Navigation Menus
@@ -67,7 +69,6 @@ add_filter('nav_menu_css_class', function($classes, $item, $args) {
         } elseif ($args->theme_location === 'mobile_cities') {
             $classes[] = 'list-none';
         }
-    }
     return $classes;
 }, 10, 3);
 
@@ -91,6 +92,80 @@ add_filter('nav_menu_link_attributes', function($atts, $item, $args) {
         $atts['class'] = (isset($atts['class']) ? $atts['class'] . ' ' : '') . 'text-sm text-[#62847A] hover:text-primary transition-colors block py-1.5 font-medium';
     } elseif (isset($args->theme_location) && strpos($args->theme_location, 'footer_') !== false) {
         $atts['class'] = (isset($atts['class']) ? $atts['class'] . ' ' : '') . 'hover:text-primary transition-colors text-muted-foreground';
-    }
     return $atts;
 }, 10, 3);
+
+
+/**
+ * Handle Review Form Submission via AJAX.
+ *
+ * =====================================================================
+ * 🔰 PHP GUIDE:
+ * =====================================================================
+ * When a visitor submits the review form on the frontend, the form data
+ * is sent here via AJAX. This function:
+ * 1. Verifies the security nonce
+ * 2. Sanitizes all input data
+ * 3. Creates a new 'reviews' CPT post with status 'pending'
+ * 4. Saves the rating and name as ACF fields
+ *
+ * The review will NOT appear on the site until the admin goes to
+ * Reviews → All Reviews and changes the status from "Pending" to "Published".
+ * =====================================================================
+ */
+function armo_handle_review_submission() {
+    // Verify security nonce
+    if ( ! isset( $_POST['armo_review_nonce'] ) || ! wp_verify_nonce( $_POST['armo_review_nonce'], 'armo_submit_review' ) ) {
+        wp_send_json_error( array( 'message' => 'Security check failed. Please refresh the page and try again.' ) );
+    }
+
+    // Sanitize inputs
+    $title      = isset( $_POST['review_title'] )      ? sanitize_text_field( $_POST['review_title'] )      : '';
+    $content    = isset( $_POST['review_content'] )    ? sanitize_textarea_field( $_POST['review_content'] ) : '';
+    $name       = isset( $_POST['review_name'] )       ? sanitize_text_field( $_POST['review_name'] )       : '';
+    $email      = isset( $_POST['review_email'] )      ? sanitize_email( $_POST['review_email'] )           : '';
+    $rating     = isset( $_POST['review_rating'] )     ? intval( $_POST['review_rating'] )                  : 5;
+    $product_id = isset( $_POST['review_product_id'] ) ? intval( $_POST['review_product_id'] )              : 0;
+
+    // Validate required fields
+    if ( empty( $title ) || empty( $content ) || empty( $name ) || empty( $email ) ) {
+        wp_send_json_error( array( 'message' => 'Please fill in all required fields.' ) );
+    }
+
+    // Validate email
+    if ( ! is_email( $email ) ) {
+        wp_send_json_error( array( 'message' => 'Please enter a valid email address.' ) );
+    }
+
+    // Clamp rating to 1-5
+    $rating = max( 1, min( 5, $rating ) );
+
+    // Create the review post as 'pending' (requires admin approval)
+    $post_id = wp_insert_post( array(
+        'post_type'    => 'reviews',
+        'post_title'   => $title,
+        'post_content' => $content,
+        'post_status'  => 'pending',
+    ) );
+
+    if ( is_wp_error( $post_id ) ) {
+        wp_send_json_error( array( 'message' => 'Something went wrong. Please try again.' ) );
+    }
+
+    // Save ACF fields
+    update_field( 'rating', $rating, $post_id );
+    update_field( 'name', $name, $post_id );
+    update_field( 'email', $email, $post_id );
+
+    // Save linked product if submitted from a product page
+    if ( $product_id > 0 ) {
+        update_field( 'linked_product', $product_id, $post_id );
+    }
+
+    wp_send_json_success( array(
+        'message' => 'Thank you for your review! It will appear on the site once approved.',
+    ) );
+}
+// wp_ajax_ = for logged-in users, wp_ajax_nopriv_ = for visitors (not logged in)
+add_action( 'wp_ajax_armo_submit_review', 'armo_handle_review_submission' );
+add_action( 'wp_ajax_nopriv_armo_submit_review', 'armo_handle_review_submission' );

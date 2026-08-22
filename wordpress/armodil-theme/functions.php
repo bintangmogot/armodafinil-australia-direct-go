@@ -1,34 +1,34 @@
 <?php
+
+
 /**
  * Modafinil Malaysia — Theme Functions
  */
 
 // Define constants for easy reference
-define('MODMY_THEME_VERSION', '1.0.0');
-define('MODMY_THEME_DIR', get_stylesheet_directory());
-define('MODMY_THEME_URI', get_stylesheet_directory_uri());
+define('ARMO_THEME_VERSION', '1.0.0');
+define('ARMO_THEME_DIR', get_stylesheet_directory());
+define('ARMO_THEME_URI', get_stylesheet_directory_uri());
 
-// 1. Language system
-require_once MODMY_THEME_DIR . '/inc/i18n.php';
 
 // 2. Theme setup (menus, supports, image sizes)
-require_once MODMY_THEME_DIR . '/inc/theme-setup.php';
+require_once ARMO_THEME_DIR . '/inc/theme-setup.php';
 
 // 3. Asset enqueues (CSS, JS)
-require_once MODMY_THEME_DIR . '/inc/enqueue.php';
+require_once ARMO_THEME_DIR . '/inc/enqueue.php';
 
 // 4. ACF Theme Options (Global settings)
-require_once MODMY_THEME_DIR . '/inc/theme-options.php';
+require_once ARMO_THEME_DIR . '/inc/theme-options.php';
 
 // 5. Shortcodes
-require_once MODMY_THEME_DIR . '/inc/shortcodes.php';
+require_once ARMO_THEME_DIR . '/inc/shortcodes.php';
 
 // 6. WooCommerce customizations
-require_once MODMY_THEME_DIR . '/inc/woocommerce.php';
+require_once ARMO_THEME_DIR . '/inc/woocommerce.php';
 
 // Custom Dynamic QRIS Gateway
 if ( class_exists( 'WooCommerce' ) ) {
-    require_once MODMY_THEME_DIR . '/inc/class-wc-gateway-dynamic-qris.php';
+    require_once ARMO_THEME_DIR . '/inc/class-wc-gateway-dynamic-qris.php';
 }
 add_filter( 'woocommerce_payment_gateways', function( $gateways ) {
     $gateways[] = 'WC_Gateway_Dynamic_QRIS';
@@ -36,7 +36,7 @@ add_filter( 'woocommerce_payment_gateways', function( $gateways ) {
 });
 
 // 7. Custom Post Types
-require_once MODMY_THEME_DIR . '/inc/post-types.php';
+require_once ARMO_THEME_DIR . '/inc/post-types.php';
 
 
 // 7. ACF Fallbacks (prevents fatal errors if ACF is not active)
@@ -78,7 +78,7 @@ add_filter('document_title_separator', function($sep) {
 // 11. Custom Gravity Forms submit button markup with envelope icon
 add_filter('gform_submit_button', function($button, $form) {
     if ($form['id'] == 1) {
-        $btn_text = function_exists('modmy_t') ? modmy_t("Send Message", "Hantar Mesej") : "Send Message";
+        $btn_text = function_exists('armo_t') ? armo_t("Send Message", "Hantar Mesej") : "Send Message";
         return sprintf(
             '<button type="submit" id="gform_submit_button_%d" class="button gform_button flex items-center justify-center gap-2 w-full md:w-auto">
                 <span>%s</span>
@@ -100,6 +100,8 @@ function modafinil_add_shipping_note_thankyou( $order_id ) {
         <p class="text-blue-700">The average shipping time is 10 - 15 days. Please note that delivery may take up to 30 days from the date of dispatch due to potential disruptions in postal services caused by weather issues or natural disaster.</p>
     </div>
     <?php
+
+
 }
 
 
@@ -318,22 +320,12 @@ add_filter('acf/load_field/key=field_dsg_624949de81', function($field) {
 if( function_exists('acf_add_local_field_group') ):
 acf_add_local_field_group(array(
     'key' => 'group_product_bilingual',
-    'title' => 'Product Content (Bilingual)',
+    'title' => 'Product Content',
     'fields' => array(
         array(
             'key' => 'field_short_desc_en',
             'label' => 'Short Description (English)',
             'name' => 'short_desc_en',
-            'type' => 'wysiwyg',
-            'instructions' => 'Description below the product title.',
-            'wrapper' => array(
-                'width' => '50',
-            ),
-        ),
-        array(
-            'key' => 'field_short_desc_ms',
-            'label' => 'Short Description (Malay)',
-            'name' => 'short_desc_ms',
             'type' => 'wysiwyg',
             'instructions' => 'Description below the product title.',
             'wrapper' => array(
@@ -381,47 +373,6 @@ acf_add_local_field_group(array(
 endif;
 
 
-// Auto-migrate native WooCommerce descriptions into ACF Bilingual Fields on load
-add_filter('acf/load_value/name=main_desc_en', function($value, $post_id, $field) {
-    if (empty($value) && $post_id) {
-        $post = get_post($post_id);
-        if ($post && !empty($post->post_content)) {
-            return $post->post_content;
-        }
-    }
-    return $value;
-}, 10, 3);
-
-add_filter('acf/load_value/name=short_desc_en', function($value, $post_id, $field) {
-    if (empty($value) && $post_id) {
-        $post = get_post($post_id);
-        if ($post && !empty($post->post_excerpt)) {
-            $excerpt = $post->post_excerpt;
-            if (preg_match('/<!-- en -->(.+?)<!-- \/en -->/s', $excerpt, $match)) {
-                return trim($match[1]);
-            }
-            // If no tags, return the whole excerpt
-            $clean = strip_tags($excerpt, '<p><a><strong><b><i><em><ul><ol><li><br>');
-            return trim($clean);
-        }
-    }
-    return $value;
-}, 10, 3);
-
-add_filter('acf/load_value/name=short_desc_ms', function($value, $post_id, $field) {
-    if (empty($value) && $post_id) {
-        $post = get_post($post_id);
-        if ($post && !empty($post->post_excerpt)) {
-            $excerpt = $post->post_excerpt;
-            if (preg_match('/<!-- ms -->(.+?)<!-- \/ms -->/s', $excerpt, $match)) {
-                return trim($match[1]);
-            }
-        }
-    }
-    return $value;
-}, 10, 3);
-
-
 // Force hide native WooCommerce editors to avoid confusion
 add_action('admin_head', function() {
     $screen = get_current_screen();
@@ -431,3 +382,86 @@ add_action('admin_head', function() {
         </style>';
     }
 });
+
+
+function armo_content($content)
+{
+    if (!$content)
+        return '';
+
+    // Fix existing <a> tags where href is just an email address (e.g. href="orders@armodafinilaustralia.com.au")
+    $content = preg_replace(
+        '/href=(["\'])\s*(?!(?:mailto:|https?:\/\/|\/|#|\?|tel:))([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\s*\1/i',
+        'href="mailto:$2"',
+        $content
+    );
+
+    // Auto-link any plain-text emails if WordPress make_clickable is available
+    if (function_exists('make_clickable')) {
+        $content = make_clickable($content);
+    }
+
+    // Removed wp_kses_post because it strips <style> tags injected by form plugins like WPForms
+    return str_replace('✅', '<span class="armo-yellow-tick"></span>', $content);
+}
+
+/*
+ * ── One-time fix: tell WordPress this is a standalone theme ──
+ * When we removed "Template: astra" from style.css, WordPress still had
+ * the old value cached in the database. This auto-corrects it once.
+ */
+if (get_option('template') !== get_option('stylesheet')) {
+    update_option('template', get_option('stylesheet'));
+}
+
+/*
+ * ── Load Theme Setup ──
+ * Registers: menus, theme supports, image sizes, widget areas
+ * File: inc/theme-setup.php
+ */
+require_once ARMO_THEME_DIR . '/inc/theme-setup.php';
+
+/*
+ * ── Load Asset Enqueuing ──
+ * Registers: CSS and JS files
+ * File: inc/enqueue.php
+ */
+require_once ARMO_THEME_DIR . '/inc/enqueue.php';
+
+/*
+ * ── Load WooCommerce Support ──
+ * Registers: WooCommerce compatibility, custom wrappers
+ * File: inc/woocommerce.php
+ */
+if (class_exists('WooCommerce')) {
+    require_once ARMO_THEME_DIR . '/inc/woocommerce.php';
+    require_once ARMO_THEME_DIR . '/inc/checkout-medical.php';
+    require_once get_template_directory() . '/inc/shipping-label.php';
+}
+
+/*
+ * ── Load Theme Options (ACF Options Page) ──
+ * Registers: Options page in WP Admin for editable footer, contact info, etc.
+ * File: inc/theme-options.php
+ */
+require_once ARMO_THEME_DIR . '/inc/theme-options.php';
+
+/*
+ * ── Load Custom Shortcodes ──
+ * Registers: [armo_button] and [armo_info]
+ * File: inc/shortcodes.php
+ */
+require_once ARMO_THEME_DIR . '/inc/shortcodes.php';
+
+/*
+ * ── Fix: Make ACF "Modules" field group show on ALL page templates & products ──
+ * The ACF field group was set to only show on "Default Template".
+ * This overrides that rule so modules appear no matter which
+ * page template you select in the editor, AND on WooCommerce products.
+ *
+ * 🔰 How this works:
+ * ACF checks "location rules" to decide if a field group should appear.
+ * This filter intercepts that check and says "yes, show it" for any page or product.
+ */
+
+

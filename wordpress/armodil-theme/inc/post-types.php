@@ -3,7 +3,7 @@
  * Custom Post Types
  */
 
-function modmy_register_post_types() {
+function armo_register_post_types() {
     // 1. Reviews CPT
     $review_labels = array(
         'name'                  => 'Reviews',
@@ -33,10 +33,10 @@ function modmy_register_post_types() {
         'hierarchical'       => false,
         'menu_position'      => 20,
         'menu_icon'          => 'dashicons-star-filled',
-        'supports'           => array( 'title', 'editor' ),
+        'supports'           => array( 'title', 'editor', 'custom-fields' ),
     );
 
-    register_post_type( 'review', $review_args );
+    register_post_type( 'reviews', $review_args );
 
     // 2. Cities CPT
     $city_labels = array(
@@ -72,4 +72,4 @@ function modmy_register_post_types() {
 
     register_post_type( 'city', $city_args );
 }
-add_action( 'init', 'modmy_register_post_types' );
+add_action( 'init', 'armo_register_post_types' );

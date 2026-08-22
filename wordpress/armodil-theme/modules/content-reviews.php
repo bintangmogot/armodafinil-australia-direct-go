@@ -1,123 +1,55 @@
 <?php
 /**
- * Customer Reviews Module
+ * Layout: Reviews
+ * Fields: heading (text) — queries 'reviews' CPT for display
+ * Design: White bg, heading centered, review cards in 2-col grid with stars and names
  */
-
-$heading_en = get_sub_field('heading_en') ?: "What Malaysian Customers Say";
-$heading_ms = get_sub_field('heading_ms') ?: "Apa Kata Pelanggan Malaysia";
-$desc_en = get_sub_field('description_en') ?: "Real testimonials from ModafinilMY users across Malaysia.";
-$desc_ms = get_sub_field('description_ms') ?: "Testimoni sebenar dari pengguna ModafinilMY di seluruh Malaysia.";
-
-// Run query first to calculate dynamic stats
-$reviews_query = new WP_Query([
-    'post_type' => 'review',
-    'posts_per_page' => -1,
-    'post_status' => 'publish',
-    'meta_query' => array(
+$heading = get_sub_field('heading');
+$reviews = new WP_Query(array(
+    'post_type'      => 'reviews',
+    'posts_per_page' => 6,
+    'post_status'    => 'publish',
+    'meta_query'     => array(
         'relation' => 'OR',
-        array(
-            'key'     => 'linked_product',
-            'compare' => 'NOT EXISTS'
-        ),
-        array(
-            'key'     => 'linked_product',
-            'value'   => '',
-            'compare' => '='
-        )
+        array('key' => 'linked_product', 'compare' => 'NOT EXISTS'),
+        array('key' => 'linked_product', 'value' => '', 'compare' => '=')
     )
-]);
-
-$total_reviews = $reviews_query->found_posts;
-$total_stars = 0;
-
-if ($reviews_query->have_posts()) {
-    while ($reviews_query->have_posts()) {
-        $reviews_query->the_post();
-        $r = (int) get_post_meta(get_the_ID(), 'rating', true);
-        if (!$r) $r = 5;
-        $total_stars += $r;
-    }
-    $reviews_query->rewind_posts();
-}
-
-$average_rating = $total_reviews > 0 ? round($total_stars / $total_reviews, 1) : 5.0;
-$average_stars = round($average_rating);
+));
 ?>
-<section class="section-padding bg-white">
-    <div class="container-custom">
-        <div class="text-center mb-12">
-            <span class="inline-block bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-4">
-                <?= modmy_t("Customer Reviews", "Ulasan Pelanggan") ?>
-            </span>
-            <h1 class="font-heading text-4xl md:text-5xl font-black text-slate-900 mb-4">
-                <?= modmy_t($heading_en, $heading_ms) ?>
-            </h1>
-            <p class="text-slate-500 max-w-xl mx-auto">
-                <?= modmy_t($desc_en, $desc_ms) ?>
-            </p>
-
-            <div class="flex items-center justify-center gap-3 mt-5">
-                <div class="flex gap-0.5 text-emerald-400">
-                    <?php for($i = 0; $i < $average_stars; $i++): ?>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                    </svg>
-                    <?php endfor; ?>
-                </div>
-                <span class="font-heading font-black text-2xl text-slate-900"><?= number_format($average_rating, 1) ?></span>
-                <span class="text-slate-500 text-sm">
-                    <?= modmy_t("({$total_reviews} verified reviews)", "({$total_reviews} ulasan disahkan)") ?>
-                </span>
-            </div>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            <?php
-            if ($reviews_query->have_posts()):
-                while ($reviews_query->have_posts()): $reviews_query->the_post();
-                    $post_id = get_the_ID();
-                    $name = get_field('name', $post_id) ?: get_the_title();
-                    $meta = get_field('reviewer_meta', $post_id) ?: "Verified Buyer";
-                    
-                    $title_en = get_the_title();
-                    $title_ms = $title_en;
-                    $body_en = get_the_content();
-                    $body_ms = $body_en;
-                    
-                    $rating = (int) get_field('rating', $post_id);
-                    if (!$rating) $rating = 5;
-                    
-                    $initial = !empty($name) ? mb_substr($name, 0, 1) : 'M';
+<section class="py-14 lg:py-20 px-6 lg:px-12 bg-white">
+    <div class="max-w-5xl mx-auto">
+        <?php if ($heading) : ?>
+            <h2 class="text-2xl lg:text-3xl font-bold text-center text-primary-dark mb-10"><?php echo esc_html($heading); ?></h2>
+        <?php endif; ?>
+        <?php if ($reviews->have_posts()) : ?>
+            <div class="grid md:grid-cols-2 gap-6">
+                <?php while ($reviews->have_posts()) : $reviews->the_post(); 
+                    $rating = get_field('rating');
+                    $name   = get_field('name');
                 ?>
-                <div class="bg-white border border-stone-200 rounded-xl p-6 hover:border-emerald-300 hover:shadow-sm transition-all">
-                    <div class="flex gap-0.5 mb-3 text-emerald-400">
-                        <?php for($i = 0; $i < $rating; $i++): ?>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                        </svg>
-                        <?php endfor; ?>
+                    <div class="bg-surface rounded-2xl p-6 border border-primary-dark/5 hover:shadow-md transition-shadow">
+                        <?php if ($rating) : ?>
+                            <div class="mb-3 text-xl leading-none tracking-[4px] text-accent">
+                                <?php
+                                $r = intval($rating);
+                                echo str_repeat('★', $r);
+                                if (5 - $r > 0) {
+                                    echo '<span class="text-gray-200">' . str_repeat('★', 5 - $r) . '</span>';
+                                }
+                                ?>
+                            </div>
+                        <?php endif; ?>
+                        <h4 class="text-base font-bold text-primary-dark mb-2"><?php echo esc_html( get_the_title() ); ?></h4>
+                        <div class="text-base text-primary-dark/70 leading-relaxed mb-4"><?php the_content(); ?></div>
+                        <?php if ($name) : ?>
+                            <p class="text-base font-bold text-primary-dark">— <?php echo esc_html($name); ?></p>
+                        <?php endif; ?>
                     </div>
-                    <h4 class="font-heading font-bold text-slate-900 text-sm mb-2">
-                        <?= modmy_t($title_en, $title_ms) ?>
-                    </h4>
-                    <p class="text-sm text-slate-500 leading-relaxed mb-4">
-                        &ldquo;<?= modmy_t($body_en, $body_ms) ?>&rdquo;
-                    </p>
-                    <div class="flex items-center gap-3 pt-3 border-t border-stone-100">
-                        <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-xs flex-shrink-0">
-                            <?= esc_html($initial) ?>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-slate-900"><?= esc_html($name) ?></p>
-                            <p class="text-[11px] text-slate-400"><?= esc_html($meta) ?></p>
-                        </div>
-                    </div>
-                </div>
-                <?php endwhile;
-                wp_reset_postdata();
-            else: ?>
-                <p class="text-center col-span-full text-slate-500">No reviews found yet.</p>
-            <?php endif; ?>
-        </div>
+                <?php endwhile; ?>
+            </div>
+        <?php else : ?>
+            <p class="text-gray-400 text-center italic">No reviews found.</p>
+        <?php endif; ?>
+        <?php wp_reset_postdata(); ?>
     </div>
 </section>

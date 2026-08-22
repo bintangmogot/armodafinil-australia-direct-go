@@ -1,72 +1,496 @@
 <?php
 /**
- * ACF Theme Options Page
+ * Theme Options — ACF Options Page for editable site-wide settings.
+ *
+ * @package Armodafinil_Australia
+ * @since   2.1.0
  */
 
-if (function_exists('acf_add_options_page')) {
-    add_action('acf/init', function() {
-        acf_add_options_page(array(
-            'page_title'    => 'Theme General Settings',
-            'menu_title'    => 'Theme Settings',
-            'menu_slug'     => 'theme-general-settings',
-            'capability'    => 'edit_posts',
-            'redirect'      => false,
-            'icon_url'      => 'dashicons-admin-generic',
-            'position'      => 30
-        ));
-    });
+// Safety check — only run if ACF is active
+if ( ! function_exists( 'acf_add_options_page' ) ) {
+    return;
 }
 
-// Register Footer ACF Fields dynamically
-if( function_exists('acf_add_local_field_group') ):
-    acf_add_local_field_group(array(
-        'key' => 'group_theme_footer_settings',
-        'title' => 'Footer Settings',
+/**
+ * Register Parent Theme Options Page
+ */
+acf_add_options_page(array(
+    'page_title'    => 'Theme Settings',
+    'menu_title'    => 'Theme Settings',
+    'menu_slug'     => 'theme-settings',
+    'capability'    => 'edit_posts',
+    'redirect'      => true
+));
+
+/**
+ * Register Sub Pages
+ */
+acf_add_options_sub_page(array(
+    'page_title'  => 'Announcement Bar',
+    'menu_title'  => 'Announcement Bar',
+    'parent_slug' => 'theme-settings',
+    'menu_slug'   => 'theme-settings-announcement',
+));
+
+acf_add_options_sub_page(array(
+    'page_title'  => 'Feature Bar',
+    'menu_title'  => 'Feature Bar',
+    'parent_slug' => 'theme-settings',
+    'menu_slug'   => 'theme-settings-feature',
+));
+
+acf_add_options_sub_page(array(
+    'page_title'  => 'Footer Settings',
+    'menu_title'  => 'Footer',
+    'parent_slug' => 'theme-settings',
+    'menu_slug'   => 'theme-settings-footer',
+));
+
+acf_add_options_sub_page(array(
+    'page_title'  => 'Blog Header Settings',
+    'menu_title'  => 'Blog Header',
+    'parent_slug' => 'theme-settings',
+    'menu_slug'   => 'theme-settings-blog',
+));
+
+
+/**
+ * Register ACF Field Groups
+ */
+if ( function_exists( 'acf_add_local_field_group' ) ) :
+
+    // ─── 1. Announcement Bar ───────────────────────────────────────
+    acf_add_local_field_group( array(
+        'key'    => 'group_theme_announcement',
+        'title'  => 'Announcement Bar Settings',
         'fields' => array(
             array(
-                'key' => 'field_footer_description_en',
-                'label' => 'Footer Description (EN)',
-                'name' => 'footer_description_en',
-                'type' => 'textarea',
-                'default_value' => 'Modafinil Malaysia provides genuine Modafinil for performance, vitality, and fast-acting results. Enjoy discreet online ordering and reliable delivery across Malaysia in 7-10 days.',
+                'key'           => 'field_theme_enable_announcement',
+                'label'         => 'Enable Announcement Bar',
+                'name'          => 'enable_announcement_bar',
+                'type'          => 'true_false',
+                'ui'            => 1,
+                'default_value' => 1,
             ),
             array(
-                'key' => 'field_footer_description_ms',
-                'label' => 'Footer Description (MS)',
-                'name' => 'footer_description_ms',
-                'type' => 'textarea',
-                'default_value' => 'Modafinil Malaysia menyediakan Modafinil asli untuk prestasi, kecergasan, dan hasil bertindak pantas. Nikmati pesanan dalam talian diskret dan penghantaran yang boleh dipercayai di seluruh Malaysia dalam 7-10 hari.',
+                'key'           => 'field_theme_announcement_text',
+                'label'         => 'Announcement Text',
+                'name'          => 'announcement_text',
+                'type'          => 'text',
+                'default_value' => 'Free Shipping All Orders Over $299',
+                'conditional_logic' => array(
+                    array(
+                        array(
+                            'field'    => 'field_theme_enable_announcement',
+                            'operator' => '==',
+                            'value'    => '1',
+                        ),
+                    ),
+                ),
             ),
             array(
-                'key' => 'field_footer_address_en',
-                'label' => 'Address (EN)',
-                'name' => 'footer_address_en',
-                'type' => 'text',
-                'default_value' => 'Level 33, Ilham Tower No. 8, Jalan Binjai 50450 Kuala Lumpur Malaysia',
+                'key'           => 'field_theme_announcement_bg_color',
+                'label'         => 'Background Color',
+                'name'          => 'announcement_bg_color',
+                'type'          => 'color_picker',
+                'default_value' => '#ff0000',
+                'conditional_logic' => array(
+                    array(
+                        array(
+                            'field'    => 'field_theme_enable_announcement',
+                            'operator' => '==',
+                            'value'    => '1',
+                        ),
+                    ),
+                ),
             ),
             array(
-                'key' => 'field_footer_address_ms',
-                'label' => 'Address (MS)',
-                'name' => 'footer_address_ms',
-                'type' => 'text',
-                'default_value' => 'Aras 33, Menara Ilham No. 8, Jalan Binjai 50450 Kuala Lumpur Malaysia',
-            ),
-            array(
-                'key' => 'field_footer_email',
-                'label' => 'Email Address',
-                'name' => 'footer_email',
-                'type' => 'email',
-                'default_value' => 'orders@modafinil-malaysia.com',
+                'key'           => 'field_theme_announcement_text_color',
+                'label'         => 'Text Color',
+                'name'          => 'announcement_text_color',
+                'type'          => 'color_picker',
+                'default_value' => '#ffffff',
+                'conditional_logic' => array(
+                    array(
+                        array(
+                            'field'    => 'field_theme_enable_announcement',
+                            'operator' => '==',
+                            'value'    => '1',
+                        ),
+                    ),
+                ),
             ),
         ),
         'location' => array(
             array(
                 array(
-                    'param' => 'options_page',
+                    'param'    => 'options_page',
                     'operator' => '==',
-                    'value' => 'theme-general-settings',
+                    'value'    => 'theme-settings-announcement',
                 ),
             ),
         ),
-    ));
+        'style'    => 'default',
+        'position' => 'normal',
+    ) );
+
+    // ─── 2. Feature Bar ────────────────────────────────────────────
+    acf_add_local_field_group( array(
+        'key'    => 'group_theme_feature',
+        'title'  => 'Feature Bar Settings',
+        'fields' => array(
+            array(
+                'key'           => 'field_theme_enable_feature_bar',
+                'label'         => 'Enable Feature Bar',
+                'name'          => 'enable_feature_bar',
+                'type'          => 'true_false',
+                'ui'            => 1,
+                'default_value' => 1,
+            ),
+            array(
+                'key'           => 'field_theme_feature_bar_bg_color',
+                'label'         => 'Background Color',
+                'name'          => 'feature_bar_bg_color',
+                'type'          => 'color_picker',
+                'default_value' => '#176BCE',
+                'conditional_logic' => array(
+                    array(
+                        array(
+                            'field'    => 'field_theme_enable_feature_bar',
+                            'operator' => '==',
+                            'value'    => '1',
+                        ),
+                    ),
+                ),
+            ),
+            array(
+                'key'           => 'field_theme_feature_bar_text_color',
+                'label'         => 'Text Color',
+                'name'          => 'feature_bar_text_color',
+                'type'          => 'color_picker',
+                'default_value' => '#ffffff',
+                'conditional_logic' => array(
+                    array(
+                        array(
+                            'field'    => 'field_theme_enable_feature_bar',
+                            'operator' => '==',
+                            'value'    => '1',
+                        ),
+                    ),
+                ),
+            ),
+            array(
+                'key'          => 'field_theme_feature_bar_items',
+                'label'        => 'Feature Items',
+                'name'         => 'feature_bar_items',
+                'type'         => 'repeater',
+                'layout'       => 'table',
+                'button_label' => 'Add Feature',
+                'conditional_logic' => array(
+                    array(
+                        array(
+                            'field'    => 'field_theme_enable_feature_bar',
+                            'operator' => '==',
+                            'value'    => '1',
+                        ),
+                    ),
+                ),
+                'sub_fields'   => array(
+                    array(
+                        'key'           => 'field_theme_feature_icon',
+                        'label'         => 'Icon (Image/SVG)',
+                        'name'          => 'icon',
+                        'type'          => 'textarea',
+                        'rows'          => 3,
+                    ),
+                    array(
+                        'key'   => 'field_theme_feature_text',
+                        'label' => 'Text',
+                        'name'  => 'text',
+                        'type'  => 'text',
+                    ),
+                ),
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param'    => 'options_page',
+                    'operator' => '==',
+                    'value'    => 'theme-settings-feature',
+                ),
+            ),
+        ),
+        'style'    => 'default',
+        'position' => 'normal',
+    ) );
+
+    // ─── 3. Footer Settings ────────────────────────────────────────
+    acf_add_local_field_group( array(
+        'key'    => 'group_theme_footer',
+        'title'  => 'Footer Settings',
+        'fields' => array(
+            // ─── TAB: Company Info ───
+            array(
+                'key'   => 'field_footer_tab_company',
+                'label' => 'Company Info',
+                'type'  => 'tab',
+            ),
+            array(
+                'key'           => 'field_footer_corporate_registry',
+                'label'         => 'Address',
+                'name'          => 'footer_corporate_registry',
+                'type'          => 'text',
+                'instructions'  => 'Address displayed in the footer.',
+                'default_value' => '360 Collins St, Melbourne VIC 3000',
+            ),
+            array(
+                'key'           => 'field_footer_logistics_hubs',
+                'label'         => 'Logistics Hubs',
+                'name'          => 'footer_logistics_hubs',
+                'type'          => 'textarea',
+                'instructions'  => 'Logistics Hubs information.',
+                'default_value' => 'International Dispatch (Drop-shipped directly to consumer under TGA Personal Importation rules)',
+                'rows'          => 3,
+            ),
+
+            // ─── TAB: Contact Info ───
+            array(
+                'key'   => 'field_footer_tab_contact',
+                'label' => 'Contact Info',
+                'type'  => 'tab',
+            ),
+            array(
+                'key'           => 'field_footer_direct_helpline',
+                'label'         => 'Direct Helpline',
+                'name'          => 'footer_direct_helpline',
+                'type'          => 'text',
+                'instructions'  => 'Direct helpline number (displayed as-is).',
+                'default_value' => '0455 241 294',
+            ),
+            array(
+                'key'           => 'field_footer_email',
+                'label'         => 'Email Address',
+                'name'          => 'footer_email',
+                'type'          => 'email',
+                'instructions'  => 'Contact email displayed in the footer.',
+                'default_value' => 'orders@armodafinil-australia.com',
+            ),
+            array(
+                'key'           => 'field_footer_track_order_url',
+                'label'         => 'Track Order URL',
+                'name'          => 'footer_track_order_url',
+                'type'          => 'url',
+                'instructions'  => 'URL for the Track My Order page (e.g., https://yourdomain.com/track-order/).',
+                'default_value' => '',
+            ),
+            array(
+                'key'           => 'field_footer_facebook',
+                'label'         => 'Facebook URL',
+                'name'          => 'footer_facebook',
+                'type'          => 'url',
+                'instructions'  => 'Link to your Facebook page. Leave empty to hide.',
+                'default_value' => 'https://www.facebook.com/profile.php?id=61591182224726',
+            ),
+            array(
+                'key'           => 'field_footer_linkedin',
+                'label'         => 'LinkedIn URL',
+                'name'          => 'footer_linkedin',
+                'type'          => 'url',
+                'instructions'  => 'Link to your LinkedIn page. Leave empty to hide.',
+                'default_value' => 'https://www.linkedin.com/company/armodafinil-australia/about/?viewAsMember=true',
+            ),
+
+            // ─── TAB: General ───
+            array(
+                'key'   => 'field_footer_tab_general',
+                'label' => 'General',
+                'type'  => 'tab',
+            ),
+            array(
+                'key'           => 'field_68adc7eef57a0',
+                'label'         => 'Footer Description',
+                'name'          => 'footer_text',
+                'type'          => 'textarea',
+                'instructions'  => 'The text that appears below the logo in the footer.',
+                'default_value' => 'Looking to buy Armodafinil online in Australia? Armodafinil Australia provides a secure and trusted platform for premium Armodafinil products with fast Australia-wide delivery. Pay easily via Commonwealth Bank transfer, enjoy discreet shipping, and get reliable service trusted by customers across Sydney, Melbourne, Brisbane, Perth, and beyond.',
+            ),
+
+            // ─── TAB: Menu Headings ───
+            array(
+                'key'   => 'field_footer_tab_menu_headings',
+                'label' => 'Menu Headings',
+                'type'  => 'tab',
+            ),
+            array(
+                'key'           => 'field_footer_menu_1_heading',
+                'label'         => 'Menu 1 Heading',
+                'name'          => 'footer_menu_1_heading',
+                'type'          => 'text',
+                'default_value' => 'Category',
+            ),
+            array(
+                'key'           => 'field_68adc863905a5',
+                'label'         => 'Menu 1 Content',
+                'name'          => 'footer_menu',
+                'type'          => 'wysiwyg',
+                'instructions'  => 'Add your links or content here. If left empty, it will fallback to the WordPress Appearance > Menus system.',
+                'media_upload'  => 0,
+            ),
+            array(
+                'key'           => 'field_footer_menu_2_heading',
+                'label'         => 'Menu 2 Heading',
+                'name'          => 'footer_menu_2_heading',
+                'type'          => 'text',
+                'default_value' => 'Quick Links',
+            ),
+            array(
+                'key'           => 'field_6903853c60df4',
+                'label'         => 'Menu 2 Content',
+                'name'          => 'footer_menu_2',
+                'type'          => 'wysiwyg',
+                'instructions'  => 'Add your links or content here. If left empty, it will fallback to the WordPress Appearance > Menus system.',
+                'media_upload'  => 0,
+            ),
+            array(
+                'key'           => 'field_footer_menu_3_heading',
+                'label'         => 'Menu 3 Heading',
+                'name'          => 'footer_menu_3_heading',
+                'type'          => 'text',
+                'default_value' => 'Important Links',
+            ),
+            array(
+                'key'           => 'field_6903854660df5',
+                'label'         => 'Menu 3 Content',
+                'name'          => 'footer_menu_3',
+                'type'          => 'wysiwyg',
+                'instructions'  => 'Add your links or content here. If left empty, it will fallback to the WordPress Appearance > Menus system.',
+                'media_upload'  => 0,
+            ),
+
+            // ─── TAB: Payments & Shipping ───
+            array(
+                'key'   => 'field_footer_tab_payments',
+                'label' => 'Payments & Shipping',
+                'type'  => 'tab',
+            ),
+            array(
+                'key'          => 'field_footer_payment_images',
+                'label'        => 'Payment Method Images',
+                'name'         => 'footer_payment_images',
+                'type'         => 'repeater',
+                'instructions' => 'Add payment method logos (e.g. Commonwealth Bank, Osko, PayID). Upload images in the Media Library first.',
+                'layout'       => 'table',
+                'button_label' => 'Add Payment Method',
+                'sub_fields'   => array(
+                    array(
+                        'key'           => 'field_footer_payment_image',
+                        'label'         => 'Logo Image',
+                        'name'          => 'image',
+                        'type'          => 'image',
+                        'return_format' => 'array',
+                        'preview_size'  => 'thumbnail',
+                    ),
+                    array(
+                        'key'   => 'field_footer_payment_alt',
+                        'label' => 'Alt Text',
+                        'name'  => 'alt_text',
+                        'type'  => 'text',
+                    ),
+                ),
+            ),
+            array(
+                'key'          => 'field_footer_shipping_images',
+                'label'        => 'Shipping Partner Images',
+                'name'         => 'footer_shipping_images',
+                'type'         => 'repeater',
+                'instructions' => 'Add shipping partner logos (e.g. Australia Post).',
+                'layout'       => 'table',
+                'button_label' => 'Add Shipping Partner',
+                'sub_fields'   => array(
+                    array(
+                        'key'           => 'field_footer_shipping_image',
+                        'label'         => 'Logo Image',
+                        'name'          => 'image',
+                        'type'          => 'image',
+                        'return_format' => 'array',
+                        'preview_size'  => 'thumbnail',
+                    ),
+                    array(
+                        'key'   => 'field_footer_shipping_alt',
+                        'label' => 'Alt Text',
+                        'name'  => 'alt_text',
+                        'type'  => 'text',
+                    ),
+                ),
+            ),
+
+            // ─── TAB: Copyright ───
+            array(
+                'key'   => 'field_footer_tab_copyright',
+                'label' => 'Copyright',
+                'type'  => 'tab',
+            ),
+            array(
+                'key'           => 'field_footer_copyright',
+                'label'         => 'Copyright Text',
+                'name'          => 'footer_copyright',
+                'type'          => 'text',
+                'instructions'  => 'Copyright notice. Use {year} for the current year and {site_name} for the site name. Example: © {year} {site_name}. All rights reserved.',
+                'default_value' => '© {year} {site_name}. All rights reserved.',
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param'    => 'options_page',
+                    'operator' => '==',
+                    'value'    => 'theme-settings-footer',
+                ),
+            ),
+        ),
+        'style'    => 'default',
+        'position' => 'normal',
+    ) );
+
+    // ─── 4. Blog Settings ──────────────────────────────────────────
+    acf_add_local_field_group( array(
+        'key'    => 'group_theme_blog',
+        'title'  => 'Blog Header Settings',
+        'fields' => array(
+            array(
+                'key'           => 'field_theme_blog_title',
+                'label'         => 'Blog Title',
+                'name'          => 'blog_title',
+                'type'          => 'text',
+                'instructions'  => 'Main title for the blog page (leave empty to use default).',
+            ),
+            array(
+                'key'           => 'field_theme_blog_subtitle',
+                'label'         => 'Blog Subtitle',
+                'name'          => 'blog_subtitle',
+                'type'          => 'text',
+                'instructions'  => 'Subtitle for the blog page.',
+            ),
+            array(
+                'key'           => 'field_theme_blog_description',
+                'label'         => 'Blog Description',
+                'name'          => 'blog_description',
+                'type'          => 'textarea',
+                'instructions'  => 'Short description under the subtitle on the blog page.',
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param'    => 'options_page',
+                    'operator' => '==',
+                    'value'    => 'theme-settings-blog',
+                ),
+            ),
+        ),
+        'style'    => 'default',
+        'position' => 'normal',
+    ) );
+
 endif;

@@ -1,27 +1,44 @@
 <?php
 /**
- * Module: City Header (SEO Pages)
+ * Layout: City Header
+ * Fields: heading, subheading, content, delivery_text, button_text, button_link
  */
-
-$city_name = get_sub_field('city_name') ?: "Kuala Lumpur";
-$state_name = get_sub_field('state_name') ?: "W.P. Kuala Lumpur";
-
-$heading_en = get_sub_field('heading_en') ?: "Buy Modafinil in {$city_name}, {$state_name}";
-$heading_ms = get_sub_field('heading_ms') ?: "Beli Modafinil di {$city_name}, {$state_name}";
-
-$desc_en = get_sub_field('description_en') ?: "Fast, discreet delivery of genuine Modafinil to all areas in {$city_name}. Tracked shipping via Pos Malaysia.";
-$desc_ms = get_sub_field('description_ms') ?: "Penghantaran pantas dan diskret Modafinil asli ke semua kawasan di {$city_name}. Penghantaran dijejaki melalui Pos Malaysia.";
+$heading = get_sub_field('heading');
+$subheading = get_sub_field('subheading');
+$content = get_sub_field('content');
+$delivery_text = get_sub_field('delivery_text');
+$button_text = get_sub_field('button_text');
+$button_link = get_sub_field('button_link');
+$background_color = get_sub_field('background_color');
 ?>
-<section class="bg-background pt-16 pb-8 text-center border-b border-border">
-    <div class="container-site max-w-4xl">
-        <span class="inline-block rounded-full bg-primary-softer px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary">
-            <?= modmy_t("Local Delivery", "Penghantaran Tempatan") ?>
-        </span>
-        <h1 class="mt-4 font-heading text-4xl font-extrabold tracking-tight md:text-5xl">
-            <?= modmy_t($heading_en, $heading_ms) ?>
-        </h1>
-        <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">
-            <?= modmy_t($desc_en, $desc_ms) ?>
-        </p>
+<section class="py-12 lg:py-16 px-6 lg:px-12 <?php echo $background_color ? '' : 'bg-surface'; ?> overflow-hidden" <?php if($background_color) echo 'style="background-color: ' . esc_attr($background_color) . ';"'; ?>>
+    <div class="max-w-4xl mx-auto text-center">
+        <?php if ($heading) : ?>
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-accent-dark mb-3"><?php echo esc_html($heading); ?></h1>
+        <?php endif; ?>
+        
+        <?php if ($subheading) : ?>
+            <h2 class="text-xl md:text-2xl font-bold text-primary mb-6"><?php echo esc_html($subheading); ?></h2>
+        <?php endif; ?>
+
+        <?php if ($content) : ?>
+            <div class="module-city-header-content text-primary text-base md:text-lg leading-relaxed space-y-4 mb-8">
+                <?php echo armo_content($content); ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($delivery_text) : ?>
+            <div class="flex items-center justify-center gap-2 font-bold text-primary mb-4">
+                <span class="text-lg">⏱️</span> 
+                <span><?php echo esc_html($delivery_text); ?></span>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($button_text && $button_link) : ?>
+            <a href="<?php echo esc_url($button_link); ?>" class="group inline-flex items-center justify-center gap-2 bg-teal-600 hover:bg-red-700 text-white font-bold text-base md:text-lg px-6 md:px-8 py-3 rounded-md transition-colors shadow-md no-underline">
+                <?php echo esc_html($button_text); ?>
+                <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+        <?php endif; ?>
     </div>
 </section>
